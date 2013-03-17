@@ -24,7 +24,7 @@ using GLUtils::readFile;
 const float GameManager::near_plane = 0.5f;
 const float GameManager::far_plane = 30.0f;
 const float GameManager::fovy = 45.0f;
-const float GameManager::cube_scale = GameManager::far_plane*0.75;
+const float GameManager::cube_scale = GameManager::far_plane*0.75f;
 
 #pragma region cube_data
 const float GameManager::cube_vertices_data[] = {
@@ -130,7 +130,6 @@ inline void checkSDLError(int line = -1) {
 	}
 #endif
 }
-
 
 GameManager::GameManager() {
 	my_timer.restart();

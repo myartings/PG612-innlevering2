@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\GameException.h" />
     <ClInclude Include="include\GameManager.h" />
     <ClInclude Include="include\GLUtils\BO.hpp" />
     <ClInclude Include="include\GLUtils\CubeMap.hpp" />
@@ -72,7 +73,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>include;$(PG612_GLEW_INCLUDE_PATH);$(PG612_ASSIMP_INCLUDE_PATH);$(PG612_SDL_INCLUDE_PATH);$(PG612_GLM_INCLUDE_PATH);$(PG612_DEVIL_INCLUDE_PATH);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
+      <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>
