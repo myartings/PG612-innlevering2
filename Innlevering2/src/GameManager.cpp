@@ -207,7 +207,7 @@ void GameManager::init() {
 	model.reset(new Model("models/bunny.obj", false));
 	cube_vertices.reset(new BO<GL_ARRAY_BUFFER>(cube_vertices_data, sizeof(cube_vertices_data)));
 	cube_normals.reset(new BO<GL_ARRAY_BUFFER>(cube_normals_data, sizeof(cube_normals_data)));
-	
+	shadow_fbo.reset(new ShadowFBO(window_width, window_height));
 	//Set the matrices we will use
 	camera.projection = glm::perspective(fovy/zoom,
 			window_width / (float) window_height, near_plane, far_plane);
@@ -231,12 +231,22 @@ void GameManager::init() {
 
 	//Create the programs we will use
 	phong_program.reset(new Program("shaders/phong.vert", "shaders/phong.geom", "shaders/phong.frag"));
+	shadow_program.reset(new Program("shaders/lightPoV.vert", "shaders/lightPoV.frag"));
+	depth_dump_program.reset(new Program("shaders/depth_dump.vert", "shaders/depth_dump.frag"));
+
 	CHECK_GL_ERRORS();
 
 	//Set uniforms for the programs
 	//Typically diffuse_cubemap and shadowmap
 	phong_program->use();
 	phong_program->disuse();
+
+	shadow_program->use();
+	shadow_program->disuse();
+
+	depth_dump_program->use();
+	glUniform1i(depth_dump_program->getUniform("fbo_texture"), 0);
+	depth_dump_program->disuse();
 	CHECK_GL_ERRORS();
 	
 	//Set up VAOs and set as input to shaders
@@ -246,7 +256,6 @@ void GameManager::init() {
 	model->getInterleavedVBO()->bind();
 	model->getIndices()->bind();
 	phong_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
-
 	phong_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
 	model->getInterleavedVBO()->unbind();
 
@@ -330,6 +339,52 @@ void GameManager::renderColorPass() {
 void GameManager::renderShadowPass() {
 	//Render the scene from the light, with the lights projection, etc. into the shadow_fbo. Store only the depth values
 	//Remember to set the viewport, clearing the depth buffer, etc.
+	shadow_fbo->bind();
+	glViewport(0, 0, window_width, window_height);
+
+	//Create the new view matrix that takes the trackball view into account
+	glm::mat4 view_matrix_new = light.view*cam_trackball.getTransform();
+	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	shadow_program->use();
+	CHECK_GL_ERRORS();
+	{
+		glBindVertexArray(vao[1]);
+		CHECK_GL_ERRORS();
+		glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
+		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
+		glm::mat4 modelview_matrix = view_matrix_new*model_matrix;
+		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
+		glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
+		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
+
+		glUniformMatrix4fv(shadow_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+		//glUniformMatrix4fv(shadow_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
+		CHECK_GL_ERRORS();
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
+	CHECK_GL_ERRORS();
+	/**
+	  * Render model
+	  * Create modelview matrix and normal matrix and set as input
+	  */
+	glBindVertexArray(vao[0]);
+	for (int i=0; i<n_models; ++i) {
+		glm::mat4 model_matrix = model_matrices.at(i);
+		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
+		glm::mat4 modelview_matrix = view_matrix_new*model_matrix;
+		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
+		glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
+		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
+
+		glUniformMatrix4fv(shadow_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+		//glUniformMatrix4fv(shadow_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
+
+		MeshPart& mesh = model->getMesh();
+		glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
+	}
+
+	shadow_fbo->unbind();
 }
 
 void GameManager::render() {

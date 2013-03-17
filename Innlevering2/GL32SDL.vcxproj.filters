@@ -76,5 +76,17 @@
     <None Include="shaders\phong.geom">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="shaders\depth_dump.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\lightPoV.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\lightPoV.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\depth_dump.frag">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

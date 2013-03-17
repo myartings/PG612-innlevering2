@@ -97,7 +97,8 @@ private:
 	std::shared_ptr<GLUtils::Program> phong_program, 
 									  wireframe_program, 
 									  exploded_view_program, 
-									  shadow_program;
+									  shadow_program,
+									  depth_dump_program;
 
 	std::shared_ptr<GLUtils::CubeMap> diffuse_cubemap;
 	
