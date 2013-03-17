@@ -2,7 +2,7 @@
 #include "GLUtils/GLUtils.hpp"
 
 
-ShadowFBO::ShadowFBO(unsigned int width, unsigned int height) {
+ShadowFBO::ShadowFBO(unsigned int width, unsigned int height, UseFunctionality funct) {
 	this->width = width;
 	this->height = height;
 
@@ -14,7 +14,12 @@ ShadowFBO::ShadowFBO(unsigned int width, unsigned int height) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+	
+	if(funct == USED_FOR_SHADOWS)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+	else if(funct == USED_FOR_SCREEN_RENDER)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
+
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, (void*)0);

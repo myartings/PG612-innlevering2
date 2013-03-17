@@ -67,6 +67,13 @@ public:
 	  */
 	void renderColorPass();
 
+
+	/**
+	* Renders the light point of view as a depth representation 
+	* to a square in the bottom left screen
+	*/
+	void renderDepthDump();
+
 protected:
 	/**
 	 * Creates the OpenGL context using SDL
@@ -106,6 +113,13 @@ private:
 
 	std::shared_ptr<Model> model;
 	std::shared_ptr<ShadowFBO> shadow_fbo;
+	std::shared_ptr<ShadowFBO> screen_dump_fbo;
+
+	GLuint fbo_vertex_bo; //< Vetex buffer object for fullscreen quad
+	GLuint fbo_vao; //< Vertex array object for the depthbuffer dumping
+	glm::mat4 fbo_modelMatrix;
+	glm::mat4 fbo_projectionMatrix;
+	glm::mat4 fbo_viewMatrix;
 
 	Timer my_timer; //< Timer for machine independent motion
 	float zoom; //< Zoom factor

@@ -203,17 +203,28 @@ void GameManager::init() {
 	ilInit();
 	iluInit();
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	//Initialize the different stuff we need
 	model.reset(new Model("models/bunny.obj", false));
 	cube_vertices.reset(new BO<GL_ARRAY_BUFFER>(cube_vertices_data, sizeof(cube_vertices_data)));
 	cube_normals.reset(new BO<GL_ARRAY_BUFFER>(cube_normals_data, sizeof(cube_normals_data)));
-	shadow_fbo.reset(new ShadowFBO(window_width, window_height));
+	shadow_fbo.reset(new ShadowFBO(window_width, window_height, USED_FOR_SHADOWS));
+	screen_dump_fbo.reset(new ShadowFBO(window_width, window_height, USED_FOR_SCREEN_RENDER));
+
 	//Set the matrices we will use
 	camera.projection = glm::perspective(fovy/zoom,
 			window_width / (float) window_height, near_plane, far_plane);
 	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
-	light.projection = glm::perspective(90.0f, 1.0f, near_plane, far_plane);
+	light.projection = glm::perspective(80.0f, 1.0f, near_plane, far_plane);
 	light.view = glm::lookAt(light.position, glm::vec3(0), glm::vec3(0.0, 1.0, 0.0));
+
+	fbo_projectionMatrix = glm::mat4(1);
+	fbo_viewMatrix = glm::mat4(1);
+	fbo_modelMatrix = glm::mat4(1);
+	fbo_modelMatrix = glm::translate(fbo_modelMatrix, glm::vec3(-0.69f, -0.69f, 0));
+	fbo_modelMatrix = glm::scale(fbo_modelMatrix, glm::vec3(0.3));
 
 	//Create the random transformations and colors for the bunnys
 	srand(static_cast<int>(time(NULL)));
@@ -230,7 +241,7 @@ void GameManager::init() {
 	}
 
 	//Create the programs we will use
-	phong_program.reset(new Program("shaders/phong.vert"/*, "shaders/phong.geom"*/, "shaders/phong.frag"));
+	phong_program.reset(new Program("shaders/phong.vert", "shaders/phong.geom", "shaders/phong.frag"));
 	shadow_program.reset(new Program("shaders/lightPoV.vert", "shaders/lightPoV.frag"));
 	depth_dump_program.reset(new Program("shaders/depth_dump.vert", "shaders/depth_dump.frag"));
 
@@ -247,7 +258,10 @@ void GameManager::init() {
 	shadow_program->disuse();
 
 	depth_dump_program->use();
-	
+	glUniformMatrix4fv(depth_dump_program->getUniform("projection"), 1, 0, glm::value_ptr(fbo_projectionMatrix));
+	glUniformMatrix4fv(depth_dump_program->getUniform("view"), 1, 0, glm::value_ptr(fbo_viewMatrix));
+	glUniformMatrix4fv(depth_dump_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(fbo_modelMatrix));
+	glUniform1i(depth_dump_program->getUniform("fbo_texture"), 0);
 	depth_dump_program->disuse();
 	CHECK_GL_ERRORS();
 	
@@ -272,6 +286,25 @@ void GameManager::init() {
 	//model->getVertices()->unbind(); //Unbinds both vertices and normals
 	glBindVertexArray(0);
 	CHECK_GL_ERRORS();
+
+	/*--------fbo_fao--------*/
+	glGenVertexArrays(1, &fbo_vao);
+	glBindVertexArray(fbo_vao);
+	static float positions[8] = {
+		-1.0, 1.0,
+		-1.0, -1.0,
+		1.0, 1.0,
+		1.0, -1.0,
+	};
+
+	glGenBuffers(1, &fbo_vertex_bo);
+	glBindBuffer(GL_ARRAY_BUFFER, fbo_vertex_bo);
+	glBufferData(GL_ARRAY_BUFFER, 4*2*sizeof(float), &positions[0], GL_STATIC_DRAW);
+
+	depth_dump_program->setAttributePointer("in_Position", 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void GameManager::renderColorPass() {
@@ -287,8 +320,6 @@ void GameManager::renderColorPass() {
 	//Bind shadow map and diffuse cube map
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, shadow_fbo->getTexture());
-
-	
 
 	/**
 	  * Render cube
@@ -360,8 +391,6 @@ void GameManager::renderColorPass() {
 void GameManager::renderShadowPass() {
 	//Render the scene from the light, with the lights projection, etc. into the shadow_fbo. Store only the depth values
 	//Remember to set the viewport, clearing the depth buffer, etc.
-	shadow_fbo->bind();
-	glViewport(0, 0, window_width, window_height);
 
 	//Create the new view matrix that takes the trackball view into account
 	glm::mat4 view_matrix_new = light.view*cam_trackball.getTransform();
@@ -410,17 +439,46 @@ void GameManager::renderShadowPass() {
 	shadow_fbo->unbind();
 }
 
+void GameManager::renderDepthDump()
+{
+	glBindFramebufferEXT(GL_FRAMEBUFFER, 0);
+	depth_dump_program->use();
+
+	//Bind the textures before rendering
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, screen_dump_fbo->getTexture());
+
+	glBindVertexArray(fbo_vao);
+
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	CHECK_GL_ERRORS();
+
+	//Unbind the textures
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	depth_dump_program->disuse();
+}
+
 void GameManager::render() {
 	//Rotate the light a bit
 	float elapsed = static_cast<float>(my_timer.elapsedAndRestart());
-	glm::mat4 rotation = glm::rotate(elapsed*10.f, 0.0f, 1.0f, 0.0f);
+	glm::mat4 rotation = glm::rotate(elapsed*20.f, 0.0f, 1.0f, 0.0f);
 	light.position = glm::mat3(rotation)*light.position;
 	light.view = glm::lookAt(light.position,  glm::vec3(0), glm::vec3(0.0, 1.0, 0.0));
 
+	shadow_fbo->bind();
+	glViewport(0, 0, window_width, window_height);
 	renderShadowPass();
-	
+	screen_dump_fbo->bind();
+	glViewport(0, 0, window_width, window_height);
+	renderShadowPass();
+	screen_dump_fbo->unbind();
+
 	renderColorPass();
 	
+	renderDepthDump();
+
 	CHECK_GL_ERRORS();
 }
 
