@@ -27,7 +27,7 @@ Model::Model(std::string filename, bool invert) {
 	n_vertices = vertex_data.size()/3;
 	
 	//Find the bounding box
-	for (int i=0; i<n_vertices; ++i) {
+	for (unsigned int i=0; i<n_vertices; ++i) {
 		float x = vertex_data[3*i];
 		float y = vertex_data[3*i+1];
 		float z = vertex_data[3*i+2];
@@ -52,7 +52,7 @@ Model::Model(std::string filename, bool invert) {
 	transform = glm::translate(transform, -translation);
 
 	//Create the VBOs from the data.
-	if (fmod(n_vertices, 3.0f) < 0.000001) 
+	if (fmod(static_cast<float>(n_vertices), 3.0f) < 0.000001f) 
 		vertices.reset(new GLUtils::BO<GL_ARRAY_BUFFER>(vertex_data.data(), vertex_data.size()*sizeof(float)));
 	else
 		throw std::runtime_error("The number of vertices in the mesh is wrong");
@@ -98,7 +98,7 @@ void Model::loadRecursive(bool invert,
 				//throw std::runtime_error("Only triangle meshes are supported");
 			}
 
-			for(int i = 0; i < face->mNumIndices; i++) {
+			for(unsigned int i = 0; i < face->mNumIndices; i++) {
 				int index = face->mIndices[i];
 				aiVector3D tmp = mesh->mVertices[index];
 				aiTransformVecByMatrix4(&tmp, &modelview_matrix);
@@ -134,6 +134,6 @@ void Model::loadRecursive(bool invert,
 	}
 
 	// load all children
-	for (int n = 0; n < node->mNumChildren; ++n)
+	for (unsigned int n = 0; n < node->mNumChildren; ++n)
 		loadRecursive(invert, vertex_data, normal_data, color_data, scene, node->mChildren[n], modelview_matrix);
 }
