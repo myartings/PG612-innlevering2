@@ -47,7 +47,6 @@ ShadowFBO::ShadowFBO(unsigned int width, unsigned int height) {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	
-
 	//Check for completeness
 	CHECK_GL_ERRORS();
 	CHECK_GL_FBO_COMPLETENESS();

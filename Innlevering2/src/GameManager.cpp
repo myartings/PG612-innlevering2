@@ -230,7 +230,7 @@ void GameManager::init() {
 	}
 
 	//Create the programs we will use
-	phong_program.reset(new Program("shaders/phong.vert", "shaders/phong.geom", "shaders/phong.frag"));
+	phong_program.reset(new Program("shaders/phong.vert"/*, "shaders/phong.geom"*/, "shaders/phong.frag"));
 	shadow_program.reset(new Program("shaders/lightPoV.vert", "shaders/lightPoV.frag"));
 	depth_dump_program.reset(new Program("shaders/depth_dump.vert", "shaders/depth_dump.frag"));
 
@@ -238,14 +238,16 @@ void GameManager::init() {
 
 	//Set uniforms for the programs
 	//Typically diffuse_cubemap and shadowmap
+
 	phong_program->use();
+	
 	phong_program->disuse();
 
 	shadow_program->use();
 	shadow_program->disuse();
 
 	depth_dump_program->use();
-	glUniform1i(depth_dump_program->getUniform("fbo_texture"), 0);
+	
 	depth_dump_program->disuse();
 	CHECK_GL_ERRORS();
 	
@@ -257,6 +259,7 @@ void GameManager::init() {
 	model->getIndices()->bind();
 	phong_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
 	phong_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
+	
 	model->getInterleavedVBO()->unbind();
 
 	glBindVertexArray(0);
@@ -282,6 +285,10 @@ void GameManager::renderColorPass() {
 	phong_program->use();
 	
 	//Bind shadow map and diffuse cube map
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, shadow_fbo->getTexture());
+
+	
 
 	/**
 	  * Render cube
@@ -295,11 +302,19 @@ void GameManager::renderColorPass() {
 		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
 		glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
 		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
-	
+		
+		glm::mat4 light_modelview_matrix = light.view*model_matrix;
+		glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
+		shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f)) * light.projection * light_modelview_matrix;
+
+		glUniformMatrix4fv(phong_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
+
+		glUniform1i(phong_program->getUniform("shadowmap_texture"), 0);
 		glUniform3fv(phong_program->getUniform("light_pos"), 1, glm::value_ptr(light_pos));
 		glUniform3fv(phong_program->getUniform("color"), 1, glm::value_ptr(glm::vec3(1.0f, 0.8f, 0.8f)));
 		glUniformMatrix4fv(phong_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
-		glUniformMatrix4fv(phong_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
+		glUniformMatrix4fv(phong_program->getUniform("modelview_matrix_inverse"),	1, 0, glm::value_ptr(modelview_matrix_inverse));
+		
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
@@ -316,7 +331,13 @@ void GameManager::renderColorPass() {
 		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
 		glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
 		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
-	
+		
+		glm::mat4 light_modelview_matrix = light.view*model_matrix;
+		glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
+		shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f)) * light.projection * light_modelview_matrix;
+
+		glUniformMatrix4fv(phong_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
+
 		glUniform3fv(phong_program->getUniform("light_pos"), 1, glm::value_ptr(light_pos));
 		glUniform3fv(phong_program->getUniform("color"), 1, glm::value_ptr(model_colors.at(i)));
 		glUniformMatrix4fv(phong_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
@@ -347,6 +368,8 @@ void GameManager::renderShadowPass() {
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shadow_program->use();
+	glEnable (GL_POLYGON_OFFSET_FILL);
+	glPolygonOffset(1.0f, 4.4f);
 	CHECK_GL_ERRORS();
 	{
 		glBindVertexArray(vao[1]);
@@ -383,7 +406,7 @@ void GameManager::renderShadowPass() {
 		MeshPart& mesh = model->getMesh();
 		glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
 	}
-
+	glDisable(GL_POLYGON_OFFSET_FILL);
 	shadow_fbo->unbind();
 }
 
