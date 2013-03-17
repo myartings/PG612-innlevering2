@@ -80,8 +80,8 @@ protected:
 	 */
 	void createOpenGLContext();
 
-	static const unsigned int window_width = 800;
-	static const unsigned int window_height = 600;
+	static const unsigned int window_width = 1280;
+	static const unsigned int window_height = 720;
 	
 	static const unsigned int shadow_map_width = 1024;
 	static const unsigned int shadow_map_height = 1024;
@@ -142,6 +142,8 @@ private:
 	SDL_GLContext main_context; //< Our opengl context handle 
 	
 	VirtualTrackball cam_trackball;
+
+	bool render_depth_dump;
 };
 
 #endif // _GAMEMANAGER_H_

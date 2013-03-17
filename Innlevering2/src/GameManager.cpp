@@ -135,6 +135,7 @@ GameManager::GameManager() {
 	my_timer.restart();
 	zoom = 1;
 	light.position = glm::vec3(10, 0, 0);
+	render_depth_dump = true;
 }
 
 GameManager::~GameManager() {
@@ -210,6 +211,7 @@ void GameManager::init() {
 	model.reset(new Model("models/bunny.obj", false));
 	cube_vertices.reset(new BO<GL_ARRAY_BUFFER>(cube_vertices_data, sizeof(cube_vertices_data)));
 	cube_normals.reset(new BO<GL_ARRAY_BUFFER>(cube_normals_data, sizeof(cube_normals_data)));
+	
 	shadow_fbo.reset(new ShadowFBO(window_width, window_height, USED_FOR_SHADOWS));
 	screen_dump_fbo.reset(new ShadowFBO(window_width, window_height, USED_FOR_SCREEN_RENDER));
 
@@ -217,7 +219,7 @@ void GameManager::init() {
 	camera.projection = glm::perspective(fovy/zoom,
 			window_width / (float) window_height, near_plane, far_plane);
 	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
-	light.projection = glm::perspective(80.0f, 1.0f, near_plane, far_plane);
+	light.projection = glm::perspective(90.0f, 1.0f, near_plane, far_plane);
 	light.view = glm::lookAt(light.position, glm::vec3(0), glm::vec3(0.0, 1.0, 0.0));
 
 	fbo_projectionMatrix = glm::mat4(1);
@@ -342,7 +344,7 @@ void GameManager::renderColorPass() {
 
 		glUniform1i(phong_program->getUniform("shadowmap_texture"), 0);
 		glUniform3fv(phong_program->getUniform("light_pos"), 1, glm::value_ptr(light_pos));
-		glUniform3fv(phong_program->getUniform("color"), 1, glm::value_ptr(glm::vec3(1.0f, 0.8f, 0.8f)));
+		glUniform3fv(phong_program->getUniform("color"), 1, glm::value_ptr(glm::vec3(1.0f, 0.4f, 0.1f)));
 		glUniformMatrix4fv(phong_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
 		glUniformMatrix4fv(phong_program->getUniform("modelview_matrix_inverse"),	1, 0, glm::value_ptr(modelview_matrix_inverse));
 		
@@ -393,7 +395,7 @@ void GameManager::renderShadowPass() {
 	//Remember to set the viewport, clearing the depth buffer, etc.
 
 	//Create the new view matrix that takes the trackball view into account
-	glm::mat4 view_matrix_new = light.view*cam_trackball.getTransform();
+	//glm::mat4 view_matrix_new = light.view;//*cam_trackball.getTransform();
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shadow_program->use();
@@ -405,7 +407,7 @@ void GameManager::renderShadowPass() {
 		CHECK_GL_ERRORS();
 		glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
 		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
-		glm::mat4 modelview_matrix = view_matrix_new*model_matrix;
+		glm::mat4 modelview_matrix = light.view*model_matrix;
 		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
 		glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
 		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
@@ -424,7 +426,7 @@ void GameManager::renderShadowPass() {
 	for (int i=0; i<n_models; ++i) {
 		glm::mat4 model_matrix = model_matrices.at(i);
 		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
-		glm::mat4 modelview_matrix = view_matrix_new*model_matrix;
+		glm::mat4 modelview_matrix = light.view*model_matrix;
 		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
 		glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
 		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
@@ -477,7 +479,8 @@ void GameManager::render() {
 
 	renderColorPass();
 	
-	renderDepthDump();
+	if(render_depth_dump)
+		renderDepthDump();
 
 	CHECK_GL_ERRORS();
 }
@@ -507,6 +510,9 @@ void GameManager::play() {
 				break;
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym) {
+				case SDLK_t:
+					render_depth_dump = !render_depth_dump;
+					break;
 				case SDLK_ESCAPE: //Esc
 					doExit = true;
 					break;
