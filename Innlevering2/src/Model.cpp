@@ -35,8 +35,8 @@ Model::Model(std::string filename, bool invert) {
 	if (invert) scale = -scale;
 	
 	root.transform = glm::mat4(1.0);
-	root.transform = glm::scale(transform, scale);
-	root.transform = glm::translate(transform, -translation);
+	root.transform = glm::scale(root.transform, scale);
+	root.transform = glm::translate(root.transform, -translation);
 
 	//Create the VBOs from the data.
 	if (fmod(static_cast<float>(indices_data.size()), 3.0f) < 0.000001f) 
@@ -47,7 +47,7 @@ Model::Model(std::string filename, bool invert) {
 		stride = sizeof(Vertex);
 		verticeOffset = NULL;
 		normalOffset = (GLvoid*)(3*sizeof(float));
-		texCoordOffset = (GLvoid*)(6*sizeof(float));
+		//texCoordOffset = (GLvoid*)(6*sizeof(float));
 	}
 	else
 		THROW_EXCEPTION("The number of vertices in the mesh is wrong");
@@ -152,7 +152,7 @@ void Model::loadRecursive( MeshPart& part, bool invert, std::vector<Vertex>& ver
 		indices.reserve(indices.size() + mesh->mNumVertices*3);
 
 		bool has_normals = mesh->HasNormals();
-		part.texCoords0 = mesh->HasTextureCoords(0);
+		//part.texCoords0 = mesh->HasTextureCoords(0);
 
 		for(unsigned int v = 0; v < mesh->mNumVertices; v++){
 			Vertex new_vertex;
@@ -163,10 +163,10 @@ void Model::loadRecursive( MeshPart& part, bool invert, std::vector<Vertex>& ver
 			if(has_normals)
 				new_vertex.normal = glm::vec3(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
 
-			if(part.texCoords0)
-				new_vertex.texCoord0 = glm::vec2(mesh->mTextureCoords[0][v].x, mesh->mTextureCoords[0][v].y);
+			/*if(part.texCoords0)
+			new_vertex.texCoord0 = glm::vec2(mesh->mTextureCoords[0][v].x, mesh->mTextureCoords[0][v].y);
 			else
-				new_vertex.texCoord0 = glm::vec2(0.0f, 0.0f);
+			new_vertex.texCoord0 = glm::vec2(0.0f, 0.0f);*/
 
 			vertex_data.push_back(new_vertex);
 		}

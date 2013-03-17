@@ -241,20 +241,23 @@ void GameManager::init() {
 	
 	//Set up VAOs and set as input to shaders
 	glGenVertexArrays(2, &vao[0]);
+
 	glBindVertexArray(vao[0]);
-	model->getVertices()->bind();
-	phong_program->setAttributePointer("position", 3);
-	model->getNormals()->bind();
-	phong_program->setAttributePointer("normal", 3);
-	model->getVertices()->unbind(); //Unbinds both vertices and normals
+	model->getInterleavedVBO()->bind();
+	model->getIndices()->bind();
+	phong_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
+
+	phong_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
+	model->getInterleavedVBO()->unbind();
+
 	glBindVertexArray(0);
-	
+
 	glBindVertexArray(vao[1]);
 	cube_vertices->bind();
 	phong_program->setAttributePointer("position", 3);
 	cube_normals->bind();
 	phong_program->setAttributePointer("normal", 3);
-	model->getVertices()->unbind(); //Unbinds both vertices and normals
+	//model->getVertices()->unbind(); //Unbinds both vertices and normals
 	glBindVertexArray(0);
 	CHECK_GL_ERRORS();
 }
@@ -310,7 +313,16 @@ void GameManager::renderColorPass() {
 		glUniformMatrix4fv(phong_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
 		glUniformMatrix4fv(phong_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
 
-		glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
+		//model->getInterleavedVBO()->bind();
+		//model->getIndices()->bind();
+		//phong_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
+
+		//phong_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
+
+		MeshPart& mesh = model->getMesh();
+		glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
+		//glDrawElements(GL_TRIANGLES, model->getMesh().count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * model->getMesh().first));
+		//glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
 	}
 	glBindVertexArray(0);
 }
