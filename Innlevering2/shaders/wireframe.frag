@@ -21,8 +21,8 @@ void main() {
 
 	shade_factor = shade_factor * 0.25 + 0.75;
 
-	vec3 diffuse = vec3(diff*color);
+	vec4 diffuse = vec4(diff*color, 1.0);
     float spec = pow(max(0.0f, dot(n, h)), 128.0f);
 
-    out_color = vec4((diffuse + (spec*0.1)) * shade_factor, 1.0);
+    out_color = vec4((diffuse + (spec*0.1)) * shade_factor);
 }

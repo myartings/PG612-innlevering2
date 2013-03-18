@@ -32,11 +32,17 @@
   <ItemGroup>
     <None Include="shaders\depth_dump.frag" />
     <None Include="shaders\depth_dump.vert" />
-    <None Include="shaders\lightPoV.frag" />
-    <None Include="shaders\lightPoV.vert" />
+    <None Include="shaders\hidden_line.frag" />
+    <None Include="shaders\hidden_line.geom" />
+    <None Include="shaders\hidden_line.vert" />
+    <None Include="shaders\light_pov.frag" />
+    <None Include="shaders\light_pov.vert" />
     <None Include="shaders\phong.frag" />
     <None Include="shaders\phong.geom" />
     <None Include="shaders\phong.vert" />
+    <None Include="shaders\wireframe.frag" />
+    <None Include="shaders\wireframe.geom" />
+    <None Include="shaders\wireframe.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0EB6082A-7B48-4E60-B4B3-2EB3C7254AC1}</ProjectGuid>

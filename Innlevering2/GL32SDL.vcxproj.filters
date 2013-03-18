@@ -16,6 +16,18 @@
     <Filter Include="Header Files\GLUtils">
       <UniqueIdentifier>{a2d5147c-9fab-4da4-975c-585ba7e63a12}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\shaders">
+      <UniqueIdentifier>{c6ddb72e-9d05-4966-b090-ce6b52f8e9c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\shaders\wireframe">
+      <UniqueIdentifier>{72f268e6-dd5a-4e6f-af33-8ece78f216f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\shaders\hidden_line">
+      <UniqueIdentifier>{bc31060d-5f24-4abb-8cca-16b2e6054bac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\shaders\phong">
+      <UniqueIdentifier>{ecb5e152-34e9-42a9-b40e-7d6aa621c8bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameManager.h">
@@ -67,26 +79,44 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\phong.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="shaders\phong.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="shaders\phong.geom">
-      <Filter>Resource Files</Filter>
+    <None Include="shaders\depth_dump.frag">
+      <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="shaders\depth_dump.vert">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\shaders</Filter>
     </None>
-    <None Include="shaders\lightPoV.frag">
-      <Filter>Resource Files</Filter>
+    <None Include="shaders\wireframe.vert">
+      <Filter>Resource Files\shaders\wireframe</Filter>
     </None>
-    <None Include="shaders\lightPoV.vert">
-      <Filter>Resource Files</Filter>
+    <None Include="shaders\wireframe.frag">
+      <Filter>Resource Files\shaders\wireframe</Filter>
     </None>
-    <None Include="shaders\depth_dump.frag">
-      <Filter>Resource Files</Filter>
+    <None Include="shaders\wireframe.geom">
+      <Filter>Resource Files\shaders\wireframe</Filter>
+    </None>
+    <None Include="shaders\phong.frag">
+      <Filter>Resource Files\shaders\phong</Filter>
+    </None>
+    <None Include="shaders\phong.vert">
+      <Filter>Resource Files\shaders\phong</Filter>
+    </None>
+    <None Include="shaders\phong.geom">
+      <Filter>Resource Files\shaders\phong</Filter>
+    </None>
+    <None Include="shaders\hidden_line.frag">
+      <Filter>Resource Files\shaders\hidden_line</Filter>
+    </None>
+    <None Include="shaders\hidden_line.geom">
+      <Filter>Resource Files\shaders\hidden_line</Filter>
+    </None>
+    <None Include="shaders\hidden_line.vert">
+      <Filter>Resource Files\shaders\hidden_line</Filter>
+    </None>
+    <None Include="shaders\light_pov.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\light_pov.vert">
+      <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>
 </Project>
