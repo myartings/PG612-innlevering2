@@ -28,6 +28,12 @@
     <Filter Include="Resource Files\shaders\phong">
       <UniqueIdentifier>{ecb5e152-34e9-42a9-b40e-7d6aa621c8bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\shaders\depth_to_screen_dump">
+      <UniqueIdentifier>{3c3b2cc5-f4de-4342-b6ea-d3d8f4efd746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\shaders\light_pov_to_fbo">
+      <UniqueIdentifier>{8735ccdd-b3ea-47f0-8cbe-2cd44ab34ec3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameManager.h">
@@ -79,12 +85,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\depth_dump.frag">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
-    <None Include="shaders\depth_dump.vert">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
     <None Include="shaders\wireframe.vert">
       <Filter>Resource Files\shaders\wireframe</Filter>
     </None>
@@ -112,11 +112,17 @@
     <None Include="shaders\hidden_line.vert">
       <Filter>Resource Files\shaders\hidden_line</Filter>
     </None>
+    <None Include="shaders\depth_dump.frag">
+      <Filter>Resource Files\shaders\depth_to_screen_dump</Filter>
+    </None>
+    <None Include="shaders\depth_dump.vert">
+      <Filter>Resource Files\shaders\depth_to_screen_dump</Filter>
+    </None>
     <None Include="shaders\light_pov.frag">
-      <Filter>Resource Files\shaders</Filter>
+      <Filter>Resource Files\shaders\light_pov_to_fbo</Filter>
     </None>
     <None Include="shaders\light_pov.vert">
-      <Filter>Resource Files\shaders</Filter>
+      <Filter>Resource Files\shaders\light_pov_to_fbo</Filter>
     </None>
   </ItemGroup>
 </Project>

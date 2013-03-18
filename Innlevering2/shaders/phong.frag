@@ -16,13 +16,10 @@ void main() {
     vec3 n = normalize(f_n);
 	
 	float diff = max(0.0f, dot(n, l));
+	float spec = pow(max(0.0f, dot(n, h)), 128.0f);
 
 	float shade_factor = textureProj(shadowmap_texture, f_shadow_coord);
-
 	shade_factor = shade_factor * 0.25 + 0.75;
 
-	vec3 diffuse = vec3(diff*color);
-    float spec = pow(max(0.0f, dot(n, h)), 128.0f);
-
-    out_color = vec4((diffuse + (spec*0.1)) * shade_factor, 1.0);
+    out_color = vec4( ( (diff*color) + (spec*0.1) ) * shade_factor, 1.0);
 }
