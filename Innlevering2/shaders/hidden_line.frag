@@ -27,14 +27,18 @@ void main() {
 
 	float shade_factor = textureProj(shadowmap_texture, f_shadow_coord);
 
-	shade_factor = 1;//shade_factor * 0.25 + 0.75;
+	shade_factor = shade_factor * 0.25 + 0.75;
 
 	vec4 diffuse = vec4(diff*color, 1.0);
     float spec = pow(max(0.0f, dot(n, h)), 128.0f);
 
 	float k = min(min(beyer_coord.x, beyer_coord.y), beyer_coord.z);
 
-    out_color = vec4( ( (diff*color) + (spec*0.1) ) * shade_factor, 1.0);
+	out_color = vec4( ( (diff*color) + (spec*0.1) ) * shade_factor, 1.0);
 
-	out_color = amplify(k, 100, -1.5)*out_color;
+	if(k<0.01)
+	{
+		//out_color = amplify(k, 100, -1.5)*out_color;
+		out_color = vec4(0, 0, 0, 1)+amplify(k, 40, -0.5);
+	}
 }
