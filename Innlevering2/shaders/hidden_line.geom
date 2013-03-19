@@ -13,15 +13,53 @@ smooth out vec3 f_v;
 smooth out vec3 f_l;
 smooth out vec4 f_shadow_coord;
 
-void main() {
-	for(int i = 0; i < gl_in.length(); i++) {
-		f_n = g_n[i];
-		f_v = g_v[i];
-		f_l = g_l[i];
-		f_shadow_coord = g_shadow_coord[i];
+smooth out vec3 beyer_coord;
+flat out vec3 vertex_pos;
 
-		gl_Position =  gl_in[i].gl_Position;
-		EmitVertex();
-	}
+void main() {
+
+
+
+/*-----------0---------------*/
+	beyer_coord = vec3(1, 0, 0);
+
+	f_n = g_n[0];
+	f_v = g_v[0];
+	f_l = g_l[0];
+	f_shadow_coord = g_shadow_coord[0];
+
+	gl_Position =  gl_in[0].gl_Position;
+	EmitVertex();
+/*-----------end---------------*/
+
+
+
+
+/*-----------1---------------*/		
+	beyer_coord = vec3(0, 1, 0);
+	
+	f_n = g_n[1];
+	f_v = g_v[1];
+	f_l = g_l[1];
+	f_shadow_coord = g_shadow_coord[1];
+	
+	gl_Position =  gl_in[1].gl_Position;
+	EmitVertex();
+/*-----------end---------------*/
+
+
+
+
+/*-----------2---------------*/
+	beyer_coord = vec3(0, 0, 1);
+
+	f_n = g_n[2];
+	f_v = g_v[2];
+	f_l = g_l[2];
+	f_shadow_coord = g_shadow_coord[2];
+
+	gl_Position =  gl_in[2].gl_Position;
+	EmitVertex();
+/*-----------end---------------*/
 	EndPrimitive();
 }

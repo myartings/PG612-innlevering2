@@ -1,7 +1,7 @@
 #version 150
  
 layout(triangles) in;
-layout(triangle_strip, max_vertices = 3) out;
+layout(line_strip, max_vertices = 3) out;
 
 smooth in vec3 g_n[3];
 smooth in vec3 g_v[3];

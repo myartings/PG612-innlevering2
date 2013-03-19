@@ -244,6 +244,10 @@ void GameManager::init() {
 
 	//Create the programs we will use
 	phong_program.reset(new Program("shaders/phong.vert", "shaders/phong.geom", "shaders/phong.frag"));
+	wireframe_program.reset(new Program("shaders/wireframe.vert", "shaders/wireframe.geom", "shaders/wireframe.frag"));
+	hidden_line_program.reset(new Program("shaders/hidden_line.vert", "shaders/hidden_line.geom", "shaders/hidden_line.frag"));
+
+
 	shadow_program.reset(new Program("shaders/light_pov.vert", "shaders/light_pov.frag"));
 	depth_dump_program.reset(new Program("shaders/depth_dump.vert", "shaders/depth_dump.frag"));
 
@@ -253,8 +257,11 @@ void GameManager::init() {
 	//Typically diffuse_cubemap and shadowmap
 
 	phong_program->use();
-	
 	phong_program->disuse();
+	wireframe_program->use();
+	wireframe_program->disuse();
+	hidden_line_program->use();
+	hidden_line_program->disuse();
 
 	shadow_program->use();
 	shadow_program->disuse();
@@ -275,16 +282,28 @@ void GameManager::init() {
 	model->getIndices()->bind();
 	phong_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
 	phong_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
-	
+
+	wireframe_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
+	wireframe_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
+
+	hidden_line_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
+	hidden_line_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
 	model->getInterleavedVBO()->unbind();
 
 	glBindVertexArray(0);
 
 	glBindVertexArray(vao[1]);
+
 	cube_vertices->bind();
 	phong_program->setAttributePointer("position", 3);
+	wireframe_program->setAttributePointer("position", 3);
+	hidden_line_program->setAttributePointer("position", 3);
+
 	cube_normals->bind();
 	phong_program->setAttributePointer("normal", 3);
+	wireframe_program->setAttributePointer("normal", 3);
+	hidden_line_program->setAttributePointer("normal", 3);
+
 	//model->getVertices()->unbind(); //Unbinds both vertices and normals
 	glBindVertexArray(0);
 	CHECK_GL_ERRORS();
@@ -307,6 +326,7 @@ void GameManager::init() {
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	current_program = phong_program;
 }
 
 void GameManager::renderColorPass() {
@@ -317,7 +337,7 @@ void GameManager::renderColorPass() {
 	glm::mat4 view_matrix_new = camera.view*cam_trackball.getTransform();
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	phong_program->use();
+	current_program->use();
 	
 	//Bind shadow map and diffuse cube map
 	glActiveTexture(GL_TEXTURE0);
@@ -340,13 +360,13 @@ void GameManager::renderColorPass() {
 		glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 		shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f)) * light.projection * light_modelview_matrix;
 
-		glUniformMatrix4fv(phong_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
+		glUniformMatrix4fv(current_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
 
-		glUniform1i(phong_program->getUniform("shadowmap_texture"), 0);
-		glUniform3fv(phong_program->getUniform("light_pos"), 1, glm::value_ptr(light_pos));
-		glUniform3fv(phong_program->getUniform("color"), 1, glm::value_ptr(glm::vec3(0.1f, 0.1f, 0.7f)));
-		glUniformMatrix4fv(phong_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
-		glUniformMatrix4fv(phong_program->getUniform("modelview_matrix_inverse"),	1, 0, glm::value_ptr(modelview_matrix_inverse));
+		glUniform1i(current_program->getUniform("shadowmap_texture"), 0);
+		glUniform3fv(current_program->getUniform("light_pos"), 1, glm::value_ptr(light_pos));
+		glUniform3fv(current_program->getUniform("color"), 1, glm::value_ptr(glm::vec3(0.1f, 0.1f, 0.7f)));
+		glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+		glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"),	1, 0, glm::value_ptr(modelview_matrix_inverse));
 		
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -369,18 +389,18 @@ void GameManager::renderColorPass() {
 		glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 		shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f)) * light.projection * light_modelview_matrix;
 
-		glUniformMatrix4fv(phong_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
+		glUniformMatrix4fv(current_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
 
-		glUniform3fv(phong_program->getUniform("light_pos"), 1, glm::value_ptr(light_pos));
-		glUniform3fv(phong_program->getUniform("color"), 1, glm::value_ptr(model_colors.at(i)));
-		glUniformMatrix4fv(phong_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
-		glUniformMatrix4fv(phong_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
+		glUniform3fv(current_program->getUniform("light_pos"), 1, glm::value_ptr(light_pos));
+		glUniform3fv(current_program->getUniform("color"), 1, glm::value_ptr(model_colors.at(i)));
+		glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+		glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
 
 		//model->getInterleavedVBO()->bind();
 		//model->getIndices()->bind();
-		//phong_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
+		//current_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
 
-		//phong_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
+		//current_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
 
 		MeshPart& mesh = model->getMesh();
 		glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
@@ -524,6 +544,18 @@ void GameManager::play() {
 					break;
 				case SDLK_MINUS:
 					zoomOut();
+					break;
+				case SDLK_1:
+					if(current_program != phong_program)
+						current_program = phong_program;
+					break;
+				case SDLK_2:
+					if(current_program != wireframe_program)
+						current_program = wireframe_program;
+					break;
+				case SDLK_3:
+					if(current_program != hidden_line_program)
+						current_program = hidden_line_program;
 					break;
 				}
 				break;

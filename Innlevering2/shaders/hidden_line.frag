@@ -7,8 +7,16 @@ smooth in vec4 f_shadow_coord;
 smooth in vec3 f_n;
 smooth in vec3 f_v;
 smooth in vec3 f_l;
+smooth in vec3 beyer_coord;
 
 out vec4 out_color;
+
+float amplify(float d, float scale, float offset) {
+	d= scale * d + offset;
+	d= clamp(d, 0, 1);
+	d = 1-exp2(- 2*d*d);
+	return d;
+}
 
 void main() {
 	vec3 l = normalize(f_l);
@@ -19,10 +27,14 @@ void main() {
 
 	float shade_factor = textureProj(shadowmap_texture, f_shadow_coord);
 
-	shade_factor = shade_factor * 0.25 + 0.75;
+	shade_factor = 1;//shade_factor * 0.25 + 0.75;
 
 	vec4 diffuse = vec4(diff*color, 1.0);
     float spec = pow(max(0.0f, dot(n, h)), 128.0f);
 
-    out_color = vec4((diffuse + (spec*0.1)) * shade_factor);
+	float k = min(min(beyer_coord.x, beyer_coord.y), beyer_coord.z);
+
+    out_color = vec4( ( (diff*color) + (spec*0.1) ) * shade_factor, 1.0);
+
+	out_color = amplify(k, 100, -1.5)*out_color;
 }
