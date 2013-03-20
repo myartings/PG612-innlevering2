@@ -17,6 +17,7 @@
 #include "Model.h"
 #include "VirtualTrackball.h"
 #include "ShadowFBO.h"
+#include "SliderWithText.h"
 
 /**
  * This class handles the game logic and display.
@@ -100,6 +101,13 @@ private:
 	void zoomIn();
 	void zoomOut();
 	
+	void SetMatrices();
+	void CreateShaderPrograms();
+	void SetShaderUniforms();
+	void SetShaderAttribPtrs();
+
+	void RenderGUI();
+
 	GLuint vao[2]; //< Vertex array objects
 	std::shared_ptr<GLUtils::Program> phong_program,
 									  wireframe_program,
@@ -117,6 +125,8 @@ private:
 	std::shared_ptr<Model> model;
 	std::shared_ptr<ShadowFBO> shadow_fbo;
 	std::shared_ptr<ShadowFBO> screen_dump_fbo;
+
+	std::shared_ptr<SliderWithText> slider_increase_line_width;
 
 	GLuint fbo_vertex_bo; //< Vetex buffer object for fullscreen quad
 	GLuint fbo_vao; //< Vertex array object for the depthbuffer dumping
@@ -147,6 +157,7 @@ private:
 	VirtualTrackball cam_trackball;
 
 	bool render_depth_dump;
+
 };
 
 #endif // _GAMEMANAGER_H_

@@ -30,7 +30,7 @@ Model::Model(std::string filename, bool invert) {
 
 	//Translate to center
 	glm::vec3 translation = (max_dim - min_dim) / glm::vec3(2.0f) + min_dim;
-	glm::vec3 scale_helper = glm::vec3(2.0f)/(max_dim - min_dim);
+	glm::vec3 scale_helper = glm::vec3(1.0f)/(max_dim - min_dim);
 	glm::vec3 scale = glm::vec3(std::min(scale_helper.x, std::min(scale_helper.y, scale_helper.z)));
 	if (invert) scale = -scale;
 	

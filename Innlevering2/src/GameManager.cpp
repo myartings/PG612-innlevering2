@@ -191,6 +191,10 @@ void GameManager::createOpenGLContext() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_CULL_FACE);
+	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	CHECK_GL_ERRORS();
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -204,29 +208,14 @@ void GameManager::init() {
 	ilInit();
 	iluInit();
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	//Initialize the different stuff we need
 	model.reset(new Model("models/bunny.obj", false));
 	cube_vertices.reset(new BO<GL_ARRAY_BUFFER>(cube_vertices_data, sizeof(cube_vertices_data)));
-	cube_normals.reset(new BO<GL_ARRAY_BUFFER>(cube_normals_data, sizeof(cube_normals_data)));
-	
+	cube_normals.reset(new BO<GL_ARRAY_BUFFER>(cube_normals_data, sizeof(cube_normals_data)));	
 	shadow_fbo.reset(new ShadowFBO(window_width, window_height, USED_FOR_SHADOWS));
 	screen_dump_fbo.reset(new ShadowFBO(window_width, window_height, USED_FOR_SCREEN_RENDER));
 
-	//Set the matrices we will use
-	camera.projection = glm::perspective(fovy/zoom,
-			window_width / (float) window_height, near_plane, far_plane);
-	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
-	light.projection = glm::perspective(90.0f, 1.0f, near_plane, far_plane);
-	light.view = glm::lookAt(light.position, glm::vec3(0), glm::vec3(0.0, 1.0, 0.0));
-
-	fbo_projectionMatrix = glm::mat4(1);
-	fbo_viewMatrix = glm::mat4(1);
-	fbo_modelMatrix = glm::mat4(1);
-	fbo_modelMatrix = glm::translate(fbo_modelMatrix, glm::vec3(-0.69f, -0.69f, 0));
-	fbo_modelMatrix = glm::scale(fbo_modelMatrix, glm::vec3(0.3));
+	SetMatrices();
 
 	//Create the random transformations and colors for the bunnys
 	srand(static_cast<int>(time(NULL)));
@@ -242,6 +231,33 @@ void GameManager::init() {
 		model_colors.push_back(glm::vec3(tx+0.5, ty+0.5, tz+0.5));
 	}
 
+	CreateShaderPrograms();
+	SetShaderUniforms();
+	SetShaderAttribPtrs();
+	current_program = phong_program;
+
+	slider_increase_line_width = std::make_shared<SliderWithText>("GUI/wireframe_line_width.png");
+}
+
+void GameManager::SetMatrices()
+{
+	//Set the matrices we will use
+	camera.projection = glm::perspective(fovy/zoom,
+		window_width / (float) window_height, near_plane, far_plane);
+	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
+	light.projection = glm::perspective(90.0f, 1.0f, near_plane, far_plane);
+	light.view = glm::lookAt(light.position, glm::vec3(0), glm::vec3(0.0, 1.0, 0.0));
+
+	fbo_projectionMatrix = glm::mat4(1);
+	fbo_viewMatrix = glm::mat4(1);
+	fbo_modelMatrix = glm::mat4(1);
+	fbo_modelMatrix = glm::translate(fbo_modelMatrix, glm::vec3(-0.69f, -0.69f, 0));
+	fbo_modelMatrix = glm::scale(fbo_modelMatrix, glm::vec3(0.3));
+}
+
+
+void GameManager::CreateShaderPrograms()
+{
 	//Create the programs we will use
 	phong_program.reset(new Program("shaders/phong.vert", "shaders/phong.geom", "shaders/phong.frag"));
 	wireframe_program.reset(new Program("shaders/wireframe.vert", "shaders/wireframe.geom", "shaders/wireframe.frag"));
@@ -252,10 +268,12 @@ void GameManager::init() {
 	depth_dump_program.reset(new Program("shaders/depth_dump.vert", "shaders/depth_dump.frag"));
 
 	CHECK_GL_ERRORS();
+}
 
+void GameManager::SetShaderUniforms()
+{
 	//Set uniforms for the programs
 	//Typically diffuse_cubemap and shadowmap
-
 	phong_program->use();
 	phong_program->disuse();
 	wireframe_program->use();
@@ -273,7 +291,10 @@ void GameManager::init() {
 	glUniform1i(depth_dump_program->getUniform("fbo_texture"), 0);
 	depth_dump_program->disuse();
 	CHECK_GL_ERRORS();
-	
+}
+
+void GameManager::SetShaderAttribPtrs()
+{
 	//Set up VAOs and set as input to shaders
 	glGenVertexArrays(2, &vao[0]);
 
@@ -289,7 +310,6 @@ void GameManager::init() {
 	hidden_line_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
 	hidden_line_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
 	model->getInterleavedVBO()->unbind();
-
 	glBindVertexArray(0);
 
 	glBindVertexArray(vao[1]);
@@ -326,8 +346,8 @@ void GameManager::init() {
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	current_program = phong_program;
 }
+
 
 void GameManager::renderColorPass() {
 	glViewport(0, 0, window_width, window_height);
@@ -463,11 +483,6 @@ void GameManager::renderShadowPass() {
 
 void GameManager::renderDepthDump()
 {
-	glBindFramebufferEXT(GL_FRAMEBUFFER, 0);
-
-	//Clearing the depth buffer to always draw on top of the previously rendered stuff
-	glClear(GL_DEPTH_BUFFER_BIT);
-
 	depth_dump_program->use();
 
 	//Bind the textures before rendering
@@ -503,11 +518,24 @@ void GameManager::render() {
 
 	renderColorPass();
 	
+	glBindFramebufferEXT(GL_FRAMEBUFFER, 0);
+	//Clearing the depth buffer to always draw on top of the previously rendered stuff
+	glClear(GL_DEPTH_BUFFER_BIT);
+
 	if(render_depth_dump)
 		renderDepthDump();
 
+
+	RenderGUI();
 	CHECK_GL_ERRORS();
 }
+
+
+void GameManager::RenderGUI()
+{
+
+}
+
 
 void GameManager::play() {
 	bool doExit = false;
@@ -591,3 +619,5 @@ void GameManager::zoomOut() {
 void GameManager::quit() {
 	std::cout << "Bye bye..." << std::endl;
 }
+
+

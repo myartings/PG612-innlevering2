@@ -19,6 +19,8 @@
     <ClInclude Include="include\GLUtils\Program.hpp" />
     <ClInclude Include="include\Model.h" />
     <ClInclude Include="include\ShadowFBO.h" />
+    <ClInclude Include="include\SliderWithText.h" />
+    <ClInclude Include="include\TextureLoader.h" />
     <ClInclude Include="include\Timer.h" />
     <ClInclude Include="include\VirtualTrackball.h" />
   </ItemGroup>
@@ -27,6 +29,8 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\ShadowFBO.cpp" />
+    <ClCompile Include="src\SliderWithText.cpp" />
+    <ClCompile Include="src\TextureLoader.cpp" />
     <ClCompile Include="src\VirtualTrackball.cpp" />
   </ItemGroup>
   <ItemGroup>
