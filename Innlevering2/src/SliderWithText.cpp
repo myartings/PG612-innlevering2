@@ -47,3 +47,28 @@ void SliderWithText::LoadSliderTextures()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+void SliderWithText::Draw( glm::vec2 position, GLuint& quad_fbo,
+						std::shared_ptr<GLUtils::Program> gui_program)
+{
+	gui_program->use();
+
+	//Bind the textures before rendering
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, label_texture);
+
+	glBindVertexArray(quad_fbo);
+
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+	//Unbind the textures
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	gui_program->disuse();
+}
+
+void SliderWithText::Update( float delta_time )
+{
+
+}
+

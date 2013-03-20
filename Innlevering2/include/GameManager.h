@@ -114,7 +114,8 @@ private:
 									  hidden_line_program,
 									  exploded_view_program, 
 									  shadow_program,
-									  depth_dump_program;
+									  depth_dump_program,
+									  gui_program;
 
 	std::shared_ptr<GLUtils::Program> current_program;
 
@@ -143,11 +144,12 @@ private:
 		glm::mat4 view;
 	} light;
 
-	struct {
+	struct Camera{
 		glm::mat4 projection;
 		glm::mat4 view;
-	} camera;
-
+	};
+	Camera camera;
+	Camera gui_camera;
 	std::vector<glm::mat4> model_matrices; //< OpenGL model transformation matrix
 	std::vector<glm::vec3> model_colors;
 

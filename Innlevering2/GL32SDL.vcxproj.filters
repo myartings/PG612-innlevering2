@@ -34,6 +34,9 @@
     <Filter Include="Resource Files\shaders\light_pov_to_fbo">
       <UniqueIdentifier>{8735ccdd-b3ea-47f0-8cbe-2cd44ab34ec3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\shaders\gui">
+      <UniqueIdentifier>{e023114d-5f51-495e-a5e0-1678b103abb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameManager.h">
@@ -135,6 +138,15 @@
     </None>
     <None Include="shaders\light_pov.vert">
       <Filter>Resource Files\shaders\light_pov_to_fbo</Filter>
+    </None>
+    <None Include="shaders\GUI.geom">
+      <Filter>Resource Files\shaders\gui</Filter>
+    </None>
+    <None Include="shaders\GUI.vert">
+      <Filter>Resource Files\shaders\gui</Filter>
+    </None>
+    <None Include="shaders\GUI.frag">
+      <Filter>Resource Files\shaders\gui</Filter>
     </None>
   </ItemGroup>
 </Project>

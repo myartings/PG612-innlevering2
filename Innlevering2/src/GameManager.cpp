@@ -245,6 +245,10 @@ void GameManager::SetMatrices()
 	camera.projection = glm::perspective(fovy/zoom,
 		window_width / (float) window_height, near_plane, far_plane);
 	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
+
+	gui_camera.projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.5f, 30.0f);
+	gui_camera.view = glm::mat4(1.0);
+
 	light.projection = glm::perspective(90.0f, 1.0f, near_plane, far_plane);
 	light.view = glm::lookAt(light.position, glm::vec3(0), glm::vec3(0.0, 1.0, 0.0));
 
@@ -262,7 +266,7 @@ void GameManager::CreateShaderPrograms()
 	phong_program.reset(new Program("shaders/phong.vert", "shaders/phong.geom", "shaders/phong.frag"));
 	wireframe_program.reset(new Program("shaders/wireframe.vert", "shaders/wireframe.geom", "shaders/wireframe.frag"));
 	hidden_line_program.reset(new Program("shaders/hidden_line.vert", "shaders/hidden_line.geom", "shaders/hidden_line.frag"));
-
+	gui_program.reset(new Program("shaders/GUI.vert", "shaders/GUI.geom", "shaders/GUI.frag"));
 
 	shadow_program.reset(new Program("shaders/light_pov.vert", "shaders/light_pov.frag"));
 	depth_dump_program.reset(new Program("shaders/depth_dump.vert", "shaders/depth_dump.frag"));
@@ -276,8 +280,10 @@ void GameManager::SetShaderUniforms()
 	//Typically diffuse_cubemap and shadowmap
 	phong_program->use();
 	phong_program->disuse();
+	
 	wireframe_program->use();
 	wireframe_program->disuse();
+	
 	hidden_line_program->use();
 	hidden_line_program->disuse();
 
@@ -290,6 +296,11 @@ void GameManager::SetShaderUniforms()
 	glUniformMatrix4fv(depth_dump_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(fbo_modelMatrix));
 	glUniform1i(depth_dump_program->getUniform("fbo_texture"), 0);
 	depth_dump_program->disuse();
+
+	gui_program->use();
+
+	gui_program->disuse();
+
 	CHECK_GL_ERRORS();
 }
 
@@ -347,7 +358,6 @@ void GameManager::SetShaderAttribPtrs()
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
-
 
 void GameManager::renderColorPass() {
 	glViewport(0, 0, window_width, window_height);
@@ -533,7 +543,7 @@ void GameManager::render() {
 
 void GameManager::RenderGUI()
 {
-
+	slider_increase_line_width->Draw(glm::vec2(0, 0), fbo_vao, gui_program);
 }
 
 

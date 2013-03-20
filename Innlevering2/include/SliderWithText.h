@@ -21,7 +21,8 @@ public:
     SliderWithText(std::string name_label_path);
     ~SliderWithText();
 
-	void Draw(glm::vec2 position);
+	void Draw(glm::vec2 position, GLuint& quad_fbo, 
+			std::shared_ptr<GLUtils::Program> gui_program);
 
 	void Update(float delta_time);
 

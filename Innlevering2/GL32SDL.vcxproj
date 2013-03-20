@@ -36,6 +36,9 @@
   <ItemGroup>
     <None Include="shaders\depth_dump.frag" />
     <None Include="shaders\depth_dump.vert" />
+    <None Include="shaders\GUI.frag" />
+    <None Include="shaders\GUI.geom" />
+    <None Include="shaders\GUI.vert" />
     <None Include="shaders\hidden_line.frag" />
     <None Include="shaders\hidden_line.geom" />
     <None Include="shaders\hidden_line.vert" />
