@@ -32,7 +32,7 @@ private:
 	void LoadSliderTextures();
 
 	GLuint label_texture;
-
+	glm::mat4 model_matrix;
 };
 
 #endif // SliderWithText_h__

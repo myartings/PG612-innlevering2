@@ -45,12 +45,14 @@ void SliderWithText::LoadSliderTextures()
 	TextureLoader::LoadTexture(&slider_knob_texture,"GUI/Slider_knob.png");
 	
 	glBindTexture(GL_TEXTURE_2D, 0);
+	model_matrix = glm::mat4(1);
 }
 
 void SliderWithText::Draw( glm::vec2 position, GLuint& quad_fbo,
 						std::shared_ptr<GLUtils::Program> gui_program)
 {
 	gui_program->use();
+	glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
 
 	//Bind the textures before rendering
 	glActiveTexture(GL_TEXTURE0);

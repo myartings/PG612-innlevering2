@@ -298,7 +298,8 @@ void GameManager::SetShaderUniforms()
 	depth_dump_program->disuse();
 
 	gui_program->use();
-
+	glUniformMatrix4fv(gui_program->getUniform("projection"), 1, 0, glm::value_ptr(gui_camera.projection));
+	glUniformMatrix4fv(gui_program->getUniform("view"), 1, 0, glm::value_ptr(gui_camera.view));
 	gui_program->disuse();
 
 	CHECK_GL_ERRORS();
