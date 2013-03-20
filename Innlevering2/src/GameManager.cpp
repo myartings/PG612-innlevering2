@@ -464,6 +464,10 @@ void GameManager::renderShadowPass() {
 void GameManager::renderDepthDump()
 {
 	glBindFramebufferEXT(GL_FRAMEBUFFER, 0);
+
+	//Clearing the depth buffer to always draw on top of the previously rendered stuff
+	glClear(GL_DEPTH_BUFFER_BIT);
+
 	depth_dump_program->use();
 
 	//Bind the textures before rendering

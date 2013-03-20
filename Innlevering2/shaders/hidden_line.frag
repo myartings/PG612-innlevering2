@@ -36,9 +36,6 @@ void main() {
 
 	out_color = vec4( ( (diff*color) + (spec*0.1) ) * shade_factor, 1.0);
 
-	if(k<0.01)
-	{
-		//out_color = amplify(k, 100, -1.5)*out_color;
-		out_color = vec4(0, 0, 0, 1)+amplify(k, 40, -0.5);
-	}
+	if(k<0.03 )
+		out_color = vec4( out_color.xyz * amplify(k, 40, -0.5), 1);
 }

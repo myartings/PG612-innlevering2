@@ -18,8 +18,6 @@ flat out vec3 vertex_pos;
 
 void main() {
 
-
-
 /*-----------0---------------*/
 	beyer_coord = vec3(1, 0, 0);
 

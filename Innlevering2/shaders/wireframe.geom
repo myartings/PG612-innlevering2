@@ -1,7 +1,7 @@
 #version 150
  
 layout(triangles) in;
-layout(line_strip, max_vertices = 3) out;
+layout(line_strip, max_vertices = 4) out;
 
 smooth in vec3 g_n[3];
 smooth in vec3 g_v[3];
@@ -23,5 +23,13 @@ void main() {
 		gl_Position =  gl_in[i].gl_Position;
 		EmitVertex();
 	}
+	f_n = g_n[0];
+	f_v = g_v[0];
+	f_l = g_l[0];
+	f_shadow_coord = g_shadow_coord[0];
+
+	gl_Position =  gl_in[0].gl_Position;
+	EmitVertex();
+
 	EndPrimitive();
 }
