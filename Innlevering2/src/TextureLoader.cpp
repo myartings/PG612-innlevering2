@@ -10,7 +10,7 @@ namespace TextureLoader
 
 		ilGenImages(1, &ImageName); // Grab a new image name.
 		ilBindImage(ImageName); 
-
+		ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
 		if (!ilLoadImage(image_to_load.c_str())) {
 			ILenum e;
 			std::stringstream error;
@@ -27,7 +27,11 @@ namespace TextureLoader
 
 		data.resize(width*height*components);
 
-		ilCopyPixels(0, 0, 0, width, height, 1, IL_RGB, IL_UNSIGNED_BYTE, data.data());
+		if(components == 3)
+			ilCopyPixels(0, 0, 0, width, height, 1, IL_RGB, IL_UNSIGNED_BYTE, data.data());
+		else if(components == 4)
+			ilCopyPixels(0, 0, 0, width, height, 1, IL_RGBA, IL_UNSIGNED_BYTE, data.data());
+
 		ilDeleteImages(1, &ImageName); // Delete the image name. 
 
 		glBindTexture(GL_TEXTURE_2D, *target_image);

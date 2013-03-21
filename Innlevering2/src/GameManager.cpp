@@ -266,7 +266,7 @@ void GameManager::CreateShaderPrograms()
 	phong_program.reset(new Program("shaders/phong.vert", "shaders/phong.geom", "shaders/phong.frag"));
 	wireframe_program.reset(new Program("shaders/wireframe.vert", "shaders/wireframe.geom", "shaders/wireframe.frag"));
 	hidden_line_program.reset(new Program("shaders/hidden_line.vert", "shaders/hidden_line.geom", "shaders/hidden_line.frag"));
-	gui_program.reset(new Program("shaders/GUI.vert", "shaders/GUI.geom", "shaders/GUI.frag"));
+	gui_program.reset(new Program("shaders/GUI.vert", "shaders/GUI.frag"));
 
 	shadow_program.reset(new Program("shaders/light_pov.vert", "shaders/light_pov.frag"));
 	depth_dump_program.reset(new Program("shaders/depth_dump.vert", "shaders/depth_dump.frag"));

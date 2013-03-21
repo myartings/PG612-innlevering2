@@ -52,14 +52,28 @@ void SliderWithText::Draw( glm::vec2 position, GLuint& quad_fbo,
 						std::shared_ptr<GLUtils::Program> gui_program)
 {
 	gui_program->use();
-	glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
+	model_matrix = glm::mat4(1);
+	model_matrix = glm::scale(model_matrix, glm::vec3(0.3));
 
 	//Bind the textures before rendering
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, label_texture);
-
 	glBindVertexArray(quad_fbo);
 
+	model_matrix = glm::translate(model_matrix, glm::vec3(0, 0, -10));
+	glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
+	glBindTexture(GL_TEXTURE_2D, label_texture);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+
+	model_matrix = glm::translate(model_matrix, glm::vec3(0, -1, 0));
+	glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
+	glBindTexture(GL_TEXTURE_2D, slider_texture);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+
+	model_matrix = glm::translate(model_matrix, glm::vec3(0, -1, 0));
+	glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
+	glBindTexture(GL_TEXTURE_2D, slider_knob_texture);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 	//Unbind the textures

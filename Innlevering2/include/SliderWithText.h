@@ -9,6 +9,9 @@
 #define SliderWithText_h__
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/transform2.hpp>
 #include <gl/glew.h>
 
 #include <string>
@@ -26,6 +29,7 @@ public:
 
 	void Update(float delta_time);
 
+	GLuint gettex(){return slider_knob_texture;}
 private:
 	static GLuint slider_texture;
 	static GLuint slider_knob_texture;
