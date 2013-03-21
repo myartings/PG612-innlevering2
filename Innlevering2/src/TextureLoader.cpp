@@ -7,9 +7,10 @@ namespace TextureLoader
 
 		ILuint ImageName;
 		unsigned int width, height, components;
-
+		
 		ilGenImages(1, &ImageName); // Grab a new image name.
 		ilBindImage(ImageName); 
+		ilEnable(IL_ORIGIN_SET);
 		ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
 		if (!ilLoadImage(image_to_load.c_str())) {
 			ILenum e;
@@ -20,7 +21,7 @@ namespace TextureLoader
 			ilDeleteImages(1, &ImageName); // Delete the image name. 
 			throw std::runtime_error(error.str());
 		}
-
+	
 		width = ilGetInteger(IL_IMAGE_WIDTH); // getting image width
 		height = ilGetInteger(IL_IMAGE_HEIGHT); // and height
 		components = ilGetInteger(IL_IMAGE_CHANNELS);
@@ -33,7 +34,7 @@ namespace TextureLoader
 			ilCopyPixels(0, 0, 0, width, height, 1, IL_RGBA, IL_UNSIGNED_BYTE, data.data());
 
 		ilDeleteImages(1, &ImageName); // Delete the image name. 
-
+		ilDisable(IL_ORIGIN_SET);
 		glBindTexture(GL_TEXTURE_2D, *target_image);
 		if(components == 3)
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data.data());
