@@ -1,25 +1,25 @@
 #include "SliderWithText.h"
 
-GLuint SliderWithText::slider_texture = -1;
-GLuint SliderWithText::slider_knob_texture = -1;
+TextureLoader::Image SliderWithText::slider_texture;
+TextureLoader::Image SliderWithText::slider_knob_texture;
 GLuint SliderWithText::gui_vbo = -1;
 GLuint SliderWithText::gui_vao = -1;
 
 SliderWithText::SliderWithText(std::string name_label_path,std::shared_ptr<GLUtils::Program> gui_program)
 {
-	if(slider_texture == -1 && slider_knob_texture == -1)
+	if(slider_texture.components == -1 && slider_knob_texture.components == -1)
 		LoadSliderTextures();
 	if(gui_vao == -1 && gui_vbo == -1)
 		GenerateGUI_VBO_VAO(gui_program);
 
-	glGenTextures(1, &label_texture);
-	glBindTexture(GL_TEXTURE_2D, label_texture);
+	glGenTextures(1, &label_texture.image);
+	glBindTexture(GL_TEXTURE_2D, label_texture.image);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	TextureLoader::LoadTexture(&label_texture,name_label_path);
+	TextureLoader::LoadTexture(&label_texture, name_label_path);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
@@ -30,8 +30,8 @@ SliderWithText::~SliderWithText()
 void SliderWithText::LoadSliderTextures()
 {
 
-	glGenTextures(1, &slider_texture);
-	glBindTexture(GL_TEXTURE_2D, slider_texture);
+	glGenTextures(1, &slider_texture.image);
+	glBindTexture(GL_TEXTURE_2D, slider_texture.image);
 	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
@@ -39,8 +39,8 @@ void SliderWithText::LoadSliderTextures()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	TextureLoader::LoadTexture(&slider_texture,"GUI/Slider_line.png");
 
-	glGenTextures(1, &slider_knob_texture);
-	glBindTexture(GL_TEXTURE_2D, slider_knob_texture);
+	glGenTextures(1, &slider_knob_texture.image);
+	glBindTexture(GL_TEXTURE_2D, slider_knob_texture.image);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
@@ -75,28 +75,37 @@ void SliderWithText::Draw( glm::vec2 position, GLuint& quad_fbo,
 						std::shared_ptr<GLUtils::Program> gui_program)
 {
 	gui_program->use();
-	model_matrix = glm::mat4(1);
-	model_matrix = glm::scale(model_matrix, glm::vec3(0.3));
 
 	//Bind the textures before rendering
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(gui_vao);
-CHECK_GL_ERRORS();
+
+	float downscale = 1.0f/label_texture.width;
+	model_matrix = glm::scale(glm::mat4(1), glm::vec3(label_texture.width*downscale, label_texture.height*downscale, 1));
 	model_matrix = glm::translate(model_matrix, glm::vec3(0, 0, -10));
+
 	glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
-	glBindTexture(GL_TEXTURE_2D, label_texture);
+	glBindTexture(GL_TEXTURE_2D, label_texture.image);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	CHECK_GL_ERRORS();
 
-	model_matrix = glm::translate(model_matrix, glm::vec3(0, -1, 0));
+	downscale = 1.0f/slider_texture.width;
+	model_matrix = glm::scale(glm::mat4(1), glm::vec3(slider_texture.width*downscale, slider_texture.height*downscale, 1));
+	model_matrix = glm::translate(model_matrix, glm::vec3(0, -1,-10));
 	glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
-	glBindTexture(GL_TEXTURE_2D, slider_texture);
+
+	glBindTexture(GL_TEXTURE_2D, slider_texture.image);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 
-	model_matrix = glm::translate(model_matrix, glm::vec3(0, -1, 0));
+	float xdownscale = 1.0f/slider_knob_texture.width;
+	float ydownscale = 1.0f/slider_knob_texture.height;
+	model_matrix = glm::scale(glm::mat4(1), glm::vec3(slider_knob_texture.width*downscale, slider_knob_texture.height*ydownscale, 1));
+
+	model_matrix = glm::scale(model_matrix, glm::vec3(0.1));
+	model_matrix = glm::translate(model_matrix, glm::vec3(0, -1, -10));
 	glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
-	glBindTexture(GL_TEXTURE_2D, slider_knob_texture);
+	glBindTexture(GL_TEXTURE_2D, slider_knob_texture.image);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 	//Unbind the textures

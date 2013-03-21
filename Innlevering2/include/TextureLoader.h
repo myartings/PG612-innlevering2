@@ -16,13 +16,28 @@ using GLUtils::checkGLErrors;
 
 namespace TextureLoader
 {
+	struct Image
+	{
+		Image()
+		{
+			image = -1;
+			width = -1;
+			height = -1;
+			components = -1;
+		}
+		GLuint image;
+		GLuint width;
+		GLuint height;
+		GLuint components;
+	};
+
 	/**
 	* Loads the desired texture using DevIL.
 	* The pixels are copied to the image represented
 	* with the target_image. TextureParameters should 
 	* already be set on the target_image.
 	*/
-	void LoadTexture(GLuint* target_image, const std::string& image_to_load);
+	void LoadTexture(Image* target_image, const std::string& image_to_load);
 	
 }
 

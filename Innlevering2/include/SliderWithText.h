@@ -19,8 +19,6 @@
 #include "TextureLoader.h"
 
 
-
-
 class SliderWithText
 {
 public:
@@ -32,16 +30,16 @@ public:
 
 	void Update(float delta_time);
 
-	GLuint gettex(){return slider_knob_texture;}
 private:
-	static GLuint slider_texture;
-	static GLuint slider_knob_texture;
+	static TextureLoader::Image slider_texture;
+	static TextureLoader::Image slider_knob_texture;
+
 	static GLuint gui_vbo, gui_vao;
 
 	void LoadSliderTextures();
 	void GenerateGUI_VBO_VAO(std::shared_ptr<GLUtils::Program> gui_program);
 
-	GLuint label_texture;
+	TextureLoader::Image label_texture;
 	glm::mat4 model_matrix;
 };
 
