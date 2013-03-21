@@ -236,7 +236,7 @@ void GameManager::init() {
 	SetShaderAttribPtrs();
 	current_program = phong_program;
 
-	slider_increase_line_width = std::make_shared<SliderWithText>("GUI/wireframe_line_width.png");
+	slider_increase_line_width = std::make_shared<SliderWithText>("GUI/wireframe_line_width.png", gui_program);
 }
 
 void GameManager::SetMatrices()

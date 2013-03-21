@@ -18,10 +18,13 @@
 
 #include "TextureLoader.h"
 
+
+
+
 class SliderWithText
 {
 public:
-    SliderWithText(std::string name_label_path);
+    SliderWithText(std::string name_label_path,std::shared_ptr<GLUtils::Program> gui_program);
     ~SliderWithText();
 
 	void Draw(glm::vec2 position, GLuint& quad_fbo, 
@@ -33,7 +36,10 @@ public:
 private:
 	static GLuint slider_texture;
 	static GLuint slider_knob_texture;
+	static GLuint gui_vbo, gui_vao;
+
 	void LoadSliderTextures();
+	void GenerateGUI_VBO_VAO(std::shared_ptr<GLUtils::Program> gui_program);
 
 	GLuint label_texture;
 	glm::mat4 model_matrix;
