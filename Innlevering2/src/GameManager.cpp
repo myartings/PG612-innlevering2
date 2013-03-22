@@ -246,9 +246,9 @@ void GameManager::SetMatrices()
 		window_width / (float) window_height, near_plane, far_plane);
 	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
 
-	//gui_camera.projection = glm::ortho(0.0f, (GLfloat)window_width, 0.0f, (GLfloat)window_height, 0.5f, 30.0f);
-	gui_camera.projection = glm::ortho(-((GLfloat)window_width/2.0f), ((GLfloat)window_width/2.0f), 
-		-((GLfloat)window_height/2.0f), ((GLfloat)window_height/2.0f), 0.5f, 30.0f);
+	gui_camera.projection = glm::ortho(0.0f, (GLfloat)window_width, 0.0f, (GLfloat)window_height, 0.5f, 30.0f);
+	//gui_camera.projection = glm::ortho(-((GLfloat)window_width/2.0f), ((GLfloat)window_width/2.0f), 
+	///	-((GLfloat)window_height/2.0f), ((GLfloat)window_height/2.0f), 0.5f, 30.0f);
 	gui_camera.view = glm::mat4(1.0);
 
 	light.projection = glm::perspective(90.0f, 1.0f, near_plane, far_plane);

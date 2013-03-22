@@ -72,7 +72,10 @@
     <ClInclude Include="include\SliderWithText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TextureLoader.h">
+    <ClInclude Include="include\GUI_Util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game_Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,7 +98,7 @@
     <ClCompile Include="src\SliderWithText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TextureLoader.cpp">
+    <ClCompile Include="GUI_Util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

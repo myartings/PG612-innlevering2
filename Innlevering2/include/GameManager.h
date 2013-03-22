@@ -19,6 +19,7 @@
 #include "ShadowFBO.h"
 #include "SliderWithText.h"
 
+#include "Game_Constants.h"
 /**
  * This class handles the game logic and display.
  * Uses SDL as the display manager, and glm for 
@@ -81,12 +82,7 @@ protected:
 	 */
 	void createOpenGLContext();
 
-	static const unsigned int window_width = 1280;
-	static const unsigned int window_height = 720;
 	
-	static const unsigned int shadow_map_width = 1024;
-	static const unsigned int shadow_map_height = 1024;
-
 	static const unsigned int n_models = 20;
 
 	static const float near_plane;

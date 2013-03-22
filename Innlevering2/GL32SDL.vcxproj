@@ -13,24 +13,25 @@
   <ItemGroup>
     <ClInclude Include="include\GameException.h" />
     <ClInclude Include="include\GameManager.h" />
+    <ClInclude Include="include\Game_Constants.h" />
     <ClInclude Include="include\GLUtils\BO.hpp" />
     <ClInclude Include="include\GLUtils\CubeMap.hpp" />
     <ClInclude Include="include\GLUtils\GLUtils.hpp" />
     <ClInclude Include="include\GLUtils\Program.hpp" />
+    <ClInclude Include="include\GUI_Util.h" />
     <ClInclude Include="include\Model.h" />
     <ClInclude Include="include\ShadowFBO.h" />
     <ClInclude Include="include\SliderWithText.h" />
-    <ClInclude Include="include\TextureLoader.h" />
     <ClInclude Include="include\Timer.h" />
     <ClInclude Include="include\VirtualTrackball.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GUI_Util.cpp" />
     <ClCompile Include="src\GameManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\ShadowFBO.cpp" />
     <ClCompile Include="src\SliderWithText.cpp" />
-    <ClCompile Include="src\TextureLoader.cpp" />
     <ClCompile Include="src\VirtualTrackball.cpp" />
   </ItemGroup>
   <ItemGroup>
