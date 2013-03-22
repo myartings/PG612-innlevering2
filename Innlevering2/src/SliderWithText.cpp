@@ -80,39 +80,38 @@ void SliderWithText::Draw( glm::vec2 position, GLuint& quad_fbo,
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(gui_vao);
 
-	float downscale = 1.0f/label_texture.width;
-	model_matrix = glm::scale(glm::mat4(1), glm::vec3(label_texture.width*downscale, label_texture.height*downscale, 1));
+
+	model_matrix = glm::scale(glm::mat4(1), glm::vec3(label_texture.width, label_texture.height, 1));
 	model_matrix = glm::translate(model_matrix, glm::vec3(0, 0, -10));
 
 	glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
 	glBindTexture(GL_TEXTURE_2D, label_texture.image);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	CHECK_GL_ERRORS();
 
-	downscale = 1.0f/slider_texture.width;
-	model_matrix = glm::scale(glm::mat4(1), glm::vec3(slider_texture.width*downscale, slider_texture.height*downscale, 1));
-	model_matrix = glm::translate(model_matrix, glm::vec3(0, -1,-10));
+
+	model_matrix = glm::scale(glm::mat4(1), glm::vec3(slider_texture.width, slider_texture.height, 1));
+	model_matrix = glm::translate(model_matrix, glm::vec3(0, -1,-9));
+
 	glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
-
 	glBindTexture(GL_TEXTURE_2D, slider_texture.image);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 
-	float xdownscale = 1.0f/slider_knob_texture.width;
-	float ydownscale = 1.0f/slider_knob_texture.height;
-	model_matrix = glm::scale(glm::mat4(1), glm::vec3(slider_knob_texture.width*downscale, slider_knob_texture.height*ydownscale, 1));
 
-	model_matrix = glm::scale(model_matrix, glm::vec3(0.1));
-	model_matrix = glm::translate(model_matrix, glm::vec3(0, -1, -10));
+	model_matrix = glm::scale(glm::mat4(1), glm::vec3(slider_knob_texture.width, slider_knob_texture.height, 1));
+	model_matrix = glm::translate(model_matrix, glm::vec3(0, -1, -8));
+
 	glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
 	glBindTexture(GL_TEXTURE_2D, slider_knob_texture.image);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
 
 	//Unbind the textures
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	gui_program->disuse();
+	CHECK_GL_ERRORS();
 }
 
 void SliderWithText::Update( float delta_time )
