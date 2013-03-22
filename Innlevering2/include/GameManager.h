@@ -156,6 +156,8 @@ private:
 
 	bool render_depth_dump;
 
+	float delta_time;
+
 };
 
 #endif // _GAMEMANAGER_H_

@@ -17,27 +17,30 @@
 #include <string>
 
 #include "GUI_Util.h"
+#include "GUITexture.h"
+
+using namespace gui;
+
+
 
 class SliderWithText
 {
 public:
-    SliderWithText(std::string name_label_path,std::shared_ptr<GLUtils::Program> gui_program);
+    SliderWithText(const std::string& name_label_path,std::shared_ptr<GLUtils::Program> gui_program);
     ~SliderWithText();
 
 	void Draw(glm::vec2 position, GLuint& quad_fbo, 
 			std::shared_ptr<GLUtils::Program> gui_program);
 
-	void Update(float delta_time);
+	bool Update(float delta_time, glm::vec2& mouse_pos);
 
 private:
-	//static gui::GUITexture slider_texture;
-	//static gui::GUITexture slider_knob_texture;
-	gui::GUITexture label_texture;
+	GUITexture slider;
+	GUITexture slider_knob;
+	GUITexture label;
 
 	static GLuint gui_vbo, gui_vao;
-
 	
-	void LoadSliderTextures();
 	void GenerateGUI_VBO_VAO(std::shared_ptr<GLUtils::Program> gui_program);
 
 	//gui::GUITexture label_texture;

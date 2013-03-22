@@ -18,6 +18,7 @@
     <ClInclude Include="include\GLUtils\CubeMap.hpp" />
     <ClInclude Include="include\GLUtils\GLUtils.hpp" />
     <ClInclude Include="include\GLUtils\Program.hpp" />
+    <ClInclude Include="include\GUITexture.h" />
     <ClInclude Include="include\GUI_Util.h" />
     <ClInclude Include="include\Model.h" />
     <ClInclude Include="include\ShadowFBO.h" />
@@ -28,6 +29,7 @@
   <ItemGroup>
     <ClCompile Include="GUI_Util.cpp" />
     <ClCompile Include="src\GameManager.cpp" />
+    <ClCompile Include="src\GUITexture.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\ShadowFBO.cpp" />

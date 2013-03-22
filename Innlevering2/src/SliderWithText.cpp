@@ -4,17 +4,23 @@
 //gui::GUITexture SliderWithText::slider_knob_texture;
 GLuint SliderWithText::gui_vbo = -1;
 GLuint SliderWithText::gui_vao = -1;
-std::string debug_texture = "GUI/debug.png";
 
-SliderWithText::SliderWithText(std::string name_label_path,std::shared_ptr<GLUtils::Program> gui_program)
-	:label_texture(name_label_path)
+static const std::string debug_texture_path = "GUI/debug.png";
+static const std::string slider_texture_path = "GUI/Slider_line.png";
+static const std::string slider_knob_texture_path = "GUI/Slider_knob.png";
+
+SliderWithText::SliderWithText(const std::string& name_label_path,std::shared_ptr<GLUtils::Program> gui_program)
+	:label(name_label_path), slider(slider_texture_path), slider_knob(slider_knob_texture_path)
 {
-	/*if(slider_texture.components == -1 && slider_knob_texture.components == -1)
-	LoadSliderTextures();*/
 	if(gui_vao == -1 && gui_vbo == -1)
 	GenerateGUI_VBO_VAO(gui_program);
 
-	label_texture.set_position(glm::vec3(0, 0, -5));
+	label.set_position(glm::vec3(800, 100, -5));
+	label.set_scale(glm::vec2(0.7f));
+	slider.set_position(glm::vec3(800, 0, -5));
+	slider.set_scale(glm::vec2(0.7f));
+	slider_knob.set_position(glm::vec3(800, 0, -5));
+	slider_knob.set_scale(glm::vec2(0.7f));
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
@@ -22,17 +28,6 @@ SliderWithText::~SliderWithText()
 {
 }
 
-void SliderWithText::LoadSliderTextures()
-{
-
-	//slider_texture.image = gui::create_texture();
-	//gui::LoadTexture(&slider_texture,"GUI/Slider_line.png");
-
-	//slider_knob_texture.image = gui::create_texture();
-	//gui::LoadTexture(&slider_knob_texture,"GUI/Slider_knob.png");
-	
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
 
 void SliderWithText::GenerateGUI_VBO_VAO(std::shared_ptr<GLUtils::Program> gui_program)
 {
@@ -64,45 +59,19 @@ void SliderWithText::Draw( glm::vec2 position, GLuint& quad_fbo,
 
 	////Bind the textures before rendering
 	//glActiveTexture(GL_TEXTURE0);
-	
 	glBindVertexArray(gui_vao);
 	
-	label_texture.Draw(gui_program);
-
-	//model_matrix = glm::scale(glm::mat4(1), glm::vec3(label_texture.width, label_texture.height, 1));
-	//model_matrix = glm::translate(model_matrix, glm::vec3(1, 1, -10));
-
-	//glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
-	//glBindTexture(GL_TEXTURE_2D, label_texture.image);
-	//glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-
-	//model_matrix = glm::scale(glm::mat4(1), glm::vec3(slider_texture.width, slider_texture.height, 1));
-	//model_matrix = glm::translate(model_matrix, glm::vec3(0, -1,-9));
-
-	//glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
-	//glBindTexture(GL_TEXTURE_2D, slider_texture.image);
-	//glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-
-
-	//model_matrix = glm::scale(glm::mat4(1), glm::vec3(slider_knob_texture.width, slider_knob_texture.height, 1));
-	//model_matrix = glm::translate(model_matrix, glm::vec3(0, -1, -8));
-
-	//glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
-	//glBindTexture(GL_TEXTURE_2D, slider_knob_texture.image);
-	//glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-	//gui_program->disuse();
-	//Unbind the textures
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, 0);
-
+	label.Draw(gui_program);
+	slider.Draw(gui_program);
+	slider_knob.Draw(gui_program);
 	CHECK_GL_ERRORS();
 }
 
-void SliderWithText::Update( float delta_time )
+bool SliderWithText::Update( float delta_time, glm::vec2& mouse_pos )
 {
+	glm::vec2 lowleft_mousepos = glm::vec2(mouse_pos.x, window_height-mouse_pos.y);
+	///if(Rect::contains( lowleft_mousepos)
 
+	return false;//return true if we are updating the slider
 }
 

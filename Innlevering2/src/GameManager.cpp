@@ -261,7 +261,6 @@ void GameManager::SetMatrices()
 	fbo_modelMatrix = glm::scale(fbo_modelMatrix, glm::vec3(0.3));
 }
 
-
 void GameManager::CreateShaderPrograms()
 {
 	//Create the programs we will use
@@ -452,8 +451,13 @@ void GameManager::renderShadowPass() {
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shadow_program->use();
+	//glEnable (GL_POLYGON_OFFSET_FILL);
+	//glPolygonOffset(1.0f, 4.4f);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable (GL_POLYGON_OFFSET_FILL);
-	glPolygonOffset(1.0f, 4.4f);
+	glPolygonOffset(10.0f, 4.4f);
+
 	CHECK_GL_ERRORS();
 	{
 		glBindVertexArray(vao[1]);
@@ -516,8 +520,7 @@ void GameManager::renderDepthDump()
 
 void GameManager::render() {
 	//Rotate the light a bit
-	float elapsed = static_cast<float>(my_timer.elapsedAndRestart());
-	glm::mat4 rotation = glm::rotate(elapsed*20.f, 0.0f, 1.0f, 0.0f);
+	glm::mat4 rotation = glm::rotate(delta_time*20.f, 0.0f, 1.0f, 0.0f);
 	light.position = glm::mat3(rotation)*light.position;
 	light.view = glm::lookAt(light.position,  glm::vec3(0), glm::vec3(0.0, 1.0, 0.0));
 
@@ -539,7 +542,10 @@ void GameManager::render() {
 		renderDepthDump();
 
 
+	glDisable(GL_CULL_FACE);
 	RenderGUI();
+	glEnable(GL_CULL_FACE);
+
 	CHECK_GL_ERRORS();
 }
 
@@ -555,6 +561,7 @@ void GameManager::play() {
 
 	//SDL main loop
 	while (!doExit) {
+		delta_time = static_cast<float>(my_timer.elapsedAndRestart());
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {// poll for pending events
 			switch (event.type) {
@@ -571,7 +578,8 @@ void GameManager::play() {
 				cam_trackball.rotateEnd(event.motion.x, event.motion.y);
 				break;
 			case SDL_MOUSEMOTION:
-				cam_trackball.rotate(event.motion.x, event.motion.y, zoom);
+				if(!slider_increase_line_width->Update(delta_time, glm::vec2(event.motion.x, event.motion.y)))
+					cam_trackball.rotate(event.motion.x, event.motion.y, zoom);
 				break;
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym) {
