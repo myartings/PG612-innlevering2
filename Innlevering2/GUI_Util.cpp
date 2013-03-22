@@ -7,13 +7,6 @@ namespace gui
 		return glm::scale(glm::mat4(1), glm::vec3(tex_width, tex_height, 1));
 	}
 
-	glm::mat4 screencoord_translate( glm::mat4& m, glm::vec3& v, Texture& texture)
-	{
-		//return glm::translate(m, glm::vec3(window_width/v.y, window_height/v.x, v.z));
-		//return glm::translate(m, glm::vec3(v.x/window_width, v.y/window_height, v.z));
-		return glm::translate(m, glm::vec3(v.x+(texture.width), v.y+(texture.height), v.z));
-	}
-
 	GLuint create_texture()
 	{
 		GLuint texture;
@@ -77,13 +70,13 @@ namespace gui
 	GUITexture::GUITexture()
 	{	
 		position = glm::vec3(0);
-		scale = glm::vec3(0);
+		dimensions = glm::vec3(0);
 	}
 
 	GUITexture::GUITexture( std::string& texture_path )
 	{
 		texture = LoadTexture(texture_path);
-		scale = glm::vec3(texture.width, texture.height, 1.0f);
+		dimensions = glm::vec3(texture.width, texture.height, 1.0f);
 		position = glm::vec3(0);
 	}
 
@@ -94,34 +87,34 @@ namespace gui
 	void GUITexture::translate( glm::vec2 v )
 	{
 		position += glm::vec3(v.x, v.y, 0);
-		model_matrix = glm::scale(glm::mat4(1), scale);
-		model_matrix = screencoord_translate(model_matrix, position, texture);;
+		model_matrix = glm::translate(model_matrix, position); 
+		model_matrix = glm::scale(model_matrix, dimensions);
 	}
 
 	void GUITexture::translate( glm::vec3 v )
 	{
 		position += v;
-		model_matrix = glm::scale(glm::mat4(1), scale);
-		model_matrix = screencoord_translate(model_matrix, position, texture);
+		model_matrix = glm::translate(model_matrix, position); 
+		model_matrix = glm::scale(model_matrix, dimensions);
 	}
 
 	void GUITexture::set_position( glm::vec2 v )
 	{
 		position = glm::vec3(v.x, v.y, -5.0f);
-		model_matrix = glm::scale(glm::mat4(1), scale);
-		model_matrix = screencoord_translate(model_matrix, position, texture);
+		model_matrix = glm::translate(model_matrix, position); 
+		model_matrix = glm::scale(model_matrix, dimensions);
 	}
 
 	void GUITexture::set_position( glm::vec3 v )
 	{
 		position = v;
-		model_matrix = screencoord_translate(glm::mat4(1), position, texture);
-		model_matrix = glm::scale(model_matrix, scale);
+		model_matrix = glm::translate(model_matrix, position); 
+		model_matrix = glm::scale(model_matrix, dimensions);
 	}
 
 	void GUITexture::Draw( std::shared_ptr<GLUtils::Program> gui_program )
 	{
-		//gui_program->use();
+		gui_program->use();
 		glActiveTexture(GL_TEXTURE0);
 		
 		glBindTexture(GL_TEXTURE_2D, texture.image);
@@ -130,12 +123,12 @@ namespace gui
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	
 		glBindTexture(GL_TEXTURE_2D, 0);
-		//gui_program->disuse();
+		gui_program->disuse();
 	}
 
 	void GUITexture::set_scale( glm::vec2 v )
 	{
-		scale = glm::vec3(v.x, v.y, 1.0f);
+		dimensions = glm::vec3(v.x, v.y, 1.0f);
 	}
 
 }

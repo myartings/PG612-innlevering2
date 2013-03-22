@@ -55,7 +55,7 @@ namespace gui
 
 		Texture texture;
 		glm::vec3 position;
-		glm::vec3 scale;
+		glm::vec3 dimensions;
 
 		void Draw(std::shared_ptr<GLUtils::Program> gui_program);
 
