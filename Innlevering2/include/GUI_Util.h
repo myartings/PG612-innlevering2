@@ -30,26 +30,64 @@ using GLUtils::checkGLErrors;
 */
 namespace gui
 {
-	struct GUITexture
+	struct Texture
 	{
-		GUITexture()
+		Texture()
 		{
 			image = -1;
 			width = -1;
 			height = -1;
 			components = -1;
-			model_matrix = glm::mat4(1);
 		}
 
 		GLuint image;
 		GLuint width;
 		GLuint height;
 		GLuint components;
+	};
+	
+	class GUITexture
+	{
+	public:
+		GUITexture();
+		GUITexture(std::string& texture_path);
+		~GUITexture();
 
+		Texture texture;
+		glm::vec3 position;
+
+		void Draw(std::shared_ptr<GLUtils::Program> gui_program);
+
+		/**
+		* Translates this GUITexture with the param vec2
+		*/
+		void translate(glm::vec2 v);
+
+		/**
+		* Translates this GUITexture with the param vec3
+		*/
+		void translate(glm::vec3 v);
+
+		/**
+		* Sets the position of this GUITexture to the param vec2
+		* When using a vec2 rather than a vec3 the depth of the 
+		* texture is defaulted to -5.0f;
+		*/
+		void set_position(glm::vec2 v);
+
+		/**
+		* Sets the position of this GUITexture to the param vec2
+		*/
+		void set_position(glm::vec3 v);
+		
+
+	private:
 		glm::mat4 model_matrix;
+
 	};
 
 	typedef std::shared_ptr<GUITexture> GUITexture_ptr;
+	
 	/**
 	* Builds a 4 * 4 model matrix for a gui texture.
 	* 
@@ -57,7 +95,6 @@ namespace gui
 	* @param tex_height height of the texture the matrix is to be used with
 	*/
 	glm::mat4 gen_gui_model_matrix(GLuint tex_width, GLuint tex_height);
-
 
 	/**
 	* Builds a translation 4 * 4 matrix created from a vector of 3 components.
@@ -70,23 +107,31 @@ namespace gui
 	glm::mat4 translate(glm::mat4& m, glm::vec3& v);
 
 	/**
+	* Translates the GUITexture with the 3d vector
+	* 
+	* @param gui_texture ptr to GUITexture to translate
+	* @param v Coordinates of a translation vector.
+	*/
+	void translate(GUITexture_ptr gui_texture, glm::vec3& v);
+
+	/**
 	* Generates a GL_TEXTURE_2D with glTexParameteri values suiting GUI textures
 	*/
-	GLuint create_gui_texture();
+	GLuint create_texture();
 
 	/**
-	* Loads the desired texture using DevIL. The pixels are copied to the image represented
-	* with the target_image. TextureParameters should 
-	* already be set on the target_image.
+	* Loads the desired texture using DevIL.
+	*
+	* @returns a Texture object containing openGL image ID, and the
+	* width, height and number of components of the image
 	*/
-	void LoadTexture(GUITexture* target_image, const std::string& image_to_load);
+	Texture LoadTexture(const std::string& image_to_load);
 
 	/**
-	* Loads the texture specified in the parameter and placing it in a 
-	* GUITexture object which is returned.
+	* Loads the desired texture using DevIL.
 	*
 	* @param texture_path path to the texture to load, including name and file extension
-	* @returns a GUITexture object containing the texture, ready for use.
+	* @returns a GUITexture ptr to an object containing the texture, ready for use.
 	*/
 	GUITexture_ptr load_gui_texture(const std::string& texture_path);
 }

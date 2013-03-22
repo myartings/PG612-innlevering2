@@ -30,16 +30,18 @@ public:
 	void Update(float delta_time);
 
 private:
-	static gui::GUITexture slider_texture;
-	static gui::GUITexture slider_knob_texture;
+	//static gui::GUITexture slider_texture;
+	//static gui::GUITexture slider_knob_texture;
+	gui::GUITexture label_texture;
 
 	static GLuint gui_vbo, gui_vao;
 
+	
 	void LoadSliderTextures();
 	void GenerateGUI_VBO_VAO(std::shared_ptr<GLUtils::Program> gui_program);
 
-	gui::GUITexture label_texture;
-	glm::mat4 model_matrix;
+	//gui::GUITexture label_texture;
+	//glm::mat4 model_matrix;
 };
 
 #endif // SliderWithText_h__

@@ -7,12 +7,17 @@ namespace gui
 		return glm::scale(glm::mat4(1), glm::vec3(tex_width, tex_height, 1));
 	}
 
-	glm::mat4 translate( glm::mat4& m, glm::vec3& v )
-	{
-		return glm::translate(m, glm::vec3(v.x/window_width, v.y/window_height, v.z));
-	}
+	//glm::mat4 translate( glm::mat4& m, glm::vec3& v )
+	//{
+	//	return glm::translate(m, glm::vec3(v.x/window_width, v.y/window_height, v.z));
+	//}
 
-	GLuint create_gui_texture()
+	//void translate( GUITexture_ptr gui_texture, glm::vec3& v )
+	//{
+	//	gui_texture->model_matrix = translate(gui_texture->model_matrix, v);
+	//}
+
+	GLuint create_texture()
 	{
 		GLuint texture;
 
@@ -29,10 +34,10 @@ namespace gui
 		return texture;
 	}
 
-	void LoadTexture(GUITexture* target_image, const std::string& image_to_load)
+	Texture LoadTexture(const std::string& image_to_load)
 	{
 		std::vector<float> data;
-
+		Texture ret_tex;
 		ILuint ImageName;
 
 		ilGenImages(1, &ImageName); // Grab a new image name.
@@ -49,73 +54,79 @@ namespace gui
 			throw std::runtime_error(error.str());
 		}
 
-		target_image->width = ilGetInteger(IL_IMAGE_WIDTH); // getting image width
-		target_image->height = ilGetInteger(IL_IMAGE_HEIGHT); // and height
-		target_image->components = ilGetInteger(IL_IMAGE_CHANNELS);
+		ret_tex.width = ilGetInteger(IL_IMAGE_WIDTH); // getting image width
+		ret_tex.height = ilGetInteger(IL_IMAGE_HEIGHT); // and height
+		ret_tex.components = ilGetInteger(IL_IMAGE_CHANNELS);
 
-		data.resize(target_image->width*target_image->height*target_image->components);
+		data.resize(ret_tex.width*ret_tex.height*ret_tex.components);
 
-		if(target_image->components == 3)
-			ilCopyPixels(0, 0, 0, target_image->width, target_image->height, 1, IL_RGB, IL_UNSIGNED_BYTE, data.data());
-		else if(target_image->components == 4)
-			ilCopyPixels(0, 0, 0, target_image->width, target_image->height, 1, IL_RGBA, IL_UNSIGNED_BYTE, data.data());
+		if(ret_tex.components == 3)
+			ilCopyPixels(0, 0, 0, ret_tex.width, ret_tex.height, 1, IL_RGB, IL_UNSIGNED_BYTE, data.data());
+		else if(ret_tex.components == 4)
+			ilCopyPixels(0, 0, 0, ret_tex.width, ret_tex.height, 1, IL_RGBA, IL_UNSIGNED_BYTE, data.data());
 
 		ilDeleteImages(1, &ImageName);
 		ilDisable(IL_ORIGIN_SET);
-		glBindTexture(GL_TEXTURE_2D, target_image->image);
+		glBindTexture(GL_TEXTURE_2D, ret_tex.image);
 
-		if(target_image->components == 3)
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, target_image->width, target_image->height, 0, GL_RGB, GL_UNSIGNED_BYTE, data.data());
-		else if(target_image->components == 4)
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, target_image->width, target_image->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
+		if(ret_tex.components == 3)
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, ret_tex.width, ret_tex.height, 0, GL_RGB, GL_UNSIGNED_BYTE, data.data());
+		else if(ret_tex.components == 4)
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ret_tex.width, ret_tex.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
+
+		return ret_tex;
 	}
 
-	GUITexture_ptr load_gui_texture( const std::string& texture_path )
+	GUITexture::GUITexture()
+	{	
+		position = glm::vec3(0);
+	}
+
+	GUITexture::GUITexture( std::string& texture_path )
 	{
-		std::vector<float> data;
-		GUITexture_ptr gui_texture = std::make_shared<GUITexture>();
-		gui_texture->image = create_gui_texture();
-
-		ILuint ImageName;
-
-		ilGenImages(1, &ImageName); // Grab a new image name.
-		ilBindImage(ImageName); 
-		ilEnable(IL_ORIGIN_SET);
-		ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
-		if (!ilLoadImage(texture_path.c_str())) {
-			ILenum e;
-			std::stringstream error;
-			while ((e = ilGetError()) != IL_NO_ERROR) {
-				error << e << ": " << iluErrorString(e) << std::endl;
-			}
-			ilDeleteImages(1, &ImageName); // Delete the image name. 
-			throw std::runtime_error(error.str());
-		}
-
-		gui_texture->width = ilGetInteger(IL_IMAGE_WIDTH); // getting image width
-		gui_texture->height = ilGetInteger(IL_IMAGE_HEIGHT); // and height
-		gui_texture->components = ilGetInteger(IL_IMAGE_CHANNELS);
-
-		data.resize(gui_texture->width*gui_texture->height*gui_texture->components);
-
-		if(gui_texture->components == 3)
-			ilCopyPixels(0, 0, 0, gui_texture->width, gui_texture->height, 1, IL_RGB, IL_UNSIGNED_BYTE, data.data());
-		else if(gui_texture->components == 4)
-			ilCopyPixels(0, 0, 0, gui_texture->width, gui_texture->height, 1, IL_RGBA, IL_UNSIGNED_BYTE, data.data());
-
-		ilDeleteImages(1, &ImageName);
-		ilDisable(IL_ORIGIN_SET);
-		glBindTexture(GL_TEXTURE_2D, gui_texture->image);
-
-		if(gui_texture->components == 3)
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, gui_texture->width, gui_texture->height, 0, GL_RGB, GL_UNSIGNED_BYTE, data.data());
-		else if(gui_texture->components == 4)
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, gui_texture->width, gui_texture->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
-
-		gui_texture->model_matrix = gen_gui_model_matrix(gui_texture->width, gui_texture->height);
-		return gui_texture;
+		texture = LoadTexture(texture_path);
 	}
 
+	GUITexture::~GUITexture()
+	{
+	}
 
+	void GUITexture::translate( glm::vec2 v )
+	{
+		position += glm::vec3(v.x, v.y, 0);
+		model_matrix = glm::translate(model_matrix, position);
+	}
+
+	void GUITexture::translate( glm::vec3 v )
+	{
+		position += v;
+		model_matrix = glm::translate(model_matrix, position);
+	}
+
+	void GUITexture::set_position( glm::vec2 v )
+	{
+		position = glm::vec3(v.x, v.y, -5.0f);
+		model_matrix = glm::translate(model_matrix, position);
+	}
+
+	void GUITexture::set_position( glm::vec3 v )
+	{
+		position = v;
+		model_matrix = glm::translate(model_matrix, position);
+	}
+
+	void GUITexture::Draw( std::shared_ptr<GLUtils::Program> gui_program )
+	{
+		gui_program->use();
+		glActiveTexture(GL_TEXTURE0);
+		
+		glBindTexture(GL_TEXTURE_2D, texture.image);
+
+		glUniformMatrix4fv(gui_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(model_matrix));
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	
+		glBindTexture(GL_TEXTURE_2D, 0);
+		gui_program->disuse();
+	}
 
 }
