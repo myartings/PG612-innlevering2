@@ -55,6 +55,7 @@ namespace gui
 
 		Texture texture;
 		glm::vec3 position;
+		glm::vec3 scale;
 
 		void Draw(std::shared_ptr<GLUtils::Program> gui_program);
 
@@ -80,6 +81,7 @@ namespace gui
 		*/
 		void set_position(glm::vec3 v);
 		
+		void set_scale(glm::vec2 v);
 
 	private:
 		glm::mat4 model_matrix;
@@ -104,15 +106,7 @@ namespace gui
 	* @param m Input matrix multiplied by this translation matrix.
 	* @param v Coordinates of a translation vector.
 	*/
-	glm::mat4 translate(glm::mat4& m, glm::vec3& v);
-
-	/**
-	* Translates the GUITexture with the 3d vector
-	* 
-	* @param gui_texture ptr to GUITexture to translate
-	* @param v Coordinates of a translation vector.
-	*/
-	void translate(GUITexture_ptr gui_texture, glm::vec3& v);
+	glm::mat4 screencoord_translate(glm::mat4& m, glm::vec3& v);
 
 	/**
 	* Generates a GL_TEXTURE_2D with glTexParameteri values suiting GUI textures

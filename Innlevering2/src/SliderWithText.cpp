@@ -4,9 +4,9 @@
 //gui::GUITexture SliderWithText::slider_knob_texture;
 GLuint SliderWithText::gui_vbo = -1;
 GLuint SliderWithText::gui_vao = -1;
-
+std::string asd = "GUI/debug.png";
 SliderWithText::SliderWithText(std::string name_label_path,std::shared_ptr<GLUtils::Program> gui_program)
-	:label_texture(name_label_path)
+	:label_texture(asd)
 {
 	/*if(slider_texture.components == -1 && slider_knob_texture.components == -1)
 	LoadSliderTextures();*/
@@ -22,7 +22,7 @@ SliderWithText::SliderWithText(std::string name_label_path,std::shared_ptr<GLUti
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	//label_texture.image = gui::create_texture();
 	//gui::LoadTexture(&label_texture, name_label_path);
-	label_texture.set_position(glm::vec3(1, 1, -5));
+	label_texture.set_position(glm::vec3(75, 0, -5));
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
@@ -50,7 +50,7 @@ void SliderWithText::GenerateGUI_VBO_VAO(std::shared_ptr<GLUtils::Program> gui_p
 		-1.0, 1.0,
 		-1.0, -1.0,
 		1.0, 1.0,
-		1.0, -1.0,
+		1.0, -1.0
 	};
 
 	glGenBuffers(1, &gui_vbo);
@@ -64,7 +64,7 @@ void SliderWithText::GenerateGUI_VBO_VAO(std::shared_ptr<GLUtils::Program> gui_p
 void SliderWithText::Draw( glm::vec2 position, GLuint& quad_fbo,
 						std::shared_ptr<GLUtils::Program> gui_program)
 {
-	//gui_program->use();
+	gui_program->use();
 
 	////Bind the textures before rendering
 	//glActiveTexture(GL_TEXTURE0);
@@ -97,7 +97,7 @@ void SliderWithText::Draw( glm::vec2 position, GLuint& quad_fbo,
 	//glBindTexture(GL_TEXTURE_2D, slider_knob_texture.image);
 	//glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
-
+	gui_program->disuse();
 	//Unbind the textures
 	//glActiveTexture(GL_TEXTURE0);
 	//glBindTexture(GL_TEXTURE_2D, 0);
