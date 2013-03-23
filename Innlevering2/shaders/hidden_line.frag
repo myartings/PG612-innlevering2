@@ -47,5 +47,5 @@ void main() {
 	out_color = vec4( ( (diff_cubemap_color*color) + (spec*0.1) ) * shade_factor, 1.0);
 	if(k < line_threshold )
 		out_color = vec4( out_color.xyz * amplify(k, 40, -0.5), 1.0);
-		//out_color = vec4( out_color.xyz * amplify(k, 40, -0.5), 1);
+		//out_color = vec4( out_color.xyz * amplify(k, 40, -0.5), 1); 
 }
