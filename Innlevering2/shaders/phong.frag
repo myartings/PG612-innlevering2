@@ -1,5 +1,7 @@
 #version 150
 uniform sampler2DShadow shadowmap_texture;
+uniform samplerCube diffuse_map;
+
 uniform vec3 color;
 
 smooth in vec4 f_shadow_coord;
@@ -29,5 +31,7 @@ void main() {
 	sum += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, 1)+o);
 	sum = sum * 0.25 + 0.75;
 
-    out_color = vec4( ( (diff*color) + (spec*0.1) ) * sum, 1.0);
+	vec3 texcoord_reflect = reflect(-f_v, n);
+	vec3 diff_cubemap_color = texture(diffuse_map, texcoord_reflect).xyz;
+    out_color = vec4( ( (diff_cubemap_color*color) + (spec*0.1) ) * sum, 1.0);
 }

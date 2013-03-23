@@ -300,6 +300,8 @@ void GameManager::SetShaderUniforms()
 	//Set uniforms for the programs
 	//Typically diffuse_cubemap and shadowmap
 	phong_program->use();
+	glUniform1i(phong_program->getUniform("shadowmap_texture"), 0);
+	glUniform1i(phong_program->getUniform("diffuse_map"), 1);
 	phong_program->disuse();
 	
 	wireframe_program->use();
@@ -441,7 +443,7 @@ void GameManager::renderColorPass() {
 	//Bind shadow map and diffuse cube map
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, shadow_fbo->getTexture());
-
+	diffuse_cubemap->bind(GL_TEXTURE1);
 	/**
 	  * Render cube
 	  */ 
