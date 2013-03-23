@@ -125,7 +125,9 @@ private:
 	std::shared_ptr<ShadowFBO> shadow_fbo;
 	std::shared_ptr<ShadowFBO> screen_dump_fbo;
 
-	std::shared_ptr<SliderWithText> slider_increase_line_width;
+	std::shared_ptr<SliderWithText> slider_line_threshold;
+	std::shared_ptr<SliderWithText> slider_line_scale;
+	std::shared_ptr<SliderWithText> slider_line_offset;
 
 	GLuint fbo_vertex_bo; //< Vetex buffer object for fullscreen quad
 	GLuint fbo_vao; //< Vertex array object for the depthbuffer dumping

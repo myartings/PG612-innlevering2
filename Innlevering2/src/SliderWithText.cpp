@@ -19,13 +19,13 @@ SliderWithText::SliderWithText(const std::string& name_label_path,
 	slider.set_scale(glm::vec2(0.6f));
 	
 
-	slider_knob.set_position(glm::vec3(position.x, position.y, -5));
+	slider_knob.set_position(glm::vec3(slider.get_rect().x+(slider.get_rect().width/3.0f), position.y, -5));
 	slider_knob.set_scale(glm::vec2(0.6f));
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	interacting = false;
-	slider_value = 0.0f;
+	UpdateSliderValue();
 }
 
 SliderWithText::~SliderWithText()
@@ -61,14 +61,7 @@ void SliderWithText::Update( float delta_time, glm::vec2& mouse_pos )
 			}
 			previous_mouse_pos = lowleft_mousepos;
 		}
-
-		slider_value = (slider_knob.get2d_position().x - slider.get_rect().x) / slider.get_rect().width;
-		slider_value += 0.08f;
-		if(slider_value < 0.0f)
-			slider_value = 0.0f;
-		else if(slider_value > 1.0f)
-			slider_value = 1.0f;
-		std::cout << slider_value << std::endl;
+		UpdateSliderValue();
 	}
 }
 
@@ -93,5 +86,17 @@ void SliderWithText::EndInteraction( glm::vec2& mouse_pos )
 float SliderWithText::get_slider_value()
 {
 	return slider_value;
+}
+
+void SliderWithText::UpdateSliderValue()
+{
+
+	slider_value = (slider_knob.get2d_position().x - slider.get_rect().x) / slider.get_rect().width;
+	slider_value += 0.08f;
+	if(slider_value < 0.0f)
+		slider_value = 0.0f;
+	else if(slider_value > 1.0f)
+		slider_value = 1.0f;
+	std::cout << slider_value << std::endl;
 }
 

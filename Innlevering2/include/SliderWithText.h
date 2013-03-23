@@ -89,6 +89,8 @@ private:
 	// The value the slider represents, based on the position of the slider knob.
 	// The value is clamped between [0, 1]
 	float slider_value;
+	void UpdateSliderValue();
+
 };
 
 #endif // SliderWithText_h__

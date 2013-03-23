@@ -2,6 +2,10 @@
 uniform sampler2DShadow shadowmap_texture;
 uniform vec3 color;
 
+uniform float line_threshold;
+uniform float line_scale;
+uniform float line_offset;
+
 smooth in vec4 f_shadow_coord;
 
 smooth in vec3 f_n;
@@ -36,6 +40,7 @@ void main() {
 
 	out_color = vec4( ( (diff*color) + (spec*0.1) ) * shade_factor, 1.0);
 
-	if(k<0.03 )
-		out_color = vec4( out_color.xyz * amplify(k, 40, -0.5), 1);
+	if(k < line_threshold )
+		out_color = vec4( out_color.xyz * amplify(k, line_scale, line_offset), 1);
+		//out_color = vec4( out_color.xyz * amplify(k, 40, -0.5), 1);
 }
