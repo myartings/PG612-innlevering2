@@ -68,7 +68,6 @@ namespace gui
 	}
 
 
-
 	Rect::Rect()
 	{
 		x = 0;

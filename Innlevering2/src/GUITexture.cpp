@@ -22,36 +22,45 @@ namespace gui
 		
 	}
 
-	void GUITexture::translate( glm::vec2 v )
+	void GUITexture::translate( glm::vec2& v )
 	{
 		position += glm::vec3(v.x, v.y, 0);
-		model_matrix = glm::translate(glm::mat4(1), position); 
-		model_matrix = glm::scale(model_matrix, dimensions);
-		model_matrix = glm::scale(model_matrix, scale);
+		set_position(position);
 	}
 
-	void GUITexture::translate( glm::vec3 v )
+	void GUITexture::translate( glm::vec3& v )
 	{
 		position += v;
-		model_matrix = glm::translate(glm::mat4(1), position); 
-		model_matrix = glm::scale(model_matrix, dimensions);
-		model_matrix = glm::scale(model_matrix, scale);
+		set_position(position);
 	}
 
-	void GUITexture::set_position( glm::vec2 v )
+	void GUITexture::set_position( glm::vec2& v )
 	{
 		position = glm::vec3(v.x, v.y, -5.0f);
-		model_matrix = glm::translate(glm::mat4(1), position); 
-		model_matrix = glm::scale(model_matrix, dimensions);
-		model_matrix = glm::scale(model_matrix, scale);
+		set_position(position);
 	}
 
-	void GUITexture::set_position( glm::vec3 v )
+	void GUITexture::set_position( glm::vec3& v )
 	{
 		position = v;
 		model_matrix = glm::translate(glm::mat4(1), position); 
 		model_matrix = glm::scale(model_matrix, dimensions);
 		model_matrix = glm::scale(model_matrix, scale);
+		rect.x = static_cast<GLint>(position.x);
+		rect.y = static_cast<GLint>(position.y);
+	}
+
+	void GUITexture::set_scale( glm::vec2& v )
+	{
+		scale = glm::vec3(v.x, v.y, 1.0f);
+		model_matrix = glm::translate(glm::mat4(1), position); 
+		model_matrix = glm::scale(model_matrix, dimensions);
+		model_matrix = glm::scale(model_matrix, scale);
+	}
+
+	bool GUITexture::contains( glm::vec2& v )
+	{
+		return Rect::contains(rect, v);
 	}
 
 	void GUITexture::Draw( std::shared_ptr<GLUtils::Program> gui_program )
@@ -66,19 +75,6 @@ namespace gui
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 		gui_program->disuse();
-	}
-
-	void GUITexture::set_scale( glm::vec2 v )
-	{
-		scale = glm::vec3(v.x, v.y, 1.0f);
-		model_matrix = glm::translate(glm::mat4(1), position); 
-		model_matrix = glm::scale(model_matrix, dimensions);
-		model_matrix = glm::scale(model_matrix, scale);
-	}
-
-	bool GUITexture::contains( glm::vec2 v )
-	{
-		return Rect::contains(rect, v);
 	}
 
 }

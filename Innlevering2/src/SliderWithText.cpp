@@ -70,8 +70,12 @@ void SliderWithText::Draw( glm::vec2 position, GLuint& quad_fbo,
 bool SliderWithText::Update( float delta_time, glm::vec2& mouse_pos )
 {
 	glm::vec2 lowleft_mousepos = glm::vec2(mouse_pos.x, window_height-mouse_pos.y);
-	///if(Rect::contains( lowleft_mousepos)
-
+	std::cout << "x: " << lowleft_mousepos.x << "  y: " << lowleft_mousepos.y << std::endl;
+	if(slider_knob.contains(lowleft_mousepos))
+	{
+		std::cout << "inside"<< std::endl;
+		return true;
+	}
 	return false;//return true if we are updating the slider
 }
 

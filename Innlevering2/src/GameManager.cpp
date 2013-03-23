@@ -572,13 +572,14 @@ void GameManager::play() {
 					zoomOut();
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				cam_trackball.rotateBegin(event.motion.x, event.motion.y);
+				if(!slider_increase_line_width->Update(delta_time, glm::vec2(event.motion.x, event.motion.y)))
+					cam_trackball.rotateBegin(event.motion.x, event.motion.y);
 				break;
 			case SDL_MOUSEBUTTONUP:
 				cam_trackball.rotateEnd(event.motion.x, event.motion.y);
 				break;
 			case SDL_MOUSEMOTION:
-				if(!slider_increase_line_width->Update(delta_time, glm::vec2(event.motion.x, event.motion.y)))
+					slider_increase_line_width->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
 					cam_trackball.rotate(event.motion.x, event.motion.y, zoom);
 				break;
 			case SDL_KEYDOWN:

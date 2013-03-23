@@ -43,29 +43,29 @@ namespace gui
 		/**
 		* Translates this GUITexture with the param vec2
 		*/
-		void translate(glm::vec2 v);
+		void translate(glm::vec2& v);
 
 		/**
 		* Translates this GUITexture with the param vec3
 		*/
-		void translate(glm::vec3 v);
+		void translate(glm::vec3& v);
 
 		/**
 		* Sets the position of this GUITexture to the param vec2
 		* When using a vec2 rather than a vec3 the depth of the 
 		* texture is defaulted to -5.0f;
 		*/
-		void set_position(glm::vec2 v);
+		void set_position(glm::vec2& v);
 
 		/**
 		* Sets the position of this GUITexture to the param vec3
 		*/
-		void set_position(glm::vec3 v);
+		void set_position(glm::vec3& v);
 		
 		/**
 		* Sets the scale of this GUITexture using the param vec2
 		*/
-		void set_scale(glm::vec2 v);
+		void set_scale(glm::vec2& v);
 
 		/**
 		* Returns true if the param vector is within/colliding with 
@@ -74,7 +74,7 @@ namespace gui
 		* @param v a 2d point on the screen
 		* @return true when the param vector is within this GUITexture
 		*/
-		bool contains(glm::vec2 v);
+		bool contains(glm::vec2& v);
 
 	private:
 		glm::mat4 model_matrix;
