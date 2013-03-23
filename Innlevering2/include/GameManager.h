@@ -132,6 +132,8 @@ private:
 	std::shared_ptr<SliderWithText> slider_line_threshold;
 	std::shared_ptr<SliderWithText> slider_line_scale;
 	std::shared_ptr<SliderWithText> slider_line_offset;
+	std::shared_ptr<SliderWithText> slider_shadefactor_addvalue;
+	std::shared_ptr<SliderWithText> slider_shadefactor_multiplier;
 
 	GLuint fbo_vertex_bo; //< Vetex buffer object for fullscreen quad
 	GLuint fbo_vao; //< Vertex array object for the depthbuffer dumping

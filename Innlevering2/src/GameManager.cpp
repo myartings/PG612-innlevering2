@@ -254,6 +254,10 @@ void GameManager::init() {
 									gui_program, glm::vec2(950.0f, 75.0f));
 	slider_line_offset	  = std::make_shared<SliderWithText>("GUI/amplify_offset.png", 
 									gui_program, glm::vec2(950.0f, 145.0f));
+	slider_shadefactor_addvalue		= std::make_shared<SliderWithText>("GUI/shadefactor_addvalue.png", 
+									gui_program, glm::vec2(950.0f, 215.0f));
+	slider_shadefactor_multiplier	= std::make_shared<SliderWithText>("GUI/shadefactor_multiplier.png", 
+									gui_program, glm::vec2(950.0f, 285.0f));
 }
 
 void GameManager::SetMatrices()
@@ -448,6 +452,8 @@ void GameManager::renderColorPass() {
 		glUniform1f(current_program->getUniform("line_threshold"), slider_line_threshold->get_slider_value()/10);
 		glUniform1f(current_program->getUniform("line_scale"), slider_line_scale->get_slider_value());
 		glUniform1f(current_program->getUniform("line_offset"), slider_line_offset->get_slider_value());
+		glUniform1f(current_program->getUniform("shadefactor_multiplier"), slider_shadefactor_addvalue->get_slider_value());
+		glUniform1f(current_program->getUniform("shadefactor_addvalue"), slider_shadefactor_multiplier->get_slider_value());
 	}
 
 	//Bind shadow map and diffuse cube map
@@ -675,6 +681,8 @@ void GameManager::RenderGUI()
 		slider_line_threshold->Draw(gui_program, gui_vao);
 		slider_line_scale->Draw(gui_program, gui_vao);
 		slider_line_offset->Draw(gui_program, gui_vao);
+		slider_shadefactor_addvalue->Draw(gui_program, gui_vao);
+		slider_shadefactor_multiplier->Draw(gui_program, gui_vao);
 	}
 	
 }
@@ -698,19 +706,25 @@ void GameManager::play() {
 			case SDL_MOUSEBUTTONDOWN:
 				if(!slider_line_threshold->BeginInteraction(glm::vec2(event.motion.x, event.motion.y))
 				&& !slider_line_scale->BeginInteraction(glm::vec2(event.motion.x, event.motion.y))	
-				&& !slider_line_offset->BeginInteraction(glm::vec2(event.motion.x, event.motion.y)))
+				&& !slider_line_offset->BeginInteraction(glm::vec2(event.motion.x, event.motion.y))
+				&& !slider_shadefactor_addvalue->BeginInteraction(glm::vec2(event.motion.x, event.motion.y))
+				&& !slider_shadefactor_multiplier->BeginInteraction(glm::vec2(event.motion.x, event.motion.y)))
 					cam_trackball.rotateBegin(event.motion.x, event.motion.y);
 				break;
 			case SDL_MOUSEBUTTONUP:
 				slider_line_threshold->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
 				slider_line_scale->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
 				slider_line_offset->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
+				slider_shadefactor_addvalue->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
+				slider_shadefactor_multiplier->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
 				cam_trackball.rotateEnd(event.motion.x, event.motion.y);
 				break;
 			case SDL_MOUSEMOTION:
 					slider_line_threshold->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
 					slider_line_scale->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
 					slider_line_offset->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
+					slider_shadefactor_addvalue->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
+					slider_shadefactor_multiplier->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
 					cam_trackball.rotate(event.motion.x, event.motion.y, zoom);
 				break;
 			case SDL_KEYDOWN:
