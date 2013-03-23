@@ -40,6 +40,8 @@
     <ClCompile Include="src\VirtualTrackball.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\cubemap.frag" />
+    <None Include="shaders\cubemap.vert" />
     <None Include="shaders\depth_dump.frag" />
     <None Include="shaders\depth_dump.vert" />
     <None Include="shaders\GUI.frag" />

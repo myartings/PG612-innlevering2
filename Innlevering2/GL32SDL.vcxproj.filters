@@ -37,6 +37,9 @@
     <Filter Include="Resource Files\shaders\gui">
       <UniqueIdentifier>{e023114d-5f51-495e-a5e0-1678b103abb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\shaders\cubemap">
+      <UniqueIdentifier>{06d0a7d9-ddfc-4dec-9bc0-5b2a1fbc80ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameManager.h">
@@ -165,6 +168,12 @@
     </None>
     <None Include="shaders\GUI.frag">
       <Filter>Resource Files\shaders\gui</Filter>
+    </None>
+    <None Include="shaders\cubemap.frag">
+      <Filter>Resource Files\shaders\cubemap</Filter>
+    </None>
+    <None Include="shaders\cubemap.vert">
+      <Filter>Resource Files\shaders\cubemap</Filter>
     </None>
   </ItemGroup>
 </Project>

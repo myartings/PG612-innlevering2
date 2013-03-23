@@ -216,12 +216,17 @@ void GameManager::init() {
 	iluInit();
 
 	//Initialize the different stuff we need
-	model.reset(new Model("models/bunny.obj", false));
+	bunny.reset(new Model("models/bunny.obj", false));
+	room.reset(new Model("models/room.obj", false));
+
 	cube_vertices.reset(new BO<GL_ARRAY_BUFFER>(cube_vertices_data, sizeof(cube_vertices_data)));
 	cube_normals.reset(new BO<GL_ARRAY_BUFFER>(cube_normals_data, sizeof(cube_normals_data)));
 
 	shadow_fbo.reset(new ShadowFBO(window_width, window_height, USED_FOR_SHADOWS));
 	screen_dump_fbo.reset(new ShadowFBO(window_width, window_height, USED_FOR_SCREEN_RENDER));
+
+	diffuse_cubemap.reset(new CubeMap("cubemaps/diffuse/", "jpg"));
+	spacebox.reset(new CubeMap("cubemaps/skybox/", "jpg"));
 
 	SetMatrices();
 
@@ -232,7 +237,7 @@ void GameManager::init() {
 		float ty = rand() / (float) RAND_MAX - 0.5f;
 		float tz = rand() / (float) RAND_MAX - 0.5f;
 
-		glm::mat4 transformation = model->getTransform();
+		glm::mat4 transformation = bunny->getTransform();
 		transformation = glm::translate(transformation, glm::vec3(tx, ty, tz));
 
 		model_matrices.push_back(transformation);
@@ -322,23 +327,27 @@ void GameManager::SetShaderUniforms()
 
 void GameManager::SetShaderAttribPtrs()
 {
+#pragma region vao[0]
 	//Set up VAOs and set as input to shaders
-	glGenVertexArrays(2, &vao[0]);
+	glGenVertexArrays(3, &vao[0]);
 
 	glBindVertexArray(vao[0]);
-	model->getInterleavedVBO()->bind();
-	model->getIndices()->bind();
-	phong_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
-	phong_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
+	bunny->getInterleavedVBO()->bind();
+	bunny->getIndices()->bind();
+	phong_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getVerticeOffset());
+	phong_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getNormalOffset());
 
-	wireframe_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
-	wireframe_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
+	wireframe_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getVerticeOffset());
+	wireframe_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getNormalOffset());
 
-	hidden_line_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
-	hidden_line_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
-	model->getInterleavedVBO()->unbind();
+	hidden_line_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getVerticeOffset());
+	hidden_line_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getNormalOffset());
+	bunny->getInterleavedVBO()->unbind();
 	glBindVertexArray(0);
 
+#pragma endregion vao[0]
+
+#pragma region vao[1]
 	glBindVertexArray(vao[1]);
 
 	cube_vertices->bind();
@@ -354,6 +363,26 @@ void GameManager::SetShaderAttribPtrs()
 	//model->getVertices()->unbind(); //Unbinds both vertices and normals
 	glBindVertexArray(0);
 	CHECK_GL_ERRORS();
+#pragma endregion vao[1]
+
+
+#pragma region vao[2]
+	//Set up VAOs and set as input to shaders
+	glBindVertexArray(vao[2]);
+	room->getInterleavedVBO()->bind();
+	room->getIndices()->bind();
+	phong_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, room->getStride(), room->getVerticeOffset());
+	phong_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, room->getStride(), room->getNormalOffset());
+
+	wireframe_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, room->getStride(), room->getVerticeOffset());
+	wireframe_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, room->getStride(), room->getNormalOffset());
+
+	hidden_line_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, room->getStride(), room->getVerticeOffset());
+	hidden_line_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, room->getStride(), room->getNormalOffset());
+	room->getInterleavedVBO()->unbind();
+	glBindVertexArray(0);
+
+#pragma endregion vao[2]
 
 	/*--------fbo_fao--------*/
 	glGenVertexArrays(1, &fbo_vao);
@@ -390,6 +419,7 @@ void GameManager::SetShaderAttribPtrs()
 	gui_program->setAttributePointer("in_Position", 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 }
 
 void GameManager::renderColorPass() {
@@ -399,8 +429,16 @@ void GameManager::renderColorPass() {
 	//Create the new view matrix that takes the trackball view into account
 	glm::mat4 view_matrix_new = camera.view*cam_trackball.getTransform();
 	
+	
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	
+	glDepthMask(GL_FALSE);	
+	spacebox->render(camera.projection, view_matrix_new);
+	glDepthMask(GL_TRUE);
 	current_program->use();
+	
 	
 	//Bind shadow map and diffuse cube map
 	glActiveTexture(GL_TEXTURE0);
@@ -409,7 +447,7 @@ void GameManager::renderColorPass() {
 	/**
 	  * Render cube
 	  */ 
-	{
+	/*{
 		glBindVertexArray(vao[1]);
 
 		glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
@@ -423,6 +461,7 @@ void GameManager::renderColorPass() {
 		glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 		shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f)) * light.projection * light_modelview_matrix;
 
+		
 		glUniformMatrix4fv(current_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
 
 		glUniform1i(current_program->getUniform("shadowmap_texture"), 0);
@@ -431,15 +470,8 @@ void GameManager::renderColorPass() {
 		glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
 		glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"),	1, 0, glm::value_ptr(modelview_matrix_inverse));
 		
-		if(current_program == hidden_line_program)
-		{
-			glUniform1f(current_program->getUniform("line_threshold"), slider_line_threshold->get_slider_value());
-			glUniform1f(current_program->getUniform("line_scale"), slider_line_scale->get_slider_value());
-			glUniform1f(current_program->getUniform("line_offset"), slider_line_offset->get_slider_value());
-		}
-		
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-	}
+	}*/
 
 	/**
 	  * Render model
@@ -471,12 +503,30 @@ void GameManager::renderColorPass() {
 
 		//current_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
 
-		MeshPart& mesh = model->getMesh();
+		MeshPart& mesh = bunny->getMesh();
 		glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
+
 		//glDrawElements(GL_TRIANGLES, model->getMesh().count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * model->getMesh().first));
 		//glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
 	}
+	glDisable(GL_CULL_FACE);
+	glBindVertexArray(vao[2]);
+
+	glm::mat4 model_matrix = glm::scale(glm::mat4(1), glm::vec3(2));
+	glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
+	glm::mat4 modelview_matrix = view_matrix_new*model_matrix;
+	glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
+	glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
+
+	glUniform3fv(current_program->getUniform("color"), 1, glm::value_ptr(glm::vec3(0.1f, 0.5f, 0.7f)));
+	glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+	glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
+
+	MeshPart& mesh = room->getMesh();
+	glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
+	glEnable(GL_CULL_FACE);
 	glBindVertexArray(0);
+
 }
 
 void GameManager::renderShadowPass() {
@@ -528,7 +578,7 @@ void GameManager::renderShadowPass() {
 		glUniformMatrix4fv(shadow_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
 		//glUniformMatrix4fv(shadow_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
 
-		MeshPart& mesh = model->getMesh();
+		MeshPart& mesh = bunny->getMesh();
 		glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
 	}
 	glDisable(GL_POLYGON_OFFSET_FILL);

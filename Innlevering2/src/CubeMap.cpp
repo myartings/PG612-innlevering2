@@ -7,6 +7,9 @@
 using GLUtils::BO;
 using GLUtils::Program;
 
+
+#pragma region vertex_data
+
 //Vertices to render a quad
 GLfloat CubeMap::quad_vertices[] =  {
 	-1.f, -1.f,  1.f,
@@ -32,29 +35,37 @@ GLubyte CubeMap::quad_indices[] = {
 	0, 5, 4, 5, 0, 1, //down face
 };
 
+#pragma endregion
+
+std::shared_ptr<GLUtils::Program> CubeMap::cubemap_program = NULL;
+GLuint CubeMap::vao = -1;
 CubeMap::CubeMap(std::string base_filename, std::string extension) {
 	//Load cubemap from file
 	cubemap = GLUtils::loadCubeMap(base_filename, extension);
 
 	//Create program
-	cubemap_program.reset(new Program("shaders/cubemap.vert", "shaders/cubemap.frag"));
-	cubemap_program->use();
+	if(cubemap_program == NULL)
+	{
+		cubemap_program.reset(new Program("shaders/cubemap.vert", "shaders/cubemap.frag"));
+		cubemap_program->use();
 
-	//FIXME: Set the cube map texture as a uniform input here
-	glUniform1i(cubemap_program->getUniform("cubemap"), 0);
+		//FIXME: Set the cube map texture as a uniform input here
+		glUniform1i(cubemap_program->getUniform("cubemap"), 0);
 
-	//Create VAO for rendering cubemap
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-	CHECK_GL_ERRORS();
-	vertices.reset(new BO<GL_ARRAY_BUFFER>(quad_vertices, sizeof(quad_vertices)));
-	indices.reset(new BO<GL_ELEMENT_ARRAY_BUFFER>(quad_indices, sizeof(quad_indices)));
-	vertices->bind();
-	cubemap_program->setAttributePointer("position", 3);
-	indices->bind();
-	CHECK_GL_ERRORS();
+		//Create VAO for rendering cubemap
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
+		CHECK_GL_ERRORS();
+		vertices.reset(new BO<GL_ARRAY_BUFFER>(quad_vertices, sizeof(quad_vertices)));
+		indices.reset(new BO<GL_ELEMENT_ARRAY_BUFFER>(quad_indices, sizeof(quad_indices)));
+		vertices->bind();
+		cubemap_program->setAttributePointer("position", 3);
+		indices->bind();
+		CHECK_GL_ERRORS();
 
-	vertices->unbind(); //Unbinds both vertices and normals
+		vertices->unbind(); //Unbinds both vertices and normals
+	}
+
 	glBindVertexArray(0);
 	CHECK_GL_ERRORS();
 }
@@ -66,17 +77,16 @@ CubeMap::~CubeMap() {
 void CubeMap::render(const glm::mat4& projection, const glm::mat4& modelview) {
 	cubemap_program->use();
 	glm::mat4 transform = modelview;
-
 	transform[3][0] = 0;
 	transform[3][1] = 0;
 	transform[3][2] = 0;
-	CHECK_GL_ERRORS();
+	
 	transform = projection*transform;
 	glUniformMatrix4fv(cubemap_program->getUniform("transform"), 1, 0, glm::value_ptr(transform));
-
-	CHECK_GL_ERRORS();
+		CHECK_GL_ERRORS();
 	bind(GL_TEXTURE0);
 	glBindVertexArray(vao);
+	CHECK_GL_ERRORS();
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, BUFFER_OFFSET(0));
 	cubemap_program->disuse();
 	CHECK_GL_ERRORS();

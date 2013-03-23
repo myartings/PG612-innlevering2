@@ -14,15 +14,18 @@ public:
 	~CubeMap();
 
 	void bind(GLenum texture_unit);
+	
 	static void unbind();
+
 	void render(const glm::mat4& projection, const glm::mat4& modelview);
 
 private:
 	GLuint cubemap;
 	std::shared_ptr<GLUtils::BO<GL_ARRAY_BUFFER> > vertices;
 	std::shared_ptr<GLUtils::BO<GL_ELEMENT_ARRAY_BUFFER> > indices;
-	GLuint vao; //< Vertex array object
-	std::shared_ptr<GLUtils::Program> cubemap_program; 
+	
+	static GLuint vao; //< Vertex array object
+	static std::shared_ptr<GLUtils::Program> cubemap_program; 
 
 	static GLubyte quad_indices[];
 	static GLfloat quad_vertices[];

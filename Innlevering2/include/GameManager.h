@@ -107,7 +107,7 @@ private:
 
 	static GLuint gui_vbo, gui_vao;
 	
-	GLuint vao[2]; //< Vertex array objects
+	GLuint vao[3]; //< Vertex array objects
 	std::shared_ptr<GLUtils::Program> phong_program,
 									  wireframe_program,
 									  hidden_line_program,
@@ -119,10 +119,13 @@ private:
 	std::shared_ptr<GLUtils::Program> current_program;
 
 	std::shared_ptr<CubeMap> diffuse_cubemap;
-	
+	std::shared_ptr<CubeMap> spacebox;
+
 	std::shared_ptr<GLUtils::BO<GL_ARRAY_BUFFER> > cube_vertices, cube_normals, gui_vertices;
 
-	std::shared_ptr<Model> model;
+	std::shared_ptr<Model> bunny;
+	std::shared_ptr<Model> room;
+
 	std::shared_ptr<ShadowFBO> shadow_fbo;
 	std::shared_ptr<ShadowFBO> screen_dump_fbo;
 
