@@ -26,6 +26,7 @@ const float GameManager::far_plane = 30.0f;
 const float GameManager::fovy = 45.0f;
 const float GameManager::cube_scale = GameManager::far_plane*0.75f;
 
+
 #pragma region cube_data
 const float GameManager::cube_vertices_data[] = {
     -0.5f, 0.5f, 0.5f,
@@ -117,6 +118,7 @@ const float GameManager::cube_normals_data[] = {
 
 #pragma endregion
 
+
 inline void checkSDLError(int line = -1) {
 #ifndef NDEBUG
 	const char *error = SDL_GetError();
@@ -131,11 +133,15 @@ inline void checkSDLError(int line = -1) {
 #endif
 }
 
+GLuint GameManager::gui_vbo = -1;
+GLuint GameManager::gui_vao = -1;
+
 GameManager::GameManager() {
 	my_timer.restart();
 	zoom = 1;
 	light.position = glm::vec3(10, 0, 0);
 	render_depth_dump = true;
+
 }
 
 GameManager::~GameManager() {
@@ -211,7 +217,8 @@ void GameManager::init() {
 	//Initialize the different stuff we need
 	model.reset(new Model("models/bunny.obj", false));
 	cube_vertices.reset(new BO<GL_ARRAY_BUFFER>(cube_vertices_data, sizeof(cube_vertices_data)));
-	cube_normals.reset(new BO<GL_ARRAY_BUFFER>(cube_normals_data, sizeof(cube_normals_data)));	
+	cube_normals.reset(new BO<GL_ARRAY_BUFFER>(cube_normals_data, sizeof(cube_normals_data)));
+
 	shadow_fbo.reset(new ShadowFBO(window_width, window_height, USED_FOR_SHADOWS));
 	screen_dump_fbo.reset(new ShadowFBO(window_width, window_height, USED_FOR_SCREEN_RENDER));
 
@@ -299,10 +306,17 @@ void GameManager::SetShaderUniforms()
 	glUniform1i(depth_dump_program->getUniform("fbo_texture"), 0);
 	depth_dump_program->disuse();
 
+
+	if(gui_vao == -1 && gui_vbo == -1)
+	{
+
+	}
+
 	gui_program->use();
 	glUniformMatrix4fv(gui_program->getUniform("projection"), 1, 0, glm::value_ptr(gui_camera.projection));
 	glUniformMatrix4fv(gui_program->getUniform("view"), 1, 0, glm::value_ptr(gui_camera.view));
 	gui_program->disuse();
+
 
 	CHECK_GL_ERRORS();
 }
@@ -358,6 +372,23 @@ void GameManager::SetShaderAttribPtrs()
 
 	depth_dump_program->setAttributePointer("in_Position", 2, GL_FLOAT, GL_FALSE, 0, 0);
 
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glGenVertexArrays(1, &gui_vao);
+	glBindVertexArray(gui_vao);
+
+	const float gui_positions[8] = {
+		0.0, 1.0,
+		0.0, 0.0,
+		1.0, 1.0,
+		1.0, 0.0
+	};
+
+	glGenBuffers(1, &gui_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, gui_vbo);
+	glBufferData(GL_ARRAY_BUFFER, 4*2*sizeof(float), &gui_positions[0], GL_STATIC_DRAW);
+	gui_program->setAttributePointer("in_Position", 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
@@ -553,7 +584,7 @@ void GameManager::render() {
 
 void GameManager::RenderGUI()
 {
-	slider_increase_line_width->Draw(glm::vec2(0, 0), fbo_vao, gui_program);
+	slider_increase_line_width->Draw(gui_program, gui_vao);
 }
 
 

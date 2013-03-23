@@ -26,14 +26,25 @@ using namespace gui;
 class SliderWithText
 {
 public:
+	/**
+	* SliderWithText constructor
+	*
+	* @param name_label_path full name and path, including extension, to the texture holding
+	*					     the label name for this slider
+	* @param gui_program the shader program used to draw GUI objects, used to set 
+	*/
     SliderWithText(const std::string& name_label_path, 
 				   std::shared_ptr<GLUtils::Program> gui_program, 
 				   glm::vec2 position);
 
     ~SliderWithText();
 
-	void Draw(glm::vec2 position, GLuint& quad_fbo, 
-			std::shared_ptr<GLUtils::Program> gui_program);
+	/**
+	* Draws the slider to screen.
+	*
+	* @param gui_program the shader program used to draw GUI objects
+	*/
+	void Draw(std::shared_ptr<GLUtils::Program> gui_program, GLuint gui_vao);
 
 	/**
 	* Sets the Sliders state to updating. Mouse input after this function
@@ -65,11 +76,6 @@ private:
 	GUITexture slider;
 	GUITexture slider_knob;
 	GUITexture label;
-
-	static GLuint gui_vbo, gui_vao;
-	
-	void GenerateGUI_VBO_VAO(std::shared_ptr<GLUtils::Program> gui_program);
-
 	
 	bool interacting;
 	glm::vec2 previous_mouse_pos;
