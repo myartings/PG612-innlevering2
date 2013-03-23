@@ -31,7 +31,7 @@ void main() {
 
 	float shade_factor = textureProj(shadowmap_texture, f_shadow_coord);
 
-	shade_factor = shade_factor * 0.25 + 0.75;
+	shade_factor = shade_factor * line_scale + line_offset;
 
 	vec4 diffuse = vec4(diff*color, 1.0);
     float spec = pow(max(0.0f, dot(n, h)), 128.0f);
@@ -41,6 +41,6 @@ void main() {
 	out_color = vec4( ( (diff*color) + (spec*0.1) ) * shade_factor, 1.0);
 
 	if(k < line_threshold )
-		out_color = vec4( out_color.xyz * amplify(k, line_scale, line_offset), 1);
+		out_color = vec4( out_color.xyz * amplify(k, 40, -0.5), 1);
 		//out_color = vec4( out_color.xyz * amplify(k, 40, -0.5), 1);
 }

@@ -141,6 +141,7 @@ GameManager::GameManager() {
 	zoom = 1;
 	light.position = glm::vec3(10, 0, 0);
 	render_depth_dump = true;
+	rotate_light = true;
 
 }
 
@@ -556,10 +557,13 @@ void GameManager::renderDepthDump()
 
 void GameManager::render() {
 	//Rotate the light a bit
-	glm::mat4 rotation = glm::rotate(delta_time*20.f, 0.0f, 1.0f, 0.0f);
-	light.position = glm::mat3(rotation)*light.position;
-	light.view = glm::lookAt(light.position,  glm::vec3(0), glm::vec3(0.0, 1.0, 0.0));
-
+	if(rotate_light)
+	{
+		glm::mat4 rotation = glm::rotate(delta_time*20.f, 0.0f, 1.0f, 0.0f);
+		light.position = glm::mat3(rotation)*light.position;
+		light.view = glm::lookAt(light.position,  glm::vec3(0), glm::vec3(0.0, 1.0, 0.0));
+	}
+	
 	shadow_fbo->bind();
 	glViewport(0, 0, window_width, window_height);
 	renderShadowPass();
@@ -588,9 +592,13 @@ void GameManager::render() {
 
 void GameManager::RenderGUI()
 {
-	slider_line_threshold->Draw(gui_program, gui_vao);
-	slider_line_scale->Draw(gui_program, gui_vao);
-	slider_line_offset->Draw(gui_program, gui_vao);
+	if(current_program == hidden_line_program)
+	{
+		slider_line_threshold->Draw(gui_program, gui_vao);
+		slider_line_scale->Draw(gui_program, gui_vao);
+		slider_line_offset->Draw(gui_program, gui_vao);
+	}
+	
 }
 
 
@@ -656,6 +664,8 @@ void GameManager::play() {
 					if(current_program != hidden_line_program)
 						current_program = hidden_line_program;
 					break;
+				case SDLK_4:
+					rotate_light = !rotate_light;
 				}
 				break;
 			case SDL_QUIT: //e.g., user clicks the upper right x

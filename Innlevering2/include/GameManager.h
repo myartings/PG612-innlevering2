@@ -159,6 +159,7 @@ private:
 	VirtualTrackball cam_trackball;
 
 	bool render_depth_dump;
+	bool rotate_light;
 
 	float delta_time;
 
