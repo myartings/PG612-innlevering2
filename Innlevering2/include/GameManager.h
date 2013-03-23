@@ -112,7 +112,7 @@ private:
 									  wireframe_program,
 									  hidden_line_program,
 									  exploded_view_program, 
-									  shadow_program,
+									  light_pov_program,
 									  depth_dump_program,
 									  gui_program;
 
@@ -139,6 +139,7 @@ private:
 	glm::mat4 fbo_projectionMatrix;
 	glm::mat4 fbo_viewMatrix;
 
+	glm::mat4 room_model_matrix;
 	Timer my_timer; //< Timer for machine independent motion
 	float zoom; //< Zoom factor
 
@@ -152,6 +153,7 @@ private:
 		glm::mat4 projection;
 		glm::mat4 view;
 	};
+
 	Camera camera;
 	Camera gui_camera;
 	std::vector<glm::mat4> model_matrices; //< OpenGL model transformation matrix

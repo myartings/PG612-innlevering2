@@ -1,0 +1,4841 @@
+{
+
+version
+	{
+	number 4.0
+	}
+camera SHADOW_CAM_LITE 4
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:Camera:Camera.obj
+	}
+light spotLight 1
+	{
+	storageOffset 0 0.3487 0
+	geomResource 7  
+	}
+camera SHADOW_CAM_LITE 5
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:Camera:Camera.obj
+	}
+light spotLight 2
+	{
+	storageOffset 0 0.3487 0
+	geomResource 7  
+	}
+camera SHADOW_CAM_LITE 6
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:Camera:Camera.obj
+	}
+light spotLight 3
+	{
+	storageOffset 0 0.3487 0
+	geomResource 7  
+	}
+camera SHADOW_CAM_LITE1
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:Camera:Camera.obj
+	}
+light LIGHT1
+	{
+	storageOffset 0 0.3487 0
+	geomResource 7  
+	}
+camera SHADOW_CAM_LITE2
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:Camera:Camera.obj
+	}
+light LIGHT2
+	{
+	storageOffset 0 0.3487 0
+	geomResource 7  
+	}
+camera SHADOW_CAM_LITE3
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:Camera:Camera.obj
+	}
+light LIGHT3
+	{
+	storageOffset 0 0.3487 0
+	geomResource 7  
+	}
+camera SHADOW_CAM_LITE 7
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:Camera:Camera.obj
+	}
+light spotLight 4
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:lights:spotLite.obj
+	}
+camera SHADOW_CAM_LITE 8
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:Camera:Camera.obj
+	}
+light spotLight 5
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:lights:spotLite.obj
+	}
+light spotLight 8
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:lights:spotLite.obj
+	}
+camera SHADOW_CAM_LITE 9
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:Camera:Camera.obj
+	}
+light spotLight 6
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:lights:spotLite.obj
+	}
+
+camera SHADOW_CAM_LITE 4
+	{
+	name    GetStringRes(1025,18)
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		0
+	parent spotLight 1
+	channels
+		{
+		focal focal
+			{
+			name GetStringRes(1028,15)
+			initValue 25.4
+			hidden 1
+			forceLimits 4
+			min 0
+			max 100000
+			trackingScale 0.1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		hither hither
+			{
+			name hither
+			initValue 0.0156
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1e+006
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  0.0156
+				}
+			interpStyleLocked 0
+			}
+		camAutoScale autoScale
+			{
+			name autoScale
+			initValue 1
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.793843
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  -100
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterX autoX
+			{
+			name autoX
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  -0.11577
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterY autoY
+			{
+			name autoY
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.330904
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoFocal AutoFocal
+			{
+			name AutoFocal
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 1 0
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode WIREFRAME
+	customMaterial	0
+	locked 0
+	cameraModel depth
+	}
+
+light spotLight 1
+	{
+	storageOffset 0 0.3487 0
+	geomResource 7  
+	lightType 0 
+	name    Light 4
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		1
+	parent UNIVERSE
+	channels
+		{
+		liteFalloffStart Angle Start
+			{
+			name Angle Start
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteFalloffEnd Angle End
+			{
+			name Angle End
+			initValue 70
+			hidden 1
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  70
+				}
+			interpStyleLocked 0
+			}
+		liteAttenStart Dist Start
+			{
+			name Dist Start
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteAttenEnd Dist End
+			{
+			name Dist End
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		depthMapStrength shadowStrength
+			{
+			name GetStringRes(1028,28)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		depthMapSize depthMapSize
+			{
+			name GetStringRes(1028,29)
+			initValue 256
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  256
+				}
+			interpStyleLocked 0
+			}
+		rotateX xrot
+			{
+			name xrot
+			initValue -42
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -373.201
+				}
+			interpStyleLocked 0
+			}
+		rotateY yrot
+			{
+			name yrot
+			initValue -104.049
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  57.983
+				}
+			interpStyleLocked 0
+			}
+		rotateZ zrot
+			{
+			name zrot
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -7.34069
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 0.55
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.55
+				}
+			interpStyleLocked 0
+			}
+		kdRed KdRed
+			{
+			name GetStringRes(1028,19)
+			initValue 0.808374
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		kdGreen KdGreen
+			{
+			name GetStringRes(1028,20)
+			initValue 0.77224
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.366667
+				}
+			interpStyleLocked 0
+			}
+		kdBlue KdBlue
+			{
+			name GetStringRes(1028,21)
+			initValue 0.712714
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.161905
+				}
+			interpStyleLocked 0
+			}
+		kdIntensity KdIntensity
+			{
+			name GetStringRes(1028,22)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.507985
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 0.375
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  0.375
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue -100
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  -100
+				}
+			interpStyleLocked 0
+			}
+		pointAtParm Point At
+			{
+			name Point At
+			initValue 1
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 0 0.07
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode EDGESONLY
+	customMaterial	0
+	locked 0
+	depthMapSize 256 
+	depthCamera SHADOW_CAM_LITE 4 
+	doShadow 1 
+	lightOn 1 
+	}
+
+camera SHADOW_CAM_LITE 5
+	{
+	name    Shadow Cam Lite 5
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		0
+	parent spotLight 2
+	channels
+		{
+		focal focal
+			{
+			name GetStringRes(1028,15)
+			initValue 25.4
+			hidden 1
+			forceLimits 4
+			min 0
+			max 100000
+			trackingScale 0.1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		hither hither
+			{
+			name hither
+			initValue 0.0156
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1e+006
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  0.0156
+				}
+			interpStyleLocked 0
+			}
+		camAutoScale autoScale
+			{
+			name autoScale
+			initValue 1
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.883313
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  -100
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterX autoX
+			{
+			name autoX
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  -0.0449581
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterY autoY
+			{
+			name autoY
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.348094
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoFocal AutoFocal
+			{
+			name AutoFocal
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 1 0
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode WIREFRAME
+	customMaterial	0
+	locked 0
+	cameraModel depth
+	}
+
+light spotLight 2
+	{
+	storageOffset 0 0.3487 0
+	geomResource 7  
+	lightType 0 
+	name    Light 5
+	on
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		1
+	parent UNIVERSE
+	channels
+		{
+		liteFalloffStart Angle Start
+			{
+			name Angle Start
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteFalloffEnd Angle End
+			{
+			name Angle End
+			initValue 70
+			hidden 1
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  70
+				}
+			interpStyleLocked 0
+			}
+		liteAttenStart Dist Start
+			{
+			name Dist Start
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteAttenEnd Dist End
+			{
+			name Dist End
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		depthMapStrength shadowStrength
+			{
+			name GetStringRes(1028,28)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		depthMapSize depthMapSize
+			{
+			name GetStringRes(1028,29)
+			initValue 256
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  256
+				}
+			interpStyleLocked 0
+			}
+		rotateX xrot
+			{
+			name xrot
+			initValue -42
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  22.8067
+				}
+			interpStyleLocked 0
+			}
+		rotateY yrot
+			{
+			name yrot
+			initValue -77.4395
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -39.1466
+				}
+			interpStyleLocked 0
+			}
+		rotateZ zrot
+			{
+			name zrot
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -8.2041
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 0.55
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.55
+				}
+			interpStyleLocked 0
+			}
+		kdRed KdRed
+			{
+			name GetStringRes(1028,19)
+			initValue 0.91583
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		kdGreen KdGreen
+			{
+			name GetStringRes(1028,20)
+			initValue 0.5674
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.422311
+				}
+			interpStyleLocked 0
+			}
+		kdBlue KdBlue
+			{
+			name GetStringRes(1028,21)
+			initValue 0.736641
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.211155
+				}
+			interpStyleLocked 0
+			}
+		kdIntensity KdIntensity
+			{
+			name GetStringRes(1028,22)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.707107
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  0.783018
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 0.375
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  0.720834
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue -100
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  -0.53411
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 0 0.07
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode EDGESONLY
+	customMaterial	0
+	locked 0
+	depthMapSize 256 
+	depthCamera SHADOW_CAM_LITE 5 
+	doShadow 1 
+	lightOn 1 
+	}
+
+camera SHADOW_CAM_LITE 6
+	{
+	name    Shadow Cam Lite 6
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		0
+	parent spotLight 3
+	channels
+		{
+		focal focal
+			{
+			name GetStringRes(1028,15)
+			initValue 25.4
+			hidden 1
+			forceLimits 4
+			min 0
+			max 100000
+			trackingScale 0.1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		hither hither
+			{
+			name hither
+			initValue 0.0156
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1e+006
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  0.0156
+				}
+			interpStyleLocked 0
+			}
+		camAutoScale autoScale
+			{
+			name autoScale
+			initValue 1
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.797568
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  -100
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterX autoX
+			{
+			name autoX
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.0696459
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterY autoY
+			{
+			name autoY
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.321003
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoFocal AutoFocal
+			{
+			name AutoFocal
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 1 0
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode WIREFRAME
+	customMaterial	0
+	locked 0
+	cameraModel depth
+	}
+
+light spotLight 3
+	{
+	storageOffset 0 0.3487 0
+	geomResource 7  
+	lightType 0 
+	name    Light 6
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		1
+	parent UNIVERSE
+	channels
+		{
+		liteFalloffStart Angle Start
+			{
+			name Angle Start
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteFalloffEnd Angle End
+			{
+			name Angle End
+			initValue 70
+			hidden 1
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  70
+				}
+			interpStyleLocked 0
+			}
+		liteAttenStart Dist Start
+			{
+			name Dist Start
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteAttenEnd Dist End
+			{
+			name Dist End
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		depthMapStrength shadowStrength
+			{
+			name GetStringRes(1028,28)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		depthMapSize depthMapSize
+			{
+			name GetStringRes(1028,29)
+			initValue 256
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  256
+				}
+			interpStyleLocked 0
+			}
+		rotateX xrot
+			{
+			name xrot
+			initValue -42
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -19.5992
+				}
+			interpStyleLocked 0
+			}
+		rotateY yrot
+			{
+			name yrot
+			initValue -103.099
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -69.5591
+				}
+			interpStyleLocked 0
+			}
+		rotateZ zrot
+			{
+			name zrot
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  13.6779
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 0.55
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.55
+				}
+			interpStyleLocked 0
+			}
+		kdRed KdRed
+			{
+			name GetStringRes(1028,19)
+			initValue 0.856502
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.238285
+				}
+			interpStyleLocked 0
+			}
+		kdGreen KdGreen
+			{
+			name GetStringRes(1028,20)
+			initValue 0.541917
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.0351568
+				}
+			interpStyleLocked 0
+			}
+		kdBlue KdBlue
+			{
+			name GetStringRes(1028,21)
+			initValue 0.885876
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.35938
+				}
+			interpStyleLocked 0
+			}
+		kdIntensity KdIntensity
+			{
+			name GetStringRes(1028,22)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 0.375
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  0.375
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue -100
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  -100
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 0 0.07
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode EDGESONLY
+	customMaterial	0
+	locked 0
+	depthMapSize 256 
+	depthCamera SHADOW_CAM_LITE 6 
+	doShadow 1 
+	lightOn 1 
+	}
+
+camera SHADOW_CAM_LITE1
+	{
+	name    GetStringRes(1025,7)
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		0
+	parent LIGHT1
+	channels
+		{
+		focal focal
+			{
+			name GetStringRes(1028,15)
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 100000
+			trackingScale 0.1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		hither hither
+			{
+			name hither
+			initValue 0.0156
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1e+006
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  0.0156
+				}
+			interpStyleLocked 0
+			}
+		camAutoFocal AutoFocal
+			{
+			name AutoFocal
+			initValue 15.1353
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoScale autoScale
+			{
+			name autoScale
+			initValue 1
+			hidden 1
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.937623
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,32)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 1e-006
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,31)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,30)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterY autoCenterY
+			{
+			name autoY
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.002
+			keys
+				{
+				static  0
+				k  0  0.15255
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterX autoCenterX
+			{
+			name autoX
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.002
+			keys
+				{
+				static  0
+				k  0  0.00802007
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 100
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  -100
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 1 0
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode WIREFRAME
+	customMaterial	0
+	locked 0
+	cameraModel depth
+	}
+
+light LIGHT1
+	{
+	storageOffset 0 0.3487 0
+	geomResource 7  
+	lightType 0 
+	name    LIGHT1
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		0
+	parent UNIVERSE
+	channels
+		{
+		liteFalloffStart Angle Start
+			{
+			name Angle Start
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteFalloffEnd Angle End
+			{
+			name Angle End
+			initValue 70
+			hidden 1
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  70
+				}
+			interpStyleLocked 0
+			}
+		liteAttenStart Dist Start
+			{
+			name Dist Start
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteAttenEnd Dist End
+			{
+			name Dist End
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		depthMapStrength shadowStrength
+			{
+			name GetStringRes(1028,28)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		depthMapSize depthMapSize
+			{
+			name GetStringRes(1028,29)
+			initValue 256
+			hidden 0
+			forceLimits 0
+			min 64
+			max 1024
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  256
+				}
+			interpStyleLocked 0
+			}
+		rotateX xrot
+			{
+			name xrot
+			initValue 131.958
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  307.149
+				}
+			interpStyleLocked 0
+			}
+		rotateY yrot
+			{
+			name yrot
+			initValue -46.217
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -17.6831
+				}
+			interpStyleLocked 0
+			}
+		rotateZ zrot
+			{
+			name zrot
+			initValue -150.84
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -351.16
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 0.55
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.55
+				}
+			interpStyleLocked 0
+			}
+		kdRed RED
+			{
+			name GetStringRes(1028,19)
+			initValue 0.493416
+			hidden 0
+			forceLimits 0
+			min 0
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.992203
+				}
+			interpStyleLocked 0
+			}
+		kdGreen GREEN
+			{
+			name GetStringRes(1028,20)
+			initValue 0.458671
+			hidden 0
+			forceLimits 0
+			min 0
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.855482
+				}
+			interpStyleLocked 0
+			}
+		kdBlue BLUE
+			{
+			name GetStringRes(1028,21)
+			initValue 0.247593
+			hidden 0
+			forceLimits 0
+			min 0
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.921889
+				}
+			interpStyleLocked 0
+			}
+		kdIntensity INTENSITY
+			{
+			name GetStringRes(1028,22)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 0.375
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.375
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue -100
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  -100
+				}
+			interpStyleLocked 0
+			}
+		pointAtParm Point At
+			{
+			name Point At
+			initValue 1
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 0 0.07
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode EDGESONLY
+	customMaterial	0
+	locked 0
+	depthMapSize 256 
+	depthCamera SHADOW_CAM_LITE1 
+	doShadow 1 
+	lightOn 1 
+	}
+
+camera SHADOW_CAM_LITE2
+	{
+	name    GetStringRes(1025,8)
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		0
+	parent LIGHT2
+	channels
+		{
+		focal focal
+			{
+			name GetStringRes(1028,15)
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 100000
+			trackingScale 0.1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		hither hither
+			{
+			name hither
+			initValue 0.0156
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1e+006
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  0.0156
+				}
+			interpStyleLocked 0
+			}
+		camAutoFocal AutoFocal
+			{
+			name AutoFocal
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoScale autoScale
+			{
+			name autoScale
+			initValue 1
+			hidden 1
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.976966
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,32)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 1e-006
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,31)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,30)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterY autoCenterY
+			{
+			name autoY
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.002
+			keys
+				{
+				static  0
+				k  0  0.25945
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterX autoCenterX
+			{
+			name autoX
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.002
+			keys
+				{
+				static  0
+				k  0  -0.181652
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 100
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  -100
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 1 0
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode WIREFRAME
+	customMaterial	0
+	locked 0
+	cameraModel depth
+	}
+
+light LIGHT2
+	{
+	storageOffset 0 0.3487 0
+	geomResource 7  
+	lightType 0 
+	name    LIGHT2
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		0
+	parent UNIVERSE
+	channels
+		{
+		liteFalloffStart Angle Start
+			{
+			name Angle Start
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteFalloffEnd Angle End
+			{
+			name Angle End
+			initValue 40
+			hidden 1
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  40
+				}
+			interpStyleLocked 0
+			}
+		liteAttenStart Dist Start
+			{
+			name Dist Start
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteAttenEnd Dist End
+			{
+			name Dist End
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		depthMapStrength shadowStrength
+			{
+			name GetStringRes(1028,28)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		depthMapSize depthMapSize
+			{
+			name GetStringRes(1028,29)
+			initValue 256
+			hidden 0
+			forceLimits 0
+			min 64
+			max 1024
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  256
+				}
+			interpStyleLocked 0
+			}
+		rotateX xrot
+			{
+			name xrot
+			initValue -16.4875
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -50.0521
+				}
+			interpStyleLocked 0
+			}
+		rotateY yrot
+			{
+			name yrot
+			initValue -34.387
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  48.429
+				}
+			interpStyleLocked 0
+			}
+		rotateZ zrot
+			{
+			name zrot
+			initValue -18.1495
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -23.7175
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 0.55
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.55
+				}
+			interpStyleLocked 0
+			}
+		kdRed RED
+			{
+			name GetStringRes(1028,19)
+			initValue 0.781262
+			hidden 0
+			forceLimits 0
+			min 0
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.558602
+				}
+			interpStyleLocked 0
+			}
+		kdGreen GREEN
+			{
+			name GetStringRes(1028,20)
+			initValue 0.808606
+			hidden 0
+			forceLimits 0
+			min 0
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.519539
+				}
+			interpStyleLocked 0
+			}
+		kdBlue BLUE
+			{
+			name GetStringRes(1028,21)
+			initValue 0.757824
+			hidden 0
+			forceLimits 0
+			min 0
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.859388
+				}
+			interpStyleLocked 0
+			}
+		kdIntensity INTENSITY
+			{
+			name GetStringRes(1028,22)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 0.375
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.375
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue -100
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  -100
+				}
+			interpStyleLocked 0
+			}
+		pointAtParm Point At
+			{
+			name Point At
+			initValue 1
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 0 0.07
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode EDGESONLY
+	customMaterial	0
+	locked 0
+	depthMapSize 256 
+	depthCamera SHADOW_CAM_LITE2 
+	doShadow 1 
+	lightOn 1 
+	}
+
+camera SHADOW_CAM_LITE3
+	{
+	name    GetStringRes(1025,9)
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		0
+	parent LIGHT3
+	channels
+		{
+		focal focal
+			{
+			name GetStringRes(1028,15)
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 100000
+			trackingScale 0.1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		hither hither
+			{
+			name hither
+			initValue 0.0156
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1e+006
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  0.0156
+				}
+			interpStyleLocked 0
+			}
+		camAutoFocal AutoFocal
+			{
+			name AutoFocal
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoScale autoScale
+			{
+			name autoScale
+			initValue 1
+			hidden 1
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.865584
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,32)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 1e-006
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,31)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,30)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterY autoCenterY
+			{
+			name autoY
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.002
+			keys
+				{
+				static  0
+				k  0  0.118122
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterX autoCenterX
+			{
+			name autoX
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.002
+			keys
+				{
+				static  0
+				k  0  -0.050443
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 100
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  -100
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 1 0
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode WIREFRAME
+	customMaterial	0
+	locked 0
+	cameraModel depth
+	}
+
+light LIGHT3
+	{
+	storageOffset 0 0.3487 0
+	geomResource 7  
+	lightType 0 
+	name    LIGHT3
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		0
+	parent UNIVERSE
+	channels
+		{
+		liteFalloffStart Angle Start
+			{
+			name Angle Start
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteFalloffEnd Angle End
+			{
+			name Angle End
+			initValue 50
+			hidden 1
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  50
+				}
+			interpStyleLocked 0
+			}
+		liteAttenStart Dist Start
+			{
+			name Dist Start
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteAttenEnd Dist End
+			{
+			name Dist End
+			initValue 0
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		depthMapStrength shadowStrength
+			{
+			name GetStringRes(1028,28)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		depthMapSize depthMapSize
+			{
+			name GetStringRes(1028,29)
+			initValue 256
+			hidden 0
+			forceLimits 0
+			min 64
+			max 1024
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  256
+				}
+			interpStyleLocked 0
+			}
+		rotateX xrot
+			{
+			name xrot
+			initValue 176.849
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  301.784
+				}
+			interpStyleLocked 0
+			}
+		rotateY yrot
+			{
+			name yrot
+			initValue 68.7537
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -3.47457
+				}
+			interpStyleLocked 0
+			}
+		rotateZ zrot
+			{
+			name zrot
+			initValue 172.764
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  361.935
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 0.55
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.55
+				}
+			interpStyleLocked 0
+			}
+		kdRed RED
+			{
+			name GetStringRes(1028,19)
+			initValue 0.874998
+			hidden 0
+			forceLimits 0
+			min 0
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.273442
+				}
+			interpStyleLocked 0
+			}
+		kdGreen GREEN
+			{
+			name GetStringRes(1028,20)
+			initValue 0.588968
+			hidden 0
+			forceLimits 0
+			min 0
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.156252
+				}
+			interpStyleLocked 0
+			}
+		kdBlue BLUE
+			{
+			name GetStringRes(1028,21)
+			initValue 0.381796
+			hidden 0
+			forceLimits 0
+			min 0
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.29688
+				}
+			interpStyleLocked 0
+			}
+		kdIntensity INTENSITY
+			{
+			name GetStringRes(1028,22)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 0.375
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.375
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue -100
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  -100
+				}
+			interpStyleLocked 0
+			}
+		pointAtParm Point At
+			{
+			name Point At
+			initValue 1
+			hidden 1
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 0 0.07
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode EDGESONLY
+	customMaterial	0
+	locked 0
+	depthMapSize 256 
+	depthCamera SHADOW_CAM_LITE3 
+	doShadow 1 
+	lightOn 1 
+	}
+
+camera SHADOW_CAM_LITE 7
+	{
+	name    Shadow Cam Lite 7
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		0
+	parent spotLight 4
+	channels
+		{
+		focal focal
+			{
+			name GetStringRes(1028,15)
+			initValue 25.4
+			hidden 1
+			forceLimits 4
+			min 0
+			max 100000
+			trackingScale 0.1
+			keys
+				{
+				static  0
+				k  0  15.1353
+				}
+			interpStyleLocked 0
+			}
+		hither hither
+			{
+			name hither
+			initValue 0.0156
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1e+006
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  0.0156
+				}
+			interpStyleLocked 0
+			}
+		camAutoFocal AutoFocal
+			{
+			name AutoFocal
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  15.1353
+				}
+			interpStyleLocked 0
+			}
+		camAutoScale autoScale
+			{
+			name autoScale
+			initValue 1
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterX autoX
+			{
+			name autoX
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterY autoY
+			{
+			name autoY
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 1 0
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode WIREFRAME
+	customMaterial	0
+	locked 0
+	cameraModel depth
+	}
+
+light spotLight 4
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:lights:spotLite.obj
+	lightType 1 
+	name    Light 8
+	on
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		1
+	parent UNIVERSE
+	channels
+		{
+		liteFalloffStart Angle Start
+			{
+			name Angle Start
+			initValue 0
+			hidden 0
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteFalloffEnd Angle End
+			{
+			name Angle End
+			initValue 70
+			hidden 0
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  70
+				}
+			interpStyleLocked 0
+			}
+		liteAttenStart Dist Start
+			{
+			name Dist Start
+			initValue 0
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteAttenEnd Dist End
+			{
+			name Dist End
+			initValue 0
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		depthMapStrength shadowStrength
+			{
+			name GetStringRes(1028,28)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		depthMapSize depthMapSize
+			{
+			name GetStringRes(1028,29)
+			initValue 256
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  256
+				}
+			interpStyleLocked 0
+			}
+		rotateX xrot
+			{
+			name xrot
+			initValue -42
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		rotateY yrot
+			{
+			name yrot
+			initValue -64.3214
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -90
+				}
+			interpStyleLocked 0
+			}
+		rotateZ zrot
+			{
+			name zrot
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		kdRed KdRed
+			{
+			name GetStringRes(1028,19)
+			initValue 0.959944
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.678401
+				}
+			interpStyleLocked 0
+			}
+		kdGreen KdGreen
+			{
+			name GetStringRes(1028,20)
+			initValue 0.973647
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.725475
+				}
+			interpStyleLocked 0
+			}
+		kdBlue KdBlue
+			{
+			name GetStringRes(1028,21)
+			initValue 0.708365
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.525475
+				}
+			interpStyleLocked 0
+			}
+		kdIntensity KdIntensity
+			{
+			name GetStringRes(1028,22)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.788024
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue -1.6845
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  -2
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 1.98299
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  0.8
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 0.809749
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  -0.8
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 0 0.07
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode EDGESONLY
+	customMaterial	0
+	locked 0
+	depthMapSize 256 
+	depthCamera SHADOW_CAM_LITE 7 
+	doShadow 0 
+	lightOn 0 
+	}
+
+camera SHADOW_CAM_LITE 8
+	{
+	name    Shadow Cam Lite 8
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		0
+	parent spotLight 5
+	channels
+		{
+		focal focal
+			{
+			name GetStringRes(1028,15)
+			initValue 25.4
+			hidden 1
+			forceLimits 4
+			min 0
+			max 100000
+			trackingScale 0.1
+			keys
+				{
+				static  0
+				k  0  15.1353
+				}
+			interpStyleLocked 0
+			}
+		hither hither
+			{
+			name hither
+			initValue 0.0156
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1e+006
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  0.0156
+				}
+			interpStyleLocked 0
+			}
+		camAutoFocal AutoFocal
+			{
+			name AutoFocal
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  15.1353
+				}
+			interpStyleLocked 0
+			}
+		camAutoScale autoScale
+			{
+			name autoScale
+			initValue 1
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterX autoX
+			{
+			name autoX
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterY autoY
+			{
+			name autoY
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 1 0
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode WIREFRAME
+	customMaterial	0
+	locked 0
+	cameraModel depth
+	}
+
+light spotLight 5
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:lights:spotLite.obj
+	lightType 1 
+	name    Light 9
+	on
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		1
+	parent UNIVERSE
+	channels
+		{
+		liteFalloffStart Angle Start
+			{
+			name Angle Start
+			initValue 0
+			hidden 0
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteFalloffEnd Angle End
+			{
+			name Angle End
+			initValue 70
+			hidden 0
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  70
+				}
+			interpStyleLocked 0
+			}
+		liteAttenStart Dist Start
+			{
+			name Dist Start
+			initValue 0
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteAttenEnd Dist End
+			{
+			name Dist End
+			initValue 0
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		depthMapStrength shadowStrength
+			{
+			name GetStringRes(1028,28)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		depthMapSize depthMapSize
+			{
+			name GetStringRes(1028,29)
+			initValue 256
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  256
+				}
+			interpStyleLocked 0
+			}
+		rotateX xrot
+			{
+			name xrot
+			initValue -42
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		rotateY yrot
+			{
+			name yrot
+			initValue -66.1159
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  30
+				}
+			interpStyleLocked 0
+			}
+		rotateZ zrot
+			{
+			name zrot
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		kdRed KdRed
+			{
+			name GetStringRes(1028,19)
+			initValue 0.808405
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.976471
+				}
+			interpStyleLocked 0
+			}
+		kdGreen KdGreen
+			{
+			name GetStringRes(1028,20)
+			initValue 0.642781
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.917632
+				}
+			interpStyleLocked 0
+			}
+		kdBlue KdBlue
+			{
+			name GetStringRes(1028,21)
+			initValue 0.836177
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.717632
+				}
+			interpStyleLocked 0
+			}
+		kdIntensity KdIntensity
+			{
+			name GetStringRes(1028,22)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.8
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue -2.07592
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  -0.650972
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 2.34425
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  0.768
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 0.918921
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  -0.16651
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 0 0.07
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode EDGESONLY
+	customMaterial	0
+	locked 0
+	depthMapSize 256 
+	depthCamera SHADOW_CAM_LITE 8 
+	doShadow 0 
+	lightOn 0 
+	}
+
+light spotLight 8
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:lights:spotLite.obj
+	lightType 1 
+	name    Light 12
+	on
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		1
+	parent UNIVERSE
+	channels
+		{
+		liteFalloffStart Angle Start
+			{
+			name Angle Start
+			initValue 0
+			hidden 0
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteFalloffEnd Angle End
+			{
+			name Angle End
+			initValue 70
+			hidden 0
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  70
+				}
+			interpStyleLocked 0
+			}
+		liteAttenStart Dist Start
+			{
+			name Dist Start
+			initValue 0
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteAttenEnd Dist End
+			{
+			name Dist End
+			initValue 0
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		depthMapStrength shadowStrength
+			{
+			name GetStringRes(1028,28)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		depthMapSize depthMapSize
+			{
+			name GetStringRes(1028,29)
+			initValue 128
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  256
+				}
+			interpStyleLocked 0
+			}
+		rotateX xrot
+			{
+			name xrot
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		rotateY yrot
+			{
+			name yrot
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		rotateZ zrot
+			{
+			name zrot
+			initValue 0.149915
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0.149915
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		kdRed KdRed
+			{
+			name GetStringRes(1028,19)
+			initValue 0.866667
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.976547
+				}
+			interpStyleLocked 0
+			}
+		kdGreen KdGreen
+			{
+			name GetStringRes(1028,20)
+			initValue 0.8
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.847654
+				}
+			interpStyleLocked 0
+			}
+		kdBlue KdBlue
+			{
+			name GetStringRes(1028,21)
+			initValue 0.709804
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.749981
+				}
+			interpStyleLocked 0
+			}
+		kdIntensity KdIntensity
+			{
+			name GetStringRes(1028,22)
+			initValue 0.6
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.8
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0.275191
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.00100395
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 1.05136
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.00100395
+			keys
+				{
+				static  0
+				k  0  0.759
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 9
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.00100395
+			keys
+				{
+				static  0
+				k  0  3
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 0 0.07
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode EDGESONLY
+	customMaterial	0
+	locked 0
+	depthMapSize 256 
+	doShadow 0 
+	lightOn 0 
+	}
+
+camera SHADOW_CAM_LITE 9
+	{
+	name    Shadow Cam Lite 9
+	off
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		0
+	parent spotLight 6
+	channels
+		{
+		focal focal
+			{
+			name GetStringRes(1028,15)
+			initValue 25.4
+			hidden 1
+			forceLimits 4
+			min 0
+			max 100000
+			trackingScale 0.1
+			keys
+				{
+				static  0
+				k  0  15.1353
+				}
+			interpStyleLocked 0
+			}
+		hither hither
+			{
+			name hither
+			initValue 0.0156
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1e+006
+			trackingScale 0.005
+			keys
+				{
+				static  0
+				k  0  0.0156
+				}
+			interpStyleLocked 0
+			}
+		camAutoFocal AutoFocal
+			{
+			name AutoFocal
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  15.1353
+				}
+			interpStyleLocked 0
+			}
+		camAutoScale autoScale
+			{
+			name autoScale
+			initValue 1
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterX autoX
+			{
+			name autoX
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		camAutoCenterY autoY
+			{
+			name autoY
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 1 0
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode WIREFRAME
+	customMaterial	0
+	locked 0
+	cameraModel depth
+	}
+
+light spotLight 6
+	{
+	storageOffset 0 0 0
+	objFileGeom 0 0 :Runtime:geometries:lights:spotLite.obj
+	lightType 1 
+	name    Light 10
+	on
+	bend 1
+	dynamicsLock		1
+	hidden		0
+	addToMenu	1
+	castsShadow		1
+	includeInDepthCue		1
+	parent UNIVERSE
+	channels
+		{
+		liteFalloffStart Angle Start
+			{
+			name Angle Start
+			initValue 0
+			hidden 0
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteFalloffEnd Angle End
+			{
+			name Angle End
+			initValue 70
+			hidden 0
+			forceLimits 4
+			min 0
+			max 160
+			trackingScale 0.25
+			keys
+				{
+				static  0
+				k  0  70
+				}
+			interpStyleLocked 0
+			}
+		liteAttenStart Dist Start
+			{
+			name Dist Start
+			initValue 0
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		liteAttenEnd Dist End
+			{
+			name Dist End
+			initValue 0
+			hidden 0
+			forceLimits 4
+			min 0
+			max 1
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		depthMapStrength shadowStrength
+			{
+			name GetStringRes(1028,28)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.01
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		depthMapSize depthMapSize
+			{
+			name GetStringRes(1028,29)
+			initValue 256
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  256
+				}
+			interpStyleLocked 0
+			}
+		rotateX xrot
+			{
+			name xrot
+			initValue -42
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		rotateY yrot
+			{
+			name yrot
+			initValue -87.4593
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  -45
+				}
+			interpStyleLocked 0
+			}
+		rotateZ zrot
+			{
+			name zrot
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		scale scale
+			{
+			name GetStringRes(1028,5)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		kdRed KdRed
+			{
+			name GetStringRes(1028,19)
+			initValue 0.514313
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.976486
+				}
+			interpStyleLocked 0
+			}
+		kdGreen KdGreen
+			{
+			name GetStringRes(1028,20)
+			initValue 0.667928
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.917586
+				}
+			interpStyleLocked 0
+			}
+		kdBlue KdBlue
+			{
+			name GetStringRes(1028,21)
+			initValue 0.56325
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.717571
+				}
+			interpStyleLocked 0
+			}
+		kdIntensity KdIntensity
+			{
+			name GetStringRes(1028,22)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  0.8
+				}
+			interpStyleLocked 0
+			}
+		translateX xtran
+			{
+			name GetStringRes(1028,12)
+			initValue -2.26798
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  -0.0659039
+				}
+			interpStyleLocked 0
+			}
+		translateY ytran
+			{
+			name GetStringRes(1028,13)
+			initValue 2.34425
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  0.768
+				}
+			interpStyleLocked 0
+			}
+		translateZ ztran
+			{
+			name GetStringRes(1028,14)
+			initValue 0.100571
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  -0.673756
+				}
+			interpStyleLocked 0
+			}
+		}
+	endPoint 0 0 0.07
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin		0
+	displayMode EDGESONLY
+	customMaterial	0
+	locked 0
+	depthMapSize 256 
+	depthCamera SHADOW_CAM_LITE 9 
+	doShadow 0 
+	lightOn 0 
+	}
+}

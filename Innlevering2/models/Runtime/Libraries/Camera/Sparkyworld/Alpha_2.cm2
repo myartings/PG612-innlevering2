@@ -1,0 +1,1693 @@
+{
+
+version
+	{
+	number 4.0
+	}
+
+camera MAIN_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  100
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  1.35603
+				}
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0.256701
+				}
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  -0.140024
+				}
+			}
+		scaleZ zScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleY yScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleX xScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  2.63158
+				}
+			}
+		rotateZ roll
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateX pitch
+			{
+			keys
+				{
+				k  0  -3
+				}
+			}
+		rotateY yaw
+			{
+			keys
+				{
+				k  0  -75
+				}
+			}
+		}
+	cameraModel poser
+	}
+
+camera AUX_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  25.4
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  1.285
+				}
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0.217
+				}
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  -0.048
+				}
+			}
+		scaleZ zScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleY yScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleX xScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		rotateZ roll
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateX pitch
+			{
+			keys
+				{
+				k  0  -25
+				}
+			}
+		rotateY yaw
+			{
+			keys
+				{
+				k  0  -23
+				}
+			}
+		}
+	cameraModel poser
+	}
+
+camera POSE_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  25.4
+				}
+			staticValue 25.4
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		scaleZ zScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			staticValue 1
+			}
+		scaleY yScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			staticValue 1
+			}
+		scaleX xScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			staticValue 1
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			staticValue 1
+			}
+		rotateZ roll
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		rotateX pitch
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		rotateY yaw
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		translateZ zOffset
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		translateY yOffset
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		translateX xOffset
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		}
+	cameraModel poser
+	}
+
+camera STD_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  35
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		scaleZ zScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleY yScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleX xScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		rotateZ roll
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateX pitch
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateY yaw
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  1.5
+				}
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0.375
+				}
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		}
+	cameraModel real
+	}
+
+camera SIDE_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  100
+				}
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0.375
+				}
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		scaleZ zScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleY yScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleX xScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		rotateZ zrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateY yrot
+			{
+			keys
+				{
+				k  0  -90
+				}
+			}
+		rotateX xrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		}
+	cameraModel poser
+	}
+
+camera RIGHT_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  100
+				}
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0.375
+				}
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		scaleZ zScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleY yScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleX xScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		rotateZ zrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateY yrot
+			{
+			keys
+				{
+				k  0  90
+				}
+			}
+		rotateX xrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		}
+	cameraModel poser
+	}
+
+camera TOP_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  100
+				}
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		scaleZ zScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleY yScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleX xScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		rotateZ zrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateY yrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateX xrot
+			{
+			keys
+				{
+				k  0  -90
+				}
+			}
+		}
+	cameraModel poser
+	}
+
+camera BOTTOM_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  20
+				}
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		scaleZ zScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleY yScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleX xScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		rotateZ zrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateY yrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateX xrot
+			{
+			keys
+				{
+				k  0  90
+				}
+			}
+		}
+	cameraModel poser
+	}
+
+camera FRONT_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  100
+				}
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0.375
+				}
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		scaleZ zScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleY yScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleX xScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		rotateZ zrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateY yrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateX xrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		}
+	cameraModel poser
+	}
+
+camera BACK_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  20
+				}
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0.375
+				}
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		scaleZ zScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleY yScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scaleX xScale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		rotateZ zrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateY yrot
+			{
+			keys
+				{
+				k  0  -180
+				}
+			}
+		rotateX xrot
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		}
+	cameraModel poser
+	}
+
+camera FACE_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  25.4
+				}
+			staticValue 25.4
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  -0.92
+				}
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateZ roll
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		rotateX pitch
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		rotateY yaw
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		translateZ zOffset
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		translateY yOffset
+			{
+			keys
+				{
+				k  0  0.64
+				}
+			staticValue -0.64
+			}
+		translateX xOffset
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		}
+	cameraModel poser
+	}
+
+camera LHAND_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  25.4
+				}
+			staticValue 25.4
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  -0.92
+				}
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateZ roll
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		rotateX pitch
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		rotateY yaw
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		translateZ zOffset
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		translateY yOffset
+			{
+			keys
+				{
+				k  0  0.64
+				}
+			staticValue -0.64
+			}
+		translateX xOffset
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		}
+	cameraModel poser
+	}
+
+camera RHAND_CAMERA
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  25.4
+				}
+			staticValue 25.4
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		translateZ dollyZ
+			{
+			keys
+				{
+				k  0  -0.92
+				}
+			}
+		translateY dollyY
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateX dollyX
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		rotateZ roll
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		rotateX pitch
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		rotateY yaw
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		translateZ zOffset
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		translateY yOffset
+			{
+			keys
+				{
+				k  0  0.64
+				}
+			staticValue -0.64
+			}
+		translateX xOffset
+			{
+			keys
+				{
+				k  0  0
+				}
+			staticValue 0
+			}
+		}
+	cameraModel poser
+	}
+
+camera SHADOW_CAM_LITE1
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		translateY ytran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateX xtran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateZ ztran
+			{
+			keys
+				{
+				k  0  -100
+				}
+			}
+		}
+	cameraModel depth
+	}
+
+camera SHADOW_CAM_LITE2
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		translateY ytran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateX xtran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateZ ztran
+			{
+			keys
+				{
+				k  0  -100
+				}
+			}
+		}
+	cameraModel depth
+	}
+
+camera SHADOW_CAM_LITE3
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		translateY ytran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateX xtran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateZ ztran
+			{
+			keys
+				{
+				k  0  -100
+				}
+			}
+		}
+	cameraModel depth
+	}
+
+camera SHADOW_CAM_LITE 4
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		translateZ ztran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateX xtran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateY ytran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		}
+	cameraModel depth
+	}
+
+camera SHADOW_CAM_LITE 5
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		translateZ ztran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateX xtran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateY ytran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		}
+	cameraModel depth
+	}
+
+camera SHADOW_CAM_LITE 6
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		translateZ ztran
+			{
+			keys
+				{
+				k  0  -100
+				}
+			}
+		translateX xtran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateY ytran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		}
+	cameraModel depth
+	}
+
+camera SHADOW_CAM_LITE 7
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		translateZ ztran
+			{
+			keys
+				{
+				k  0  -100
+				}
+			}
+		translateX xtran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateY ytran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		}
+	cameraModel depth
+	}
+
+camera SHADOW_CAM_LITE 8
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		translateZ ztran
+			{
+			keys
+				{
+				k  0  -100
+				}
+			}
+		translateX xtran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateY ytran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		}
+	cameraModel depth
+	}
+
+camera SHADOW_CAM_LITE 9
+	{
+	channels
+		{
+		focal focal
+			{
+			keys
+				{
+				k  0  15.1353
+				}
+			}
+		hither hither
+			{
+			keys
+				{
+				k  0  0.0156
+				}
+			}
+		scale scale
+			{
+			keys
+				{
+				k  0  1
+				}
+			}
+		translateZ ztran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateX xtran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		translateY ytran
+			{
+			keys
+				{
+				k  0  0
+				}
+			}
+		}
+	cameraModel depth
+	}
+
+doc
+	{
+	useCamera MAIN_CAMERA
+	}
+}

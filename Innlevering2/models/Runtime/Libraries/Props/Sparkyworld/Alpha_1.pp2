@@ -1,0 +1,1752 @@
+{
+version
+	{
+	number 4.0
+	}
+prop Room1
+	{
+	storageOffset 0 0.3487 0
+	objFileGeom 0 0 :Runtime:Geometries:Sparkyworld:1_Reactor.obj
+	}
+prop Room1
+	{
+	name    Reactor
+	on
+	bend 1
+	dynamicsLock  1
+	hidden  0
+	addToMenu 1
+	castsShadow  1
+	includeInDepthCue  1
+	parent UNIVERSE
+	channels
+		{
+		xOffsetA OriginX
+			{
+			name GetStringRes(1028,44)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  1
+				k  0  0
+				}
+			interpStyleLocked 0
+			staticValue 0
+			}
+		yOffsetA OriginY
+			{
+			name GetStringRes(1028,45)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  1
+				k  0  0
+				}
+			interpStyleLocked 0
+			staticValue 0
+			}
+		zOffsetA OriginZ
+			{
+			name GetStringRes(1028,46)
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  1
+				k  0  0
+				}
+			interpStyleLocked 0
+			staticValue 0
+			}
+		rotateY yRotate
+			{
+			name yrot
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		rotateX xRotate
+			{
+			name xrot
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		rotateZ zRotate
+			{
+			name zrot
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 1
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		scale Scale
+			{
+			name GetStringRes(1028,5)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		scaleX xScale
+			{
+			name GetStringRes(1028,6)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		scaleY yScale
+			{
+			name GetStringRes(1028,7)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		scaleZ zScale
+			{
+			name GetStringRes(1028,8)
+			initValue 1
+			hidden 0
+			forceLimits 0
+			min 0.001
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  0
+				k  0  1
+				}
+			interpStyleLocked 0
+			}
+		translateX xTran
+			{
+			name GetStringRes(1028,12)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		translateY yTran
+			{
+			name GetStringRes(1028,13)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  0.962998
+				}
+			interpStyleLocked 0
+			}
+		translateZ zTran
+			{
+			name GetStringRes(1028,14)
+			initValue 0
+			hidden 0
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.001
+			keys
+				{
+				static  0
+				k  0  0
+				}
+			interpStyleLocked 0
+			}
+		xOffsetB xOffB
+			{
+			name xOffB
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  1
+				k  0  0
+				}
+			interpStyleLocked 0
+			staticValue 0
+			}
+		yOffsetB yOffB
+			{
+			name yOffB
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  1
+				k  0  0
+				}
+			interpStyleLocked 0
+			staticValue 0
+			}
+		zOffsetB zOffB
+			{
+			name zOffB
+			initValue 0
+			hidden 1
+			forceLimits 0
+			min -100000
+			max 100000
+			trackingScale 0.004
+			keys
+				{
+				static  1
+				k  0  0
+				}
+			interpStyleLocked 0
+			staticValue 0
+			}
+		}
+	endPoint 0 0.962998 0
+	origin 0 0 0
+	orientation 0 0 0
+	displayOrigin  0
+	displayMode USEPARENT
+	customMaterial 1
+	material Preview
+		{
+		KdColor 0.241703 0.796872 0.953628 1
+		KaColor 0 0 0 1
+		KsColor 0.130831 0.120104 0.082002 1
+		TextureColor 1 1 1 1
+		NsExponent 30
+		tMin 0
+		tMax 0
+		tExpo 0.6
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 1
+		reflectThruKd 0
+		textureMap NO_MAP
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 1
+		}
+	material CBox
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Cbox.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material CWires
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_C_Grid.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material CWall
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Wall_1.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material CPillar
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Pillars.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material CWallTop
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Wall_C2.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material CGrid
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_C_Grid.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material CAirconWall
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Pillars.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BDoor
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Door.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BWall1A
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Wall_B1AB.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BDrfram
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Door.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BReactorBox
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Reactor.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BButtons
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Reactor.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BDial3
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Reactor.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BDialEdge
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Lever.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BDial2
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Reactor.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BDial1
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Reactor.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BLever
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Lever.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BLeverHan
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Lever.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BLevBox
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Lever.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BBigPipe1
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_5.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BBIgPipe2
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_5.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BSmalPipe1
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_5.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BSmalPipe2
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_5.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BTank1
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Tanks.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BTankBase1
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Tanks.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BTank02
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Tanks.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BTankBox1
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Tanks.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BTankBase2
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_6.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BSign2
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Signs.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BSignBig1
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Signs.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BWalkGrids
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 1
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Grid.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap ":Runtime:Textures:Sparkyworld:Alpha1:1_WalkGrid_T.jpg"
+		0 0
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BWalkWay
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Wallway.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BLadder
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Wallway.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BTopBars
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Signs.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BPillar
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Pillars.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BWall1B
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Wall_B1AB.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BWall1C
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Wall_1.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BAirconWall
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 1
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Pillars.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material BWall2
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Wall_B2.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material AAirconWall
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Pillars.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material AGrid
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 1
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Grid.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Grid_T.jpg"
+		0 0
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material AWall1
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Wall_A1.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material ACoils
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_4.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material APipe8
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_4.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material APowBox
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_4.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material AWall2
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Wall_A2.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material APillar
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Pillars.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material AMonScreen
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_3.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material AMonitor
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_3.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material AKeyboard
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_3.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material APipe7
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_2.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material ATankTop
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_2.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material APipe1
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_1.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material ATank1
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_2.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material APipe5
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_2.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material APipe6
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_2.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material APanel1
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_2.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material APipe4
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_2.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material AMonSup
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_1.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material AKeySup
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_1.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material APipe3
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_1.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material APipe2
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_1.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material AAirconGrid
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Parts_1.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material Floor
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Floor.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	material Bricks
+		{
+		KdColor 1 1 1 1
+		KaColor 0 0 0 1
+		KsColor 0 0 0 1
+		TextureColor 0.8 0.8 0.8 1
+		NsExponent 100
+		tMin 0
+		tMax 0
+		tExpo 0
+		bumpStrength 1
+		ksIgnoreTexture 0
+		reflectThruLights 0
+		reflectThruKd 0
+		textureMap ":Runtime:Textures:Sparkyworld:Alpha1:1_Wall_1.jpg"
+		0 0
+		bumpMap NO_MAP
+		reflectionMap NO_MAP
+		transparencyMap NO_MAP
+		ReflectionColor 1 1 1 1
+		reflectionStrength 0
+		}
+	locked 0
+	}
+doc
+	{
+	addActor Room1
+	}
+}
