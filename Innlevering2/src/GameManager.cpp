@@ -450,8 +450,8 @@ void GameManager::renderColorPass() {
 	if(current_program == hidden_line_program)
 	{
 		glUniform1f(current_program->getUniform("line_threshold"), slider_line_threshold->get_slider_value()/10);
-		glUniform1f(current_program->getUniform("line_scale"), slider_line_scale->get_slider_value());
-		glUniform1f(current_program->getUniform("line_offset"), slider_line_offset->get_slider_value());
+		glUniform1f(current_program->getUniform("line_scale"), slider_line_scale->get_slider_value()*100);
+		glUniform1f(current_program->getUniform("line_offset"), (slider_line_offset->get_slider_value()-0.5f)*10);
 		glUniform1f(current_program->getUniform("shadefactor_multiplier"), slider_shadefactor_addvalue->get_slider_value());
 		glUniform1f(current_program->getUniform("shadefactor_addvalue"), slider_shadefactor_multiplier->get_slider_value());
 	}

@@ -28,10 +28,6 @@ void main() {
 
 	gl_Position =  gl_in[0].gl_Position;
 	EmitVertex();
-/*-----------end---------------*/
-
-
-
 
 /*-----------1---------------*/		
 	beyer_coord = vec3(0, 1, 0);
@@ -43,10 +39,6 @@ void main() {
 	
 	gl_Position =  gl_in[1].gl_Position;
 	EmitVertex();
-/*-----------end---------------*/
-
-
-
 
 /*-----------2---------------*/
 	beyer_coord = vec3(0, 0, 1);
@@ -58,6 +50,6 @@ void main() {
 
 	gl_Position =  gl_in[2].gl_Position;
 	EmitVertex();
-/*-----------end---------------*/
+
 	EndPrimitive();
 }
