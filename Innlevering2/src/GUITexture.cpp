@@ -14,7 +14,7 @@ namespace gui
 		dimensions = glm::vec3(texture.width, texture.height, 1.0f);
 		position = glm::vec3(0);
 		scale = glm::vec3(1);
-		rect = Rect(0, 0, (int)dimensions.x, (int)dimensions.y);
+		rect = Rect(0.0f, 0.0f, dimensions.x, dimensions.y);
 	}
 
 	GUITexture::~GUITexture()
@@ -43,11 +43,12 @@ namespace gui
 	void GUITexture::set_position( glm::vec3& v )
 	{
 		position = v;
+		position_2d = glm::vec2(v.x, v.y);
 		model_matrix = glm::translate(glm::mat4(1), position); 
 		model_matrix = glm::scale(model_matrix, dimensions);
 		model_matrix = glm::scale(model_matrix, scale);
-		rect.x = static_cast<GLint>(position.x);
-		rect.y = static_cast<GLint>(position.y);
+		rect.x = position.x;
+		rect.y = position.y;
 	}
 
 	void GUITexture::set_scale( glm::vec2& v )
@@ -56,6 +57,8 @@ namespace gui
 		model_matrix = glm::translate(glm::mat4(1), position); 
 		model_matrix = glm::scale(model_matrix, dimensions);
 		model_matrix = glm::scale(model_matrix, scale);
+		rect.width*=scale.x;
+		rect.height*=scale.y;
 	}
 
 	bool GUITexture::contains( glm::vec2& v )
@@ -75,6 +78,21 @@ namespace gui
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 		gui_program->disuse();
+	}
+
+	glm::vec3& GUITexture::get_position()
+	{
+		return position;
+	}
+
+	glm::vec2& GUITexture::get2d_position()
+	{
+		return position_2d;
+	}
+
+	gui::Rect& GUITexture::get_rect()
+	{
+		return rect;
 	}
 
 }

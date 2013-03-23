@@ -53,17 +53,17 @@ namespace gui
 	struct Rect
 	{
 		Rect();
-		Rect(int x, int y, int width, int height);
+		Rect(float x, float y, float width, float height);
 		
 		/**
 		* @return true if the rect r1 contains the vector v2, false otherwise
 		*/
 		static bool contains(Rect& r, glm::vec2& v);
 		
-		int x;
-		int y;
-		int width;
-		int height;
+		float x;
+		float y;
+		float width;
+		float height;
 	};
 
 	/**

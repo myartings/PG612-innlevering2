@@ -236,7 +236,8 @@ void GameManager::init() {
 	SetShaderAttribPtrs();
 	current_program = phong_program;
 
-	slider_increase_line_width = std::make_shared<SliderWithText>("GUI/wireframe_line_width.png", gui_program);
+	slider_increase_line_width = std::make_shared<SliderWithText>("GUI/wireframe_line_width.png", 
+									gui_program, glm::vec2(950.0f, 10.0f));
 }
 
 void GameManager::SetMatrices()
@@ -572,10 +573,11 @@ void GameManager::play() {
 					zoomOut();
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				if(!slider_increase_line_width->Update(delta_time, glm::vec2(event.motion.x, event.motion.y)))
+				if(!slider_increase_line_width->BeginInteraction(glm::vec2(event.motion.x, event.motion.y)))
 					cam_trackball.rotateBegin(event.motion.x, event.motion.y);
 				break;
 			case SDL_MOUSEBUTTONUP:
+				slider_increase_line_width->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
 				cam_trackball.rotateEnd(event.motion.x, event.motion.y);
 				break;
 			case SDL_MOUSEMOTION:

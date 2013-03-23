@@ -76,10 +76,27 @@ namespace gui
 		*/
 		bool contains(glm::vec2& v);
 
+		/**
+		* @returns the position of this GUITexture
+		*/
+		glm::vec3& get_position();
+
+		/**
+		* @returns the xy position of this GUITexture
+		*/
+		glm::vec2& get2d_position();
+
+		/**
+		* @returns the rect representing this GUITextures bounds on the screen
+		*/
+		gui::Rect& get_rect();
+
 	private:
 		glm::mat4 model_matrix;
 		Texture texture;
 		glm::vec3 position;
+		glm::vec2 position_2d;
+
 		glm::vec3 dimensions;
 		glm::vec3 scale;
 		Rect rect;

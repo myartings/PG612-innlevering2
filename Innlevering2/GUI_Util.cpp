@@ -76,7 +76,7 @@ namespace gui
 		height = 0;
 	}
 
-	Rect::Rect( int x, int y, int width, int height )
+	Rect::Rect( float x, float y, float width, float height )
 	{
 		this->x = x;
 		this->y = y;
