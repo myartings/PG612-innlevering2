@@ -72,6 +72,12 @@ public:
 	*/
 	void Update(float delta_time, glm::vec2& mouse_pos);
 
+	/**
+	* Returns the value the slider represents, based on the position of the slider knob.
+	* The value is clamped between [0, 1]
+	*/
+	float get_slider_value();
+
 private:
 	GUITexture slider;
 	GUITexture slider_knob;
@@ -80,7 +86,9 @@ private:
 	bool interacting;
 	glm::vec2 previous_mouse_pos;
 
-	
+	// The value the slider represents, based on the position of the slider knob.
+	// The value is clamped between [0, 1]
+	float slider_value;
 };
 
 #endif // SliderWithText_h__
