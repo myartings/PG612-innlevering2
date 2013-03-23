@@ -11,11 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\CubeMap.h" />
     <ClInclude Include="include\GameException.h" />
     <ClInclude Include="include\GameManager.h" />
     <ClInclude Include="include\Game_Constants.h" />
     <ClInclude Include="include\GLUtils\BO.hpp" />
-    <ClInclude Include="include\GLUtils\CubeMap.hpp" />
+    <ClInclude Include="include\GLUtils\CubeMap_old.hpp" />
     <ClInclude Include="include\GLUtils\GLUtils.hpp" />
     <ClInclude Include="include\GLUtils\Program.hpp" />
     <ClInclude Include="include\GUITexture.h" />
@@ -25,9 +26,11 @@
     <ClInclude Include="include\SliderWithText.h" />
     <ClInclude Include="include\Timer.h" />
     <ClInclude Include="include\VirtualTrackball.h" />
+    <ClInclude Include="src\CubeMapLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GUI_Util.cpp" />
+    <ClCompile Include="src\CubeMap.cpp" />
     <ClCompile Include="src\GameManager.cpp" />
     <ClCompile Include="src\GUITexture.cpp" />
     <ClCompile Include="src\main.cpp" />

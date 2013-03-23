@@ -18,6 +18,7 @@
 #include "VirtualTrackball.h"
 #include "ShadowFBO.h"
 #include "SliderWithText.h"
+#include "CubeMap.h"
 
 #include "Game_Constants.h"
 /**
@@ -117,7 +118,7 @@ private:
 
 	std::shared_ptr<GLUtils::Program> current_program;
 
-	std::shared_ptr<GLUtils::CubeMap> diffuse_cubemap;
+	std::shared_ptr<CubeMap> diffuse_cubemap;
 	
 	std::shared_ptr<GLUtils::BO<GL_ARRAY_BUFFER> > cube_vertices, cube_normals, gui_vertices;
 

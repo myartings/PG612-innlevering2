@@ -41,6 +41,6 @@ inline void checkGLFBOCompleteness(const char* file, unsigned int line) {
 
 #include "GLUtils/Program.hpp"
 #include "GLUtils/BO.hpp"
-#include "GLUtils/CubeMap.hpp"
+//#include "GLUtils/CubeMap.hpp"
 
 #endif
