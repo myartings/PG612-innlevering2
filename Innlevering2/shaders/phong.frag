@@ -31,7 +31,6 @@ void main() {
 	sum += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, 1)+o);
 	sum = sum * 0.25 + 0.75;
 
-	vec3 texcoord_reflect = reflect(-f_v, n);
-	vec3 diff_cubemap_color = texture(diffuse_map, texcoord_reflect).xyz;
+	vec3 diff_cubemap_color = texture(diffuse_map, n).xyz;
     out_color = vec4( ( (diff_cubemap_color*color) + (spec*0.1) ) * sum, 1.0);
 }

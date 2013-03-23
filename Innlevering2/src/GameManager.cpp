@@ -306,8 +306,10 @@ void GameManager::SetShaderUniforms()
 	
 	wireframe_program->use();
 	wireframe_program->disuse();
-	
+
 	hidden_line_program->use();
+	glUniform1i(hidden_line_program->getUniform("shadowmap_texture"), 0);
+	glUniform1i(hidden_line_program->getUniform("diffuse_map"), 1);
 	hidden_line_program->disuse();
 
 	light_pov_program->use();
@@ -440,10 +442,19 @@ void GameManager::renderColorPass() {
 	glDepthMask(GL_TRUE);
 
 	current_program->use();
+
+	if(current_program == hidden_line_program)
+	{
+		glUniform1f(current_program->getUniform("line_threshold"), slider_line_threshold->get_slider_value()/10);
+		glUniform1f(current_program->getUniform("line_scale"), slider_line_scale->get_slider_value());
+		glUniform1f(current_program->getUniform("line_offset"), slider_line_offset->get_slider_value());
+	}
+
 	//Bind shadow map and diffuse cube map
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, shadow_fbo->getTexture());
 	diffuse_cubemap->bind(GL_TEXTURE1);
+
 	/**
 	  * Render cube
 	  */ 
@@ -477,6 +488,7 @@ void GameManager::renderColorPass() {
 	  * Render model
 	  * Create modelview matrix and normal matrix and set as input
 	  */
+
 	glBindVertexArray(vao[0]);
 	for (int i=0; i<n_models; ++i) {
 		glm::mat4 model_matrix = model_matrices.at(i);
