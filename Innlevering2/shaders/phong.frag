@@ -24,13 +24,13 @@ void main() {
 	//shade_factor = shade_factor * 0.25 + 0.75;
 
 	ivec2 o = ivec2(mod(floor(gl_FragCoord.xy), 2.0));
-	float sum;
-	sum = textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1, -1)+o);
-	sum += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, -1)+o);
-	sum += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1, 1)+o);
-	sum += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, 1)+o);
-	sum = sum * 0.25 + 0.75;
+	float shade_factor;
+	shade_factor = textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1, -1)+o);
+	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, -1)+o);
+	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1, 1)+o);
+	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, 1)+o);
+	shade_factor = shade_factor * 0.25 + 0.75;
 
 	vec3 diff_cubemap_color = texture(diffuse_map, n).xyz;
-    out_color = vec4( ( (diff_cubemap_color*color) + (spec*0.1) ) * sum, 1.0);
+    out_color = vec4( ( (diff_cubemap_color*color) + (spec*0.1) ) * shade_factor, 1.0);
 }

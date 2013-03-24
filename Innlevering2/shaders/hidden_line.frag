@@ -33,7 +33,13 @@ void main() {
 	
 	float diff = max(0.0f, dot(n, l));
 
-	float shade_factor = textureProj(shadowmap_texture, f_shadow_coord*line_threshold);
+	//float shade_factor = textureProj(shadowmap_texture, f_shadow_coord*line_threshold);
+	ivec2 o = ivec2(mod(floor(gl_FragCoord.xy), 2.0));
+	float shade_factor;
+	shade_factor = textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1, -1)+o);
+	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, -1)+o);
+	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1, 1)+o);
+	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, 1)+o);
 
 	shade_factor = shade_factor * shadefactor_multiplier + shadefactor_addvalue;
 	//shade_factor = shade_factor * 0.25 + 0.75;
