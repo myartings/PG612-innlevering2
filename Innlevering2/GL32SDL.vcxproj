@@ -22,8 +22,10 @@
     <ClInclude Include="include\GUITexture.h" />
     <ClInclude Include="include\GUI_Util.h" />
     <ClInclude Include="include\Model.h" />
+    <ClInclude Include="include\RadioButtonCollection.h" />
     <ClInclude Include="include\ShadowFBO.h" />
     <ClInclude Include="include\SliderWithText.h" />
+    <ClInclude Include="include\GUITextureFactory.h" />
     <ClInclude Include="include\Timer.h" />
     <ClInclude Include="include\VirtualTrackball.h" />
     <ClInclude Include="src\CubeMapLoader.h" />
@@ -33,6 +35,7 @@
     <ClCompile Include="src\CubeMap.cpp" />
     <ClCompile Include="src\GameManager.cpp" />
     <ClCompile Include="src\GUITexture.cpp" />
+    <ClCompile Include="src\GUITextureFactory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\ShadowFBO.cpp" />

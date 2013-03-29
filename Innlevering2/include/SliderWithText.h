@@ -21,8 +21,6 @@
 
 using namespace gui;
 
-
-
 class SliderWithText
 {
 public:

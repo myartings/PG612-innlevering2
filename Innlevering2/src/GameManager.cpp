@@ -213,7 +213,7 @@ void GameManager::init() {
 	//Initialize IL and ILU
 	ilInit();
 	iluInit();
-
+	
 	//Initialize the different stuff we need
 	bunny.reset(new Model("models/bunny.obj", false));
 	room.reset(new Model("models/room_hardbox.obj", false));

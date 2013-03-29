@@ -16,7 +16,7 @@
 #include <gl/glew.h>
 
 #include "GUI_Util.h"
-
+#include "GUITextureFactory.h"
 /**
 * The namespace contains functions to make "GUI" texture displaying easier.
 */
@@ -29,7 +29,6 @@ namespace gui
 	class GUITexture
 	{
 	public:
-		//GUITexture();
 		GUITexture(const std::string& texture_path);
 		~GUITexture();
 

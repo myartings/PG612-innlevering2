@@ -2,15 +2,10 @@
 
 namespace gui
 {
-	//GUITexture::GUITexture()
-	//{	
-	//	position = glm::vec3(0);
-	//	dimensions = glm::vec3(0);
-	//}
 
 	GUITexture::GUITexture(const std::string& texture_path )
 	{
-		texture = LoadTexture(texture_path);
+		texture = gui::GUITextureFactory::Inst()->LoadTexture(texture_path);
 		dimensions = glm::vec3(texture.width, texture.height, 1.0f);
 		position = glm::vec3(0);
 		scale = glm::vec3(1);

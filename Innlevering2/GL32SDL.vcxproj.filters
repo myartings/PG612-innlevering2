@@ -93,6 +93,12 @@
     <ClInclude Include="src\CubeMapLoader.h">
       <Filter>Header Files\GLUtils</Filter>
     </ClInclude>
+    <ClInclude Include="include\RadioButtonCollection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GUITextureFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameManager.cpp">
@@ -120,6 +126,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CubeMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUITextureFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
