@@ -114,7 +114,8 @@ private:
 									  exploded_view_program, 
 									  light_pov_program,
 									  depth_dump_program,
-									  gui_program;
+									  gui_program,
+									  frensel_program;
 
 	std::shared_ptr<GLUtils::Program> current_program;
 

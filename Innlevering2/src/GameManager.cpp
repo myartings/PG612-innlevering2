@@ -248,11 +248,11 @@ void GameManager::init() {
 	SetShaderAttribPtrs();
 	current_program = phong_program;
 
-	slider_line_threshold = std::make_shared<SliderWithText>("GUI/line_threashold.png", 
+	slider_line_threshold = std::make_shared<SliderWithText>("GUI/hiddenline/line_threashold.png", 
 									gui_program, glm::vec2(950.0f, 5.0f));
-	slider_line_scale	  = std::make_shared<SliderWithText>("GUI/amplify_scale.png", 
+	slider_line_scale	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_scale.png", 
 									gui_program, glm::vec2(950.0f, 75.0f));
-	slider_line_offset	  = std::make_shared<SliderWithText>("GUI/amplify_offset.png", 
+	slider_line_offset	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_offset.png", 
 									gui_program, glm::vec2(950.0f, 145.0f));
 	slider_shadefactor_addvalue		= std::make_shared<SliderWithText>("GUI/shadefactor_addvalue.png", 
 									gui_program, glm::vec2(950.0f, 215.0f));
@@ -293,7 +293,7 @@ void GameManager::CreateShaderPrograms()
 
 	light_pov_program.reset(new Program("shaders/light_pov.vert", "shaders/light_pov.frag"));
 	depth_dump_program.reset(new Program("shaders/depth_dump.vert", "shaders/depth_dump.frag"));
-
+	frensel_program.reset(new Program("shaders/frensel_shading.vert", "shaders/frensel_shading.frag"));
 	CHECK_GL_ERRORS();
 }
 
@@ -329,6 +329,8 @@ void GameManager::SetShaderUniforms()
 	glUniformMatrix4fv(gui_program->getUniform("view"), 1, 0, glm::value_ptr(gui_camera.view));
 	gui_program->disuse();
 
+	frensel_program->use();
+	frensel_program->disuse();
 
 	CHECK_GL_ERRORS();
 }
@@ -350,6 +352,10 @@ void GameManager::SetShaderAttribPtrs()
 
 	hidden_line_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getVerticeOffset());
 	hidden_line_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getNormalOffset());
+
+	frensel_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getVerticeOffset());
+	frensel_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getNormalOffset());
+	
 	bunny->getInterleavedVBO()->unbind();
 	glBindVertexArray(0);
 
@@ -362,20 +368,20 @@ void GameManager::SetShaderAttribPtrs()
 	phong_program->setAttributePointer("position", 3);
 	wireframe_program->setAttributePointer("position", 3);
 	hidden_line_program->setAttributePointer("position", 3);
+	frensel_program->setAttributePointer("position", 3);
 
 	cube_normals->bind();
 	phong_program->setAttributePointer("normal", 3);
 	wireframe_program->setAttributePointer("normal", 3);
 	hidden_line_program->setAttributePointer("normal", 3);
+	frensel_program->setAttributePointer("normal", 3);
 
-	//model->getVertices()->unbind(); //Unbinds both vertices and normals
 	glBindVertexArray(0);
 	CHECK_GL_ERRORS();
 #pragma endregion vao[1]
 
 
 #pragma region vao[2]
-	//Set up VAOs and set as input to shaders
 	glBindVertexArray(vao[2]);
 	room->getInterleavedVBO()->bind();
 	room->getIndices()->bind();
@@ -462,7 +468,7 @@ void GameManager::renderColorPass() {
 	/**
 	  * Render cube
 	  */ 
-	/*{
+	{
 		glBindVertexArray(vao[1]);
 
 		glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
@@ -486,7 +492,7 @@ void GameManager::renderColorPass() {
 		glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"),	1, 0, glm::value_ptr(modelview_matrix_inverse));
 		
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-	}*/
+	}
 
 	/**
 	  * Render model
@@ -525,20 +531,20 @@ void GameManager::renderColorPass() {
 		//glDrawElements(GL_TRIANGLES, model->getMesh().count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * model->getMesh().first));
 		//glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
 	}
-	glBindVertexArray(vao[2]);
+	//glBindVertexArray(vao[2]);
 
-	glm::mat4 model_matrix_inverse = glm::inverse(room_model_matrix);
-	glm::mat4 modelview_matrix = view_matrix_new*room_model_matrix;
-	glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
-	glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
+	//glm::mat4 model_matrix_inverse = glm::inverse(room_model_matrix);
+	//glm::mat4 modelview_matrix = view_matrix_new*room_model_matrix;
+	//glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
+	//glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
 
-	glUniform3fv(current_program->getUniform("color"), 1, glm::value_ptr(glm::vec3(0.1f, 0.5f, 0.7f)));
-	glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
-	glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
+	//glUniform3fv(current_program->getUniform("color"), 1, glm::value_ptr(glm::vec3(0.1f, 0.5f, 0.7f)));
+	//glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+	//glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
 
-	MeshPart& mesh = room->getMesh();
-	glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
-	glBindVertexArray(0);
+	//MeshPart& mesh = room->getMesh();
+	//glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
+	//glBindVertexArray(0);
 
 }
 
@@ -556,42 +562,42 @@ void GameManager::renderShadowPass() {
 	glEnable (GL_POLYGON_OFFSET_FILL);
 	glPolygonOffset(10.0f, 4.4f);
 
-	//CHECK_GL_ERRORS();
-	//{
-	//	glBindVertexArray(vao[1]);
-	//	CHECK_GL_ERRORS();
-	//	glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
-	//	glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
-	//	glm::mat4 modelview_matrix = light.view*model_matrix;
-	//	glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
-	//	glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
-	//	glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
-
-	//	glUniformMatrix4fv(shadow_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
-	//	//glUniformMatrix4fv(shadow_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
-	//	CHECK_GL_ERRORS();
-	//	glDrawArrays(GL_TRIANGLES, 0, 36);
-	//}
-	//CHECK_GL_ERRORS();
-
+	CHECK_GL_ERRORS();
 	{
-		glBindVertexArray(vao[2]);
-
-		//glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
-		glm::mat4 model_matrix_inverse = glm::inverse(room_model_matrix);
-		glm::mat4 modelview_matrix = light.view*room_model_matrix;
+		glBindVertexArray(vao[1]);
+		CHECK_GL_ERRORS();
+		glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
+		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
+		glm::mat4 modelview_matrix = light.view*model_matrix;
 		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
 		glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
-		//glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
+		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
 
 		glUniformMatrix4fv(light_pov_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
-
+		//glUniformMatrix4fv(light_pov_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
 		CHECK_GL_ERRORS();
-		MeshPart& mesh = room->getMesh();
-		glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
-
-		CHECK_GL_ERRORS();
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
+	CHECK_GL_ERRORS();
+
+	//{
+	//	glBindVertexArray(vao[2]);
+
+	//	//glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
+	//	glm::mat4 model_matrix_inverse = glm::inverse(room_model_matrix);
+	//	glm::mat4 modelview_matrix = light.view*room_model_matrix;
+	//	glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
+	//	glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
+	//	//glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
+
+	//	glUniformMatrix4fv(light_pov_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+
+	//	CHECK_GL_ERRORS();
+	//	MeshPart& mesh = room->getMesh();
+	//	glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
+
+	//	CHECK_GL_ERRORS();
+	//}
 	
 	/**
 	  * Render model
@@ -755,6 +761,10 @@ void GameManager::play() {
 						current_program = hidden_line_program;
 					break;
 				case SDLK_4:
+					if(current_program != frensel_program)
+						current_program = frensel_program;
+					break;
+				case SDLK_5:
 					rotate_light = !rotate_light;
 				}
 				break;

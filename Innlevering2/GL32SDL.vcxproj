@@ -44,6 +44,8 @@
     <None Include="shaders\cubemap.vert" />
     <None Include="shaders\depth_dump.frag" />
     <None Include="shaders\depth_dump.vert" />
+    <None Include="shaders\frensel_shading.frag" />
+    <None Include="shaders\frensel_shading.vert" />
     <None Include="shaders\GUI.frag" />
     <None Include="shaders\GUI.geom" />
     <None Include="shaders\GUI.vert" />

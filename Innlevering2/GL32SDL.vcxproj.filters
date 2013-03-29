@@ -40,6 +40,9 @@
     <Filter Include="Resource Files\shaders\cubemap">
       <UniqueIdentifier>{06d0a7d9-ddfc-4dec-9bc0-5b2a1fbc80ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\shaders\frensel shading">
+      <UniqueIdentifier>{29c7c3cd-202a-44aa-ad3f-e0f414fdccf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameManager.h">
@@ -174,6 +177,12 @@
     </None>
     <None Include="shaders\cubemap.vert">
       <Filter>Resource Files\shaders\cubemap</Filter>
+    </None>
+    <None Include="shaders\frensel_shading.vert">
+      <Filter>Resource Files\shaders\frensel shading</Filter>
+    </None>
+    <None Include="shaders\frensel_shading.frag">
+      <Filter>Resource Files\shaders\frensel shading</Filter>
     </None>
   </ItemGroup>
 </Project>
