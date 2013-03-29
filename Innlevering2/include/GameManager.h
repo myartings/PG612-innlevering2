@@ -152,6 +152,8 @@ private:
 		
 	std::shared_ptr<RadioButtonCollection> rendermode_radiobtn;
 	std::shared_ptr<RadioButtonCollection> environment_radiobtn;
+	std::shared_ptr<RadioButtonCollection> fresnel_radiobtn;
+
 	GLuint fbo_vertex_bo; //< Vetex buffer object for fullscreen quad
 	GLuint fbo_vao; //< Vertex array object for the depthbuffer dumping
 	glm::mat4 fbo_modelMatrix;

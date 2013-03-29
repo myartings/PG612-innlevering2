@@ -3,8 +3,24 @@
 RadioButtonCollection::RadioButtonCollection( std::vector<RadioButtonEntry> _radio_buttons, glm::vec2 position, glm::vec2 scale )
 {
 	radio_buttons = _radio_buttons;
-
+	name_label = NULL;
 	float offset = 0;
+
+	for(unsigned int i = 0; i < radio_buttons.size(); i++)
+	{
+		radio_buttons.at(i).Init(glm::vec2(position.x, position.y-offset), scale);
+		offset += radio_buttons.at(i).label_texture.get_rect().height;
+	}
+}
+
+RadioButtonCollection::RadioButtonCollection( std::vector<RadioButtonEntry> _radio_buttons, glm::vec2 position, 
+											   glm::vec2 scale, std::string collection_label_path )
+{
+	radio_buttons = _radio_buttons;
+	name_label = new GUITexture(collection_label_path);
+	name_label->set_position(position);
+	name_label->set_scale(scale);
+	float offset = name_label->get_rect().height;
 
 	for(unsigned int i = 0; i < radio_buttons.size(); i++)
 	{
@@ -15,6 +31,11 @@ RadioButtonCollection::RadioButtonCollection( std::vector<RadioButtonEntry> _rad
 
 RadioButtonCollection::~RadioButtonCollection()
 {
+	if(name_label)
+	{
+		delete name_label;
+		name_label = NULL;
+	}
 }
 
 void RadioButtonCollection::OnClick( glm::vec2& mouse_pos)
@@ -37,8 +58,10 @@ void RadioButtonCollection::OnClick( glm::vec2& mouse_pos)
 	}
 }
 
-void RadioButtonCollection::Draw(  )
+void RadioButtonCollection::Draw()
 {
+	if(name_label)
+		name_label->Draw();
 
 	for(unsigned int i = 0; i < radio_buttons.size(); i++)
 		radio_buttons.at(i).Draw();

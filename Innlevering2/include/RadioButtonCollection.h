@@ -43,8 +43,11 @@ public:
 class RadioButtonCollection
 {
 public:
-    RadioButtonCollection(std::vector<RadioButtonEntry> radio_buttons, 
+    RadioButtonCollection(std::vector<RadioButtonEntry> _radio_buttons, 
 							glm::vec2 position, glm::vec2 scale);
+	RadioButtonCollection(std::vector<RadioButtonEntry> _radio_buttons, glm::vec2 position, 
+							glm::vec2 scale, std::string collection_label_path);
+
     ~RadioButtonCollection();
 	
 	/**
@@ -65,6 +68,7 @@ protected:
 private:
 	std::vector<RadioButtonEntry> radio_buttons;
 	glm::vec2 position;
+	GUITexture* name_label;
 };
 
 #endif // RadioButtonCollection_h__

@@ -671,6 +671,11 @@ void GameManager::CreateGUIObjects()
 	environment_entries.push_back(RadioButtonEntry(std::bind(&GameManager::SetBackgroundToCube, this), true, "GUI/CubeBackground.png"));
 	environment_entries.push_back(RadioButtonEntry(std::bind(&GameManager::SetBackgroundToOpenRoom, this), false, "GUI/OpenBackground.png"));
 	environment_radiobtn.reset(new RadioButtonCollection(environment_entries, glm::vec2(250, window_height-40), glm::vec2(0.5, 0.5)));
+
+	/*std::vector<RadioButtonEntry> fresnel_entries;
+	fresnel.push_back(RadioButtonEntry(std::bind(&GameManager::SetBackgroundToCube, this), true, "GUI/CubeBackground.png"));
+	fresnel.push_back(RadioButtonEntry(std::bind(&GameManager::SetBackgroundToOpenRoom, this), false, "GUI/OpenBackground.png"));
+	fresnel_radiobtn.reset(new RadioButtonCollection(environment_entries, glm::vec2(250, window_height-40), glm::vec2(0.5, 0.5)));*/
 }
 
 void GameManager::UsePhongProgram()
