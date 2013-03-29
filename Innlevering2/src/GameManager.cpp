@@ -268,8 +268,6 @@ void GameManager::SetMatrices()
 	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
 
 	gui_camera.projection = glm::ortho(0.0f, (GLfloat)window_width, 0.0f, (GLfloat)window_height, -1.0f, 30.0f);
-	//gui_camera.projection = glm::ortho(-((GLfloat)window_width/2.0f), ((GLfloat)window_width/2.0f), 
-	//	-((GLfloat)window_height/2.0f), ((GLfloat)window_height/2.0f), -1.0f, 30.0f);
 	gui_camera.view = glm::mat4(1.0);
 
 	light.position = glm::vec3(0, 0, 8);
@@ -452,8 +450,8 @@ void GameManager::renderColorPass() {
 		glUniform1f(current_program->getUniform("line_threshold"), slider_line_threshold->get_slider_value()/10);
 		glUniform1f(current_program->getUniform("line_scale"), slider_line_scale->get_slider_value()*100);
 		glUniform1f(current_program->getUniform("line_offset"), (slider_line_offset->get_slider_value()-0.5f)*10);
-		glUniform1f(current_program->getUniform("shadefactor_multiplier"), slider_shadefactor_addvalue->get_slider_value());
-		glUniform1f(current_program->getUniform("shadefactor_addvalue"), slider_shadefactor_multiplier->get_slider_value());
+		//glUniform1f(current_program->getUniform("shadefactor_multiplier"), slider_shadefactor_addvalue->get_slider_value());
+		//glUniform1f(current_program->getUniform("shadefactor_addvalue"), slider_shadefactor_multiplier->get_slider_value());
 	}
 
 	//Bind shadow map and diffuse cube map

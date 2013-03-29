@@ -20,9 +20,6 @@ void main() {
 	float diff = max(0.0f, dot(n, l));
 	float spec = pow(max(0.0f, dot(n, h)), 128.0f);
 
-	//float shade_factor = textureProj(shadowmap_texture, f_shadow_coord);
-	//shade_factor = shade_factor * 0.25 + 0.75;
-
 	ivec2 o = ivec2(mod(floor(gl_FragCoord.xy), 2.0));
 	float shade_factor;
 	shade_factor = textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1, -1)+o);
