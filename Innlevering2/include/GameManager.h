@@ -151,7 +151,7 @@ private:
 	std::shared_ptr<SliderWithText> slider_shadefactor_multiplier;
 		
 	std::shared_ptr<RadioButtonCollection> rendermode_radiobtn;
-
+	std::shared_ptr<RadioButtonCollection> environment_radiobtn;
 	GLuint fbo_vertex_bo; //< Vetex buffer object for fullscreen quad
 	GLuint fbo_vao; //< Vertex array object for the depthbuffer dumping
 	glm::mat4 fbo_modelMatrix;
@@ -188,10 +188,25 @@ private:
 
 	float delta_time;
 
+	/**
+	* Switch to the phong shading program
+	*/
 	void UsePhongProgram();
+	/**
+	* Switch to the wireframe shading program
+	*/
 	void UseWireframeProgram();
+	/**
+	* Switch to the hidden line shading program
+	*/
 	void UseHiddenLineProgram();
+	/**
+	* Switch to the frensel shading program
+	*/
 	void UseFrenselProgram();
+
+	void SetBackgroundToCube();
+	void SetBackgroundToOpenRoom();
 
 	enum Environements{
 		PLAIN_CUBE_ROOM,

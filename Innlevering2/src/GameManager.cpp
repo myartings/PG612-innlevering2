@@ -540,6 +540,7 @@ void GameManager::RenderGUI()
 	glBindVertexArray(gui_vao);
 	
 	rendermode_radiobtn->Draw();
+	environment_radiobtn->Draw();
 	if(current_program == hidden_line_program)
 	{
 		slider_line_threshold->Draw();
@@ -576,6 +577,7 @@ void GameManager::play() {
 				&& !slider_shadefactor_multiplier->BeginInteraction(glm::vec2(event.motion.x, event.motion.y)))
 					cam_trackball.rotateBegin(event.motion.x, event.motion.y);
 				rendermode_radiobtn->OnClick(glm::vec2(event.motion.x, event.motion.y));
+				environment_radiobtn->OnClick(glm::vec2(event.motion.x, event.motion.y));
 				break;
 			case SDL_MOUSEBUTTONUP:
 				slider_line_threshold->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
@@ -663,6 +665,12 @@ void GameManager::CreateGUIObjects()
 	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UseHiddenLineProgram, this), false, "GUI/Rendermode/Hidden Line.png"));
 	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UseFrenselProgram, this), false, "GUI/Rendermode/Frenzel.png"));
 	rendermode_radiobtn.reset(new RadioButtonCollection(rendermode_entries, glm::vec2(0, window_height-40), glm::vec2(0.5, 0.5)));
+
+
+	std::vector<RadioButtonEntry> environment_entries;
+	environment_entries.push_back(RadioButtonEntry(std::bind(&GameManager::SetBackgroundToCube, this), true, "GUI/CubeBackground.png"));
+	environment_entries.push_back(RadioButtonEntry(std::bind(&GameManager::SetBackgroundToOpenRoom, this), false, "GUI/OpenBackground.png"));
+	environment_radiobtn.reset(new RadioButtonCollection(environment_entries, glm::vec2(250, window_height-40), glm::vec2(0.5, 0.5)));
 }
 
 void GameManager::UsePhongProgram()
@@ -835,6 +843,16 @@ void GameManager::RenderRooomModelShadowpass()
 	glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
 
 	CHECK_GL_ERRORS();
+}
+
+void GameManager::SetBackgroundToCube()
+{
+	current_environment = PLAIN_CUBE_ROOM;
+}
+
+void GameManager::SetBackgroundToOpenRoom()
+{
+	current_environment = OPEN_HALFROOM;
 }
 
 
