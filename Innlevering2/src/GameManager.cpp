@@ -141,7 +141,7 @@ GameManager::GameManager() {
 	zoom = 1;
 	render_gui_and_depth = true;
 	rotate_light = true;
-
+	current_environment = PLAIN_CUBE_ROOM;
 }
 
 GameManager::~GameManager() {
@@ -431,11 +431,10 @@ void GameManager::SetShaderAttribPtrs()
 void GameManager::renderColorPass() {
 	glViewport(0, 0, window_width, window_height);
 	glBindFramebufferEXT(GL_FRAMEBUFFER, 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Create the new view matrix that takes the trackball view into account
-	glm::mat4 view_matrix_new = camera.view*cam_trackball.getTransform();
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	view_matrix_new = camera.view*cam_trackball.getTransform();
 
 	glDepthMask(GL_FALSE);	
 	spacebox->render(camera.projection, view_matrix_new);
@@ -448,8 +447,6 @@ void GameManager::renderColorPass() {
 		glUniform1f(current_program->getUniform("line_threshold"), slider_line_threshold->get_slider_value()/10);
 		glUniform1f(current_program->getUniform("line_scale"), slider_line_scale->get_slider_value()*100);
 		glUniform1f(current_program->getUniform("line_offset"), (slider_line_offset->get_slider_value()-0.5f)*10);
-		//glUniform1f(current_program->getUniform("shadefactor_multiplier"), slider_shadefactor_addvalue->get_slider_value());
-		//glUniform1f(current_program->getUniform("shadefactor_addvalue"), slider_shadefactor_multiplier->get_slider_value());
 	}
 
 	//Bind shadow map and diffuse cube map
@@ -457,161 +454,30 @@ void GameManager::renderColorPass() {
 	glBindTexture(GL_TEXTURE_2D, shadow_fbo->getTexture());
 	diffuse_cubemap->bind(GL_TEXTURE1);
 
-	/**
-	  * Render cube
-	  */ 
-	{
-		glBindVertexArray(vao[1]);
+	if(current_environment == PLAIN_CUBE_ROOM)
+		RenderCubeColorpass();
+	else if(current_environment == OPEN_HALFROOM)
+		RenderRoomModelColorpass();
 
-		glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
-		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
-		glm::mat4 modelview_matrix = view_matrix_new*model_matrix;
-		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
-		glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
-		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
-		
-		glm::mat4 light_modelview_matrix = light.view*model_matrix;
-		glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
-		shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f)) * light.projection * light_modelview_matrix;
-
-		
-		glUniformMatrix4fv(current_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
-
-		glUniform1i(current_program->getUniform("shadowmap_texture"), 0);
-		glUniform3fv(current_program->getUniform("light_pos"), 1, glm::value_ptr(light_pos));
-		glUniform3fv(current_program->getUniform("color"), 1, glm::value_ptr(glm::vec3(0.1f, 0.1f, 0.7f)));
-		glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
-		glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"),	1, 0, glm::value_ptr(modelview_matrix_inverse));
-		
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-	}
-
-	/**
-	  * Render model
-	  * Create modelview matrix and normal matrix and set as input
-	  */
-
-	glBindVertexArray(vao[0]);
-	for (int i=0; i<n_models; ++i) {
-		glm::mat4 model_matrix = model_matrices.at(i);
-		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
-		glm::mat4 modelview_matrix = view_matrix_new*model_matrix;
-		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
-		glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
-		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
-		
-		glm::mat4 light_modelview_matrix = light.view*model_matrix;
-		glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
-		shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f)) * light.projection * light_modelview_matrix;
-
-		glUniformMatrix4fv(current_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
-
-		glUniform3fv(current_program->getUniform("light_pos"), 1, glm::value_ptr(light_pos));
-		glUniform3fv(current_program->getUniform("color"), 1, glm::value_ptr(model_colors.at(i)));
-		glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
-		glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
-
-		//model->getInterleavedVBO()->bind();
-		//model->getIndices()->bind();
-		//current_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
-
-		//current_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
-
-		MeshPart& mesh = bunny->getMesh();
-		glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
-
-		//glDrawElements(GL_TRIANGLES, model->getMesh().count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * model->getMesh().first));
-		//glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
-	}
-	//glBindVertexArray(vao[2]);
-
-	//glm::mat4 model_matrix_inverse = glm::inverse(room_model_matrix);
-	//glm::mat4 modelview_matrix = view_matrix_new*room_model_matrix;
-	//glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
-	//glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
-
-	//glUniform3fv(current_program->getUniform("color"), 1, glm::value_ptr(glm::vec3(0.1f, 0.5f, 0.7f)));
-	//glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
-	//glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
-
-	//MeshPart& mesh = room->getMesh();
-	//glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
-	//glBindVertexArray(0);
-
+	RenderModelsColorpass();
 }
 
-void GameManager::renderShadowPass() {
-	//Render the scene from the light, with the lights projection, etc. into the shadow_fbo. Store only the depth values
-	//Remember to set the viewport, clearing the depth buffer, etc.
-
-	//Create the new view matrix that takes the trackball view into account
-	//glm::mat4 view_matrix_new = light.view;//*cam_trackball.getTransform();
-	
+void GameManager::renderShadowPass() {	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	light_pov_program->use();
-
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable (GL_POLYGON_OFFSET_FILL);
 	glPolygonOffset(10.0f, 4.4f);
 
-	CHECK_GL_ERRORS();
-	{
-		glBindVertexArray(vao[1]);
-		CHECK_GL_ERRORS();
-		glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
-		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
-		glm::mat4 modelview_matrix = light.view*model_matrix;
-		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
-		glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
-		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
+	if(current_environment == PLAIN_CUBE_ROOM)
+		RenderCubeShadowpass();
+	else if(current_environment == OPEN_HALFROOM)
+		RenderRooomModelShadowpass();
 
-		glUniformMatrix4fv(light_pov_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
-		//glUniformMatrix4fv(light_pov_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
-		CHECK_GL_ERRORS();
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-	}
-	CHECK_GL_ERRORS();
-
-	//{
-	//	glBindVertexArray(vao[2]);
-
-	//	//glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
-	//	glm::mat4 model_matrix_inverse = glm::inverse(room_model_matrix);
-	//	glm::mat4 modelview_matrix = light.view*room_model_matrix;
-	//	glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
-	//	glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
-	//	//glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
-
-	//	glUniformMatrix4fv(light_pov_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
-
-	//	CHECK_GL_ERRORS();
-	//	MeshPart& mesh = room->getMesh();
-	//	glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
-
-	//	CHECK_GL_ERRORS();
-	//}
+	RenderModelsShadowpass();
 	
-	/**
-	  * Render model
-	  * Create modelview matrix and normal matrix and set as input
-	  */
-	glBindVertexArray(vao[0]);
-	for (int i=0; i<n_models; ++i) {
-		glm::mat4 model_matrix = model_matrices.at(i);
-		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
-		glm::mat4 modelview_matrix = light.view*model_matrix;
-		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
-		glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
-		//glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
-
-		glUniformMatrix4fv(light_pov_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
-		//glUniformMatrix4fv(shadow_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
-
-		MeshPart& mesh = bunny->getMesh();
-		glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
-	}
-
 	glDisable(GL_POLYGON_OFFSET_FILL);
+	light_pov_program->disuse();
 	shadow_fbo->unbind();
 }
 
@@ -669,7 +535,6 @@ void GameManager::render() {
 	CHECK_GL_ERRORS();
 }
 
-
 void GameManager::RenderGUI()
 {
 	glBindVertexArray(gui_vao);
@@ -687,7 +552,6 @@ void GameManager::RenderGUI()
 	
 	glBindVertexArray(0);
 }
-
 
 void GameManager::play() {
 	bool doExit = false;
@@ -835,6 +699,142 @@ void GameManager::UseFrenselProgram()
 		current_program = frensel_program;
 		rendermode_radiobtn->SetActive(3);
 	}
+}
+
+void GameManager::RenderCubeColorpass()
+{
+	glBindVertexArray(vao[1]);
+
+	glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
+	glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
+	glm::mat4 modelview_matrix = view_matrix_new*model_matrix;
+	glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
+	glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
+	glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
+
+	glm::mat4 light_modelview_matrix = light.view*model_matrix;
+	glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
+	shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f)) * light.projection * light_modelview_matrix;
+
+
+	glUniformMatrix4fv(current_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
+
+	glUniform1i(current_program->getUniform("shadowmap_texture"), 0);
+	glUniform3fv(current_program->getUniform("light_pos"), 1, glm::value_ptr(light_pos));
+	glUniform3fv(current_program->getUniform("color"), 1, glm::value_ptr(glm::vec3(0.1f, 0.1f, 0.7f)));
+	glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+	glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"),	1, 0, glm::value_ptr(modelview_matrix_inverse));
+
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+}
+
+void GameManager::RenderCubeShadowpass()
+{
+	glBindVertexArray(vao[1]);
+	CHECK_GL_ERRORS();
+	glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
+	glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
+	glm::mat4 modelview_matrix = light.view*model_matrix;
+	glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
+	glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
+	glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
+
+	glUniformMatrix4fv(light_pov_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+	CHECK_GL_ERRORS();
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+}
+
+void GameManager::RenderModelsColorpass()
+{
+	glBindVertexArray(vao[0]);
+	for (int i=0; i<n_models; ++i) 
+	{
+		glm::mat4 model_matrix = model_matrices.at(i);
+		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
+		glm::mat4 modelview_matrix = view_matrix_new*model_matrix;
+		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
+		glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
+		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
+
+		glm::mat4 light_modelview_matrix = light.view*model_matrix;
+		glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
+		shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f)) * light.projection * light_modelview_matrix;
+
+		glUniformMatrix4fv(current_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
+
+		glUniform3fv(current_program->getUniform("light_pos"), 1, glm::value_ptr(light_pos));
+		glUniform3fv(current_program->getUniform("color"), 1, glm::value_ptr(model_colors.at(i)));
+		glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+		glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
+
+		//model->getInterleavedVBO()->bind();
+		//model->getIndices()->bind();
+		//current_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
+
+		//current_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
+
+		MeshPart& mesh = bunny->getMesh();
+		glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
+
+		//glDrawElements(GL_TRIANGLES, model->getMesh().count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * model->getMesh().first));
+		//glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
+	}
+}
+
+void GameManager::RenderModelsShadowpass()
+{
+	glBindVertexArray(vao[0]);
+	for (int i=0; i<n_models; ++i) {
+		glm::mat4 model_matrix = model_matrices.at(i);
+		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
+		glm::mat4 modelview_matrix = light.view*model_matrix;
+		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
+		glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
+
+		glUniformMatrix4fv(light_pov_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+
+		MeshPart& mesh = bunny->getMesh();
+		glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
+	}
+
+}
+
+void GameManager::RenderRoomModelColorpass()
+{
+	glBindVertexArray(vao[2]);
+
+	glm::mat4 model_matrix_inverse = glm::inverse(room_model_matrix);
+	glm::mat4 modelview_matrix = view_matrix_new*room_model_matrix;
+	glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
+	glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
+
+	glUniform3fv(current_program->getUniform("color"), 1, glm::value_ptr(glm::vec3(0.1f, 0.5f, 0.7f)));
+	glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+	glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
+
+	MeshPart& mesh = room->getMesh();
+	glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
+	glBindVertexArray(0);
+}
+
+void GameManager::RenderRooomModelShadowpass()
+{
+	glBindVertexArray(vao[2]);
+
+	//glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
+	glm::mat4 model_matrix_inverse = glm::inverse(room_model_matrix);
+	glm::mat4 modelview_matrix = light.view*room_model_matrix;
+	glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
+	glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
+	//glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
+
+	glUniformMatrix4fv(light_pov_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
+
+	CHECK_GL_ERRORS();
+	MeshPart& mesh = room->getMesh();
+	glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
+
+	CHECK_GL_ERRORS();
 }
 
 

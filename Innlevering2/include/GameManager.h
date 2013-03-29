@@ -107,6 +107,17 @@ private:
 
 	void RenderGUI();
 
+	glm::mat4 view_matrix_new;
+	void RenderCubeColorpass();
+	void RenderCubeShadowpass();
+
+	void RenderModelsColorpass();
+	void RenderModelsShadowpass();
+
+	void RenderRoomModelColorpass();
+	void RenderRooomModelShadowpass();
+
+
 	static GLuint gui_vbo, gui_vao;
 	
 	GLuint vao[3]; //< Vertex array objects
@@ -181,6 +192,12 @@ private:
 	void UseWireframeProgram();
 	void UseHiddenLineProgram();
 	void UseFrenselProgram();
+
+	enum Environements{
+		PLAIN_CUBE_ROOM,
+		OPEN_HALFROOM
+	};
+	Environements current_environment;
 };
 
 #endif // _GAMEMANAGER_H_
