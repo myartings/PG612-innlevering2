@@ -37,7 +37,7 @@ namespace gui
 		*
 		* @param gui_program the shader program used to draw GUI stuff
 		*/
-		void Draw(std::shared_ptr<GLUtils::Program> gui_program);
+		void Draw();
 
 		/**
 		* Translates this GUITexture with the param vec2

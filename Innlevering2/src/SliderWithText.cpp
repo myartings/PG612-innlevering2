@@ -1,8 +1,5 @@
 #include "SliderWithText.h"
 
-//gui::GUITexture SliderWithText::slider_texture;
-//gui::GUITexture SliderWithText::slider_knob_texture;
-
 static const std::string debug_texture_path = "GUI/debug.png";
 static const std::string slider_texture_path = "GUI/Slider_line.png";
 static const std::string slider_knob_texture_path = "GUI/Slider_knob.png";
@@ -32,15 +29,12 @@ SliderWithText::~SliderWithText()
 {
 }
 
-void SliderWithText::Draw(std::shared_ptr<GLUtils::Program> gui_program, GLuint gui_vao)
+void SliderWithText::Draw()
 {
-	glBindVertexArray(gui_vao);
-	
-	label.Draw(gui_program);
-	slider.Draw(gui_program);
-	slider_knob.Draw(gui_program);
-	
-	glBindVertexArray(0);
+	label.Draw();
+	slider.Draw();
+	slider_knob.Draw();
+
 	CHECK_GL_ERRORS();
 }
 

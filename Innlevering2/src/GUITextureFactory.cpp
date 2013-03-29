@@ -16,6 +16,13 @@ namespace gui
 		return instance;
 	}
 
+
+	void GUITextureFactory::Init( std::shared_ptr<GLUtils::Program> gui_program, GLuint gui_vao )
+	{
+		this->gui_program = gui_program;
+		this->gui_vao = gui_vao;
+	}
+
 	Texture GUITextureFactory::GetTexture( const std::string& texture_name )
 	{
 		Texture* t = TryFindInMap(texture_name);

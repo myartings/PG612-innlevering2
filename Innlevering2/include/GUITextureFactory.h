@@ -4,10 +4,10 @@
     author:     Kristian Skarseth
     
 	purpose:	Load and handle textures. Loading a texture uploads it directly
-				to the gpu, and stores the textureID in a map, where it can be
+				to the gpu, and stores the Texture in a map, where it can be
 				accessed with the original texturePath as key.
 
-				Using a singleton for this class as we only ever want one copy of it, 
+				Using a singleton for this class as we only ever want one copry of it, 
 				and it can be convenient to publically access it from several classes.
 
 *********************************************************************/
@@ -40,6 +40,8 @@ namespace gui
 	public:
 		static GUITextureFactory* Inst();
 	
+		void Init(std::shared_ptr<GLUtils::Program> gui_program, GLuint gui_vao);
+
 		/*
 		* Returns the Texture for the textureName. Can be directly
 		* bound to openGL for use. 
@@ -58,6 +60,11 @@ namespace gui
 		*/
 		Texture LoadTexture(const std::string& texture_path);
 
+		//The GUI shader program
+		std::shared_ptr<GLUtils::Program> gui_program;
+		
+		// The GUI VAO object holding states for rendering GUI stuff
+		GLuint gui_vao;
 
 	private:
 		GUITextureFactory();
@@ -67,6 +74,8 @@ namespace gui
 
 		// Our map of textureIDs
 		std::map<std::string, Texture> texture_map;
+
+
 	};
 };
 

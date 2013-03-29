@@ -71,13 +71,5 @@ namespace gui
 	*/
 	GLuint create_texture();
 
-	/**
-	* Loads the desired texture using DevIL.
-	*
-	* @returns a Texture object containing openGL image ID, and the
-	* width, height and number of components of the image
-	*/
-	Texture LoadTexture(const std::string& image_to_load);
-
 }
 #endif // GUI_Util_H

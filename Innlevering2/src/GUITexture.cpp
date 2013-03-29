@@ -61,8 +61,9 @@ namespace gui
 		return Rect::contains(rect, v);
 	}
 
-	void GUITexture::Draw( std::shared_ptr<GLUtils::Program> gui_program )
+	void GUITexture::Draw()
 	{
+		std::shared_ptr<GLUtils::Program> gui_program = gui::GUITextureFactory::Inst()->gui_program;
 		gui_program->use();
 		glActiveTexture(GL_TEXTURE0);
 
@@ -72,7 +73,8 @@ namespace gui
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
-		gui_program->disuse();
+		gui::GUITextureFactory::Inst()->gui_program->disuse();
+
 	}
 
 	glm::vec3& GUITexture::get_position()

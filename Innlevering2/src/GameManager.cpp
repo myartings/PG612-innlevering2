@@ -246,6 +246,7 @@ void GameManager::init() {
 	CreateShaderPrograms();
 	SetShaderUniforms();
 	SetShaderAttribPtrs();
+	gui::GUITextureFactory::Inst()->Init(gui_program, gui_vao);
 	current_program = phong_program;
 
 	slider_line_threshold = std::make_shared<SliderWithText>("GUI/hiddenline/line_threashold.png", 
@@ -680,15 +681,18 @@ void GameManager::render() {
 
 void GameManager::RenderGUI()
 {
+	glBindVertexArray(gui_vao);
+	
 	if(current_program == hidden_line_program)
 	{
-		slider_line_threshold->Draw(gui_program, gui_vao);
-		slider_line_scale->Draw(gui_program, gui_vao);
-		slider_line_offset->Draw(gui_program, gui_vao);
-		slider_shadefactor_addvalue->Draw(gui_program, gui_vao);
-		slider_shadefactor_multiplier->Draw(gui_program, gui_vao);
+		slider_line_threshold->Draw();
+		slider_line_scale->Draw();
+		slider_line_offset->Draw();
+		slider_shadefactor_addvalue->Draw();
+		slider_shadefactor_multiplier->Draw();
 	}
-	
+
+	glBindVertexArray(0);
 }
 
 

@@ -42,7 +42,7 @@ public:
 	*
 	* @param gui_program the shader program used to draw GUI objects
 	*/
-	void Draw(std::shared_ptr<GLUtils::Program> gui_program, GLuint gui_vao);
+	void Draw();
 
 	/**
 	* Sets the Sliders state to updating. Mouse input after this function
