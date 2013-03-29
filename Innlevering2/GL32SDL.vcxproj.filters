@@ -9,12 +9,12 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\GLUtils">
+      <UniqueIdentifier>{a2d5147c-9fab-4da4-975c-585ba7e63a12}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
-    </Filter>
-    <Filter Include="Header Files\GLUtils">
-      <UniqueIdentifier>{a2d5147c-9fab-4da4-975c-585ba7e63a12}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files\shaders">
       <UniqueIdentifier>{c6ddb72e-9d05-4966-b090-ce6b52f8e9c4}</UniqueIdentifier>
@@ -42,6 +42,15 @@
     </Filter>
     <Filter Include="Resource Files\shaders\frensel shading">
       <UniqueIdentifier>{29c7c3cd-202a-44aa-ad3f-e0f414fdccf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Not-directly-related-to-assignment files">
+      <UniqueIdentifier>{37bd2e6c-3bc3-412d-a17a-94a497c5ede7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Not-directly-related-to-assignment files\Header Files">
+      <UniqueIdentifier>{aa66b101-9d81-4855-8023-a1971690d4ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Not-directly-related-to-assignment files\Source Files">
+      <UniqueIdentifier>{5efa0365-13ad-41ff-8b89-a417a0e4c35d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,16 +81,7 @@
     <ClInclude Include="include\GameException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\SliderWithText.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GUI_Util.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Game_Constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GUITexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\CubeMap.h">
@@ -94,10 +94,19 @@
       <Filter>Header Files\GLUtils</Filter>
     </ClInclude>
     <ClInclude Include="include\RadioButtonCollection.h">
-      <Filter>Header Files</Filter>
+      <Filter>Not-directly-related-to-assignment files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SliderWithText.h">
+      <Filter>Not-directly-related-to-assignment files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\GUITextureFactory.h">
-      <Filter>Header Files</Filter>
+      <Filter>Not-directly-related-to-assignment files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GUITexture.h">
+      <Filter>Not-directly-related-to-assignment files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GUI_Util.h">
+      <Filter>Not-directly-related-to-assignment files\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,23 +125,23 @@
     <ClCompile Include="src\ShadowFBO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SliderWithText.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI_Util.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUITexture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\CubeMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GUI_Util.cpp">
+      <Filter>Not-directly-related-to-assignment files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUITexture.cpp">
+      <Filter>Not-directly-related-to-assignment files\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\GUITextureFactory.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Not-directly-related-to-assignment files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\RadioButtonCollection.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Not-directly-related-to-assignment files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SliderWithText.cpp">
+      <Filter>Not-directly-related-to-assignment files\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

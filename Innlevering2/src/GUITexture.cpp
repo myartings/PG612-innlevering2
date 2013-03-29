@@ -92,4 +92,14 @@ namespace gui
 		return rect;
 	}
 
+	GLint GUITexture::OriginalTextureWidth()
+	{
+		return texture.width;
+	}
+
+	GLint GUITexture::OriginalTextureHeight()
+	{
+		return texture.height;
+	}
+
 }

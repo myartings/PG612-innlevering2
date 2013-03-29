@@ -249,16 +249,7 @@ void GameManager::init() {
 	gui::GUITextureFactory::Inst()->Init(gui_program, gui_vao);
 	current_program = phong_program;
 
-	slider_line_threshold = std::make_shared<SliderWithText>("GUI/hiddenline/line_threashold.png", 
-									gui_program, glm::vec2(950.0f, 5.0f));
-	slider_line_scale	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_scale.png", 
-									gui_program, glm::vec2(950.0f, 75.0f));
-	slider_line_offset	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_offset.png", 
-									gui_program, glm::vec2(950.0f, 145.0f));
-	slider_shadefactor_addvalue		= std::make_shared<SliderWithText>("GUI/shadefactor_addvalue.png", 
-									gui_program, glm::vec2(950.0f, 215.0f));
-	slider_shadefactor_multiplier	= std::make_shared<SliderWithText>("GUI/shadefactor_multiplier.png", 
-									gui_program, glm::vec2(950.0f, 285.0f));
+	CreateGUIObjects();
 }
 
 void GameManager::SetMatrices()
@@ -692,6 +683,7 @@ void GameManager::RenderGUI()
 		slider_shadefactor_multiplier->Draw();
 	}
 
+	rendermode_radiobtn->Draw();
 	glBindVertexArray(0);
 }
 
@@ -718,6 +710,7 @@ void GameManager::play() {
 				&& !slider_shadefactor_addvalue->BeginInteraction(glm::vec2(event.motion.x, event.motion.y))
 				&& !slider_shadefactor_multiplier->BeginInteraction(glm::vec2(event.motion.x, event.motion.y)))
 					cam_trackball.rotateBegin(event.motion.x, event.motion.y);
+				rendermode_radiobtn->OnClick(glm::vec2(event.motion.x, event.motion.y));
 				break;
 			case SDL_MOUSEBUTTONUP:
 				slider_line_threshold->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
@@ -799,6 +792,48 @@ void GameManager::zoomOut() {
 
 void GameManager::quit() {
 	std::cout << "Bye bye..." << std::endl;
+}
+
+void GameManager::CreateGUIObjects()
+{
+	slider_line_threshold = std::make_shared<SliderWithText>("GUI/hiddenline/line_threashold.png", 
+		gui_program, glm::vec2(950.0f, 5.0f));
+	slider_line_scale	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_scale.png", 
+		gui_program, glm::vec2(950.0f, 75.0f));
+	slider_line_offset	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_offset.png", 
+		gui_program, glm::vec2(950.0f, 145.0f));
+	slider_shadefactor_addvalue		= std::make_shared<SliderWithText>("GUI/shadefactor_addvalue.png", 
+		gui_program, glm::vec2(950.0f, 215.0f));
+	slider_shadefactor_multiplier	= std::make_shared<SliderWithText>("GUI/shadefactor_multiplier.png", 
+		gui_program, glm::vec2(950.0f, 285.0f));
+	
+	std::vector<RadioButtonEntry> rendermode_entries;
+	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UsePhongProgram, this), true, "GUI/Rendermode/PhongWShadows.png"));
+	rendermode_radiobtn.reset(new RadioButtonCollection(rendermode_entries, glm::vec2(0, window_height-80)));
+}
+
+void GameManager::UsePhongProgram()
+{
+	if(current_program != phong_program)
+		current_program = phong_program;
+}
+
+void GameManager::UseWireframeProgram()
+{
+	if(current_program != wireframe_program)
+		current_program = wireframe_program;
+}
+
+void GameManager::UseHiddenLineProgram()
+{
+	if(current_program != hidden_line_program)
+		current_program = hidden_line_program;
+}
+
+void GameManager::UseFrenselProgram()
+{
+	if(current_program != frensel_program)
+		current_program = frensel_program;
 }
 
 

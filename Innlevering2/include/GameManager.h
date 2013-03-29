@@ -19,8 +19,9 @@
 #include "ShadowFBO.h"
 #include "SliderWithText.h"
 #include "CubeMap.h"
-
+#include "RadioButtonCollection.h"
 #include "Game_Constants.h"
+
 /**
  * This class handles the game logic and display.
  * Uses SDL as the display manager, and glm for 
@@ -102,6 +103,7 @@ private:
 	void CreateShaderPrograms();
 	void SetShaderUniforms();
 	void SetShaderAttribPtrs();
+	void CreateGUIObjects();
 
 	void RenderGUI();
 
@@ -136,6 +138,8 @@ private:
 
 	std::shared_ptr<SliderWithText> slider_shadefactor_addvalue;
 	std::shared_ptr<SliderWithText> slider_shadefactor_multiplier;
+		
+	std::shared_ptr<RadioButtonCollection> rendermode_radiobtn;
 
 	GLuint fbo_vertex_bo; //< Vetex buffer object for fullscreen quad
 	GLuint fbo_vao; //< Vertex array object for the depthbuffer dumping
@@ -173,6 +177,10 @@ private:
 
 	float delta_time;
 
+	void UsePhongProgram();
+	void UseWireframeProgram();
+	void UseHiddenLineProgram();
+	void UseFrenselProgram();
 };
 
 #endif // _GAMEMANAGER_H_

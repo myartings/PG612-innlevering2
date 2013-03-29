@@ -23,24 +23,42 @@ using namespace gui;
 
 struct RadioButtonEntry
 {
+	RadioButtonEntry(std::function<void()> selected_callback,
+					bool is_active, const std::string& label_path)
+					: label_texture(label_path), active_texture("GUI/active.png"),
+					  inactive_texture("GUI/inactive.png")
+	{
+		on_selected = selected_callback;
+		active = is_active;
+	}
+
+	void Draw();
+	void Init(glm::vec2 position, glm::vec2 scale);
+
 	std::function<void()> on_selected;
-	GUITexture gui_texture;
+
+	GUITexture label_texture;
+	GUITexture active_texture;
+	GUITexture inactive_texture;
+
+	bool active;
 };
 
 class RadioButtonCollection
 {
 public:
-    RadioButtonCollection(std::vector<RadioButtonEntry> radio_buttons);
+    RadioButtonCollection(std::vector<RadioButtonEntry> radio_buttons, glm::vec2 position);
     ~RadioButtonCollection();
 
-	void Update(glm::vec2& mouse_pos);
+	void OnClick(glm::vec2& mouse_pos);
 
-	void Draw(std::shared_ptr<GLUtils::Program> gui_program);
+	void Draw();
 
 protected:
 
 private:
-
+	std::vector<RadioButtonEntry> radio_buttons;
+	glm::vec2 position;
 };
 
 #endif // RadioButtonCollection_h__

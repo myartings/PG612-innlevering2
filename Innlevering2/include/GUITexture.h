@@ -90,6 +90,9 @@ namespace gui
 		*/
 		gui::Rect& get_rect();
 
+		GLint OriginalTextureWidth();
+		GLint OriginalTextureHeight();
+
 	private:
 		glm::mat4 model_matrix;
 		Texture texture;
