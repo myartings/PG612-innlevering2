@@ -139,7 +139,7 @@ GLuint GameManager::gui_vao = -1;
 GameManager::GameManager() {
 	my_timer.restart();
 	zoom = 1;
-	render_depth_dump = true;
+	render_gui_and_depth = true;
 	rotate_light = true;
 
 }
@@ -658,14 +658,14 @@ void GameManager::render() {
 	//Clearing the depth buffer to always draw on top of the previously rendered stuff
 	glClear(GL_DEPTH_BUFFER_BIT);
 
-	if(render_depth_dump)
+	if(render_gui_and_depth)
+	{
 		renderDepthDump();
 
-
-	glDisable(GL_CULL_FACE);
-	RenderGUI();
-	glEnable(GL_CULL_FACE);
-
+		glDisable(GL_CULL_FACE);
+		RenderGUI();
+		glEnable(GL_CULL_FACE);
+	}
 	CHECK_GL_ERRORS();
 }
 
@@ -674,6 +674,7 @@ void GameManager::RenderGUI()
 {
 	glBindVertexArray(gui_vao);
 	
+	rendermode_radiobtn->Draw();
 	if(current_program == hidden_line_program)
 	{
 		slider_line_threshold->Draw();
@@ -683,7 +684,7 @@ void GameManager::RenderGUI()
 		slider_shadefactor_multiplier->Draw();
 	}
 
-	rendermode_radiobtn->Draw();
+	
 	glBindVertexArray(0);
 }
 
@@ -731,36 +732,21 @@ void GameManager::play() {
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym) {
 				case SDLK_t:
-					render_depth_dump = !render_depth_dump;
+					render_gui_and_depth = !render_gui_and_depth;
 					break;
-				case SDLK_ESCAPE: //Esc
+				case SDLK_ESCAPE:
 					doExit = true;
 					break;
-				case SDLK_q: //Ctrl+q
-					if (event.key.keysym.mod & KMOD_CTRL) doExit = true;
+				case SDLK_q:
+					if (event.key.keysym.mod & KMOD_CTRL) 
+						doExit = true;
 					break;
-				case SDLK_PLUS:
-					zoomIn();
-					break;
-				case SDLK_MINUS:
-					zoomOut();
-					break;
-				case SDLK_1:
-					if(current_program != phong_program)
-						current_program = phong_program;
-					break;
-				case SDLK_2:
-					if(current_program != wireframe_program)
-						current_program = wireframe_program;
-					break;
-				case SDLK_3:
-					if(current_program != hidden_line_program)
-						current_program = hidden_line_program;
-					break;
-				case SDLK_4:
-					if(current_program != frensel_program)
-						current_program = frensel_program;
-					break;
+				case SDLK_PLUS:zoomIn();break;
+				case SDLK_MINUS:zoomOut();break;
+				case SDLK_1:UsePhongProgram();break;
+				case SDLK_2:UseWireframeProgram();break;
+				case SDLK_3:UseHiddenLineProgram();break;
+				case SDLK_4:UseFrenselProgram();break;
 				case SDLK_5:
 					rotate_light = !rotate_light;
 				}
@@ -809,31 +795,46 @@ void GameManager::CreateGUIObjects()
 	
 	std::vector<RadioButtonEntry> rendermode_entries;
 	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UsePhongProgram, this), true, "GUI/Rendermode/PhongWShadows.png"));
-	rendermode_radiobtn.reset(new RadioButtonCollection(rendermode_entries, glm::vec2(0, window_height-80)));
+	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UseWireframeProgram, this), false, "GUI/Rendermode/Wireframe.png"));
+	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UseHiddenLineProgram, this), false, "GUI/Rendermode/Hidden Line.png"));
+	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UseFrenselProgram, this), false, "GUI/Rendermode/Frenzel.png"));
+	rendermode_radiobtn.reset(new RadioButtonCollection(rendermode_entries, glm::vec2(0, window_height-40), glm::vec2(0.5, 0.5)));
 }
 
 void GameManager::UsePhongProgram()
 {
 	if(current_program != phong_program)
+	{
 		current_program = phong_program;
+		rendermode_radiobtn->SetActive(0);
+	}
 }
 
 void GameManager::UseWireframeProgram()
 {
 	if(current_program != wireframe_program)
+	{
 		current_program = wireframe_program;
+		rendermode_radiobtn->SetActive(1);
+	}
 }
 
 void GameManager::UseHiddenLineProgram()
 {
 	if(current_program != hidden_line_program)
+	{
 		current_program = hidden_line_program;
+		rendermode_radiobtn->SetActive(2);
+	}
 }
 
 void GameManager::UseFrenselProgram()
 {
 	if(current_program != frensel_program)
+	{
 		current_program = frensel_program;
+		rendermode_radiobtn->SetActive(3);
+	}
 }
 
 

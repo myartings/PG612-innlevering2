@@ -79,7 +79,8 @@ glm::mat4 VirtualTrackball::rotate(int x, int y, float rotSpeed)
 	//Finding the amount of degrees to rotate by taking dot product between the two points we have on the sphere.
 	//Muptiplying with a rotationSpeed constant to fit the speed of the rotation better to my liking.
 	theta = glm::degrees(glm::acos(glm::dot(point_on_sphere_begin, point_on_sphere_end)))*rotSpeed;
-
+	if(theta == 0)
+		theta = 0.001f;
 	//Constructing the new quaternion using the old quat, and our newly found degrees and axis of rotation.
 	quat_new = glm::rotate(quat_old, theta, axis_of_rotation);
 

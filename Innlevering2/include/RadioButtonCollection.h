@@ -21,16 +21,12 @@
 #include "GUITexture.h"
 using namespace gui;
 
-struct RadioButtonEntry
+class RadioButtonEntry
 {
+public:
 	RadioButtonEntry(std::function<void()> selected_callback,
-					bool is_active, const std::string& label_path)
-					: label_texture(label_path), active_texture("GUI/active.png"),
-					  inactive_texture("GUI/inactive.png")
-	{
-		on_selected = selected_callback;
-		active = is_active;
-	}
+					bool is_active, const std::string& label_path);
+					
 
 	void Draw();
 	void Init(glm::vec2 position, glm::vec2 scale);
@@ -47,12 +43,22 @@ struct RadioButtonEntry
 class RadioButtonCollection
 {
 public:
-    RadioButtonCollection(std::vector<RadioButtonEntry> radio_buttons, glm::vec2 position);
+    RadioButtonCollection(std::vector<RadioButtonEntry> radio_buttons, 
+							glm::vec2 position, glm::vec2 scale);
     ~RadioButtonCollection();
-
+	
+	/**
+	* Performs updates based on the mouse click
+	*/
 	void OnClick(glm::vec2& mouse_pos);
 
 	void Draw();
+
+	/**
+	* Uses the param int as an index in the radio button collection
+	* and sets that entry active if it exist
+	*/
+	void SetActive(unsigned int entrynumber);
 
 protected:
 

@@ -19,8 +19,6 @@ SliderWithText::SliderWithText(const std::string& name_label_path,
 	slider_knob.set_position(glm::vec3(slider.get_rect().x+(slider.get_rect().width/3.0f), position.y, -5));
 	slider_knob.set_scale(glm::vec2(0.6f));
 
-	glBindTexture(GL_TEXTURE_2D, 0);
-
 	interacting = false;
 	UpdateSliderValue();
 }

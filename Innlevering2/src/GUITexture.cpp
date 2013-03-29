@@ -73,7 +73,7 @@ namespace gui
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
-		gui::GUITextureFactory::Inst()->gui_program->disuse();
+		gui_program->disuse();
 
 	}
 
