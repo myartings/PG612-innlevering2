@@ -3,14 +3,9 @@
 
 #include "GLUtils/GLUtils.hpp"
 
-enum UseFunctionality
-{
-	USED_FOR_SCREEN_RENDER,
-	USED_FOR_SHADOWS
-};
 class ShadowFBO {
 public:
-	ShadowFBO(unsigned int width, unsigned int height, UseFunctionality funct);
+	ShadowFBO(unsigned int width, unsigned int height);
 	~ShadowFBO();
 
 	void bind();
@@ -26,6 +21,7 @@ private:
 	GLuint depth;
 	GLuint texture;
 	unsigned int width, height;
+
 };
 
 #endif

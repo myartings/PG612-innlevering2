@@ -221,8 +221,8 @@ void GameManager::init() {
 	cube_vertices.reset(new BO<GL_ARRAY_BUFFER>(cube_vertices_data, sizeof(cube_vertices_data)));
 	cube_normals.reset(new BO<GL_ARRAY_BUFFER>(cube_normals_data, sizeof(cube_normals_data)));
 
-	shadow_fbo.reset(new ShadowFBO(window_width, window_height, USED_FOR_SHADOWS));
-	screen_dump_fbo.reset(new ShadowFBO(window_width, window_height, USED_FOR_SCREEN_RENDER));
+	shadow_fbo.reset(new ShadowFBO(window_width, window_height));
+	screen_dump_fbo.reset(new ShadowFBO(window_width, window_height));
 
 	diffuse_cubemap.reset(new CubeMap("cubemaps/diffuse/", "jpg"));
 	spacebox.reset(new CubeMap("cubemaps/skybox/", "jpg"));
@@ -285,7 +285,6 @@ void GameManager::CreateShaderPrograms()
 
 	light_pov_program.reset(new Program("shaders/light_pov.vert", "shaders/light_pov.frag"));
 	depth_dump_program.reset(new Program("shaders/depth_dump.vert", "shaders/depth_dump.frag"));
-	frensel_program.reset(new Program("shaders/frensel_shading.vert", "shaders/frensel_shading.frag"));
 	CHECK_GL_ERRORS();
 }
 
@@ -321,9 +320,6 @@ void GameManager::SetShaderUniforms()
 	glUniformMatrix4fv(gui_program->getUniform("view"), 1, 0, glm::value_ptr(gui_camera.view));
 	gui_program->disuse();
 
-	frensel_program->use();
-	frensel_program->disuse();
-
 	CHECK_GL_ERRORS();
 }
 
@@ -345,9 +341,6 @@ void GameManager::SetShaderAttribPtrs()
 	hidden_line_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getVerticeOffset());
 	hidden_line_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getNormalOffset());
 
-	frensel_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getVerticeOffset());
-	frensel_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, bunny->getStride(), bunny->getNormalOffset());
-	
 	bunny->getInterleavedVBO()->unbind();
 	glBindVertexArray(0);
 
@@ -360,13 +353,11 @@ void GameManager::SetShaderAttribPtrs()
 	phong_program->setAttributePointer("position", 3);
 	wireframe_program->setAttributePointer("position", 3);
 	hidden_line_program->setAttributePointer("position", 3);
-	frensel_program->setAttributePointer("position", 3);
 
 	cube_normals->bind();
 	phong_program->setAttributePointer("normal", 3);
 	wireframe_program->setAttributePointer("normal", 3);
 	hidden_line_program->setAttributePointer("normal", 3);
-	frensel_program->setAttributePointer("normal", 3);
 
 	glBindVertexArray(0);
 	CHECK_GL_ERRORS();
@@ -452,6 +443,7 @@ void GameManager::renderColorPass() {
 	//Bind shadow map and diffuse cube map
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, shadow_fbo->getTexture());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
 	diffuse_cubemap->bind(GL_TEXTURE1);
 
 	if(current_environment == PLAIN_CUBE_ROOM)
@@ -467,7 +459,7 @@ void GameManager::renderShadowPass() {
 	light_pov_program->use();
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable (GL_POLYGON_OFFSET_FILL);
-	glPolygonOffset(10.0f, 4.4f);
+	glPolygonOffset(8.1f, 4.4f);
 
 	if(current_environment == PLAIN_CUBE_ROOM)
 		RenderCubeShadowpass();
@@ -487,8 +479,8 @@ void GameManager::renderDepthDump()
 
 	//Bind the textures before rendering
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, screen_dump_fbo->getTexture());
-
+	glBindTexture(GL_TEXTURE_2D, shadow_fbo->getTexture());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
 	glBindVertexArray(fbo_vao);
 
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -513,11 +505,7 @@ void GameManager::render() {
 	shadow_fbo->bind();
 	glViewport(0, 0, window_width, window_height);
 	renderShadowPass();
-	screen_dump_fbo->bind();
-	glViewport(0, 0, window_width, window_height);
-	renderShadowPass();
-	screen_dump_fbo->unbind();
-
+	shadow_fbo->unbind();
 	renderColorPass();
 	
 	glBindFramebufferEXT(GL_FRAMEBUFFER, 0);
@@ -554,7 +542,8 @@ void GameManager::RenderGUI()
 
 void GameManager::play() {
 	bool doExit = false;
-
+	float fps = 0.0f;
+	float fpsTimer = 0.0f;
 	//SDL main loop
 	while (!doExit) {
 		delta_time = static_cast<float>(my_timer.elapsedAndRestart());
@@ -618,6 +607,17 @@ void GameManager::play() {
 		//Render, and swap front and back buffers
 		render();
 		SDL_GL_SwapWindow(main_window);
+
+		fpsTimer += delta_time;
+		if(fpsTimer >= 0.3f)//updating the fps counter once every .3sec
+		{
+			fps = 1/delta_time;
+			std::ostringstream captionStream;		
+			captionStream << "FPS: " << fps;
+			SDL_SetWindowTitle(main_window, captionStream.str().c_str());
+			fps = 0;
+			fpsTimer = 0;
+		}
 	}
 	quit();
 }

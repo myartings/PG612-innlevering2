@@ -14,3 +14,9 @@ For å gi muligheten til å tweake på linjetykkelsen på hidden-line renderingen ha
 Jeg har også lagt til en litt mer avansert modell enn det simple cube-rommet som følger med for å bedre kunne demonstrere hvordan skyggene ser ut når de faller på mer ugjevne overlater. I den sammenheng har jeg også lagt til en skybox som ikke blir påvirket av skyggene, bare for å få alt til å se litt penere ut. Man kan bytte mellom det nye rommet og den orginale cuben ved å trykke på radiobutons jeg også har laget med det enkle GUI systemet.
 
 Jeg har gjort en liten forbedring på skygge-shaderen fra det vi gjorde i øvningstimen, ved å gjøre flere oppslag i shadow texturen med offset og dithering for å gjøre kantene på skyggene gjevnere. Dette fjerner både noe av staircasing effekten man får med lav oppløsning på shadow FBOet og gir en mer smooth overgang i kantene.
+
+
+Referanser brukt:
+Mark J. Kilgard (Ukjent år). "Shadow mapping with today's openGL Hardware". Kan sees på: https://developer.nvidia.com/sites/default/files/akamai/gamedev/docs/GDC01_Shadows.pdf
+
+Nvidia White Paper (2007). "Solid Wireframe". Kan sees på: http://tommyhinks.files.wordpress.com/2012/02/nvidia_solid_wireframe.pdf
