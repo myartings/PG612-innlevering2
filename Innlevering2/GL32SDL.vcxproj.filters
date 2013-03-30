@@ -40,16 +40,13 @@
     <Filter Include="Resource Files\shaders\cubemap">
       <UniqueIdentifier>{06d0a7d9-ddfc-4dec-9bc0-5b2a1fbc80ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\shaders\frensel shading">
-      <UniqueIdentifier>{29c7c3cd-202a-44aa-ad3f-e0f414fdccf4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Not-directly-related-to-assignment files">
+    <Filter Include="Not-directly-related-to-assignment classes">
       <UniqueIdentifier>{37bd2e6c-3bc3-412d-a17a-94a497c5ede7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Not-directly-related-to-assignment files\Header Files">
+    <Filter Include="Not-directly-related-to-assignment classes\Header Files">
       <UniqueIdentifier>{aa66b101-9d81-4855-8023-a1971690d4ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Not-directly-related-to-assignment files\Source Files">
+    <Filter Include="Not-directly-related-to-assignment classes\Source Files">
       <UniqueIdentifier>{5efa0365-13ad-41ff-8b89-a417a0e4c35d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -94,19 +91,19 @@
       <Filter>Header Files\GLUtils</Filter>
     </ClInclude>
     <ClInclude Include="include\RadioButtonCollection.h">
-      <Filter>Not-directly-related-to-assignment files\Header Files</Filter>
+      <Filter>Not-directly-related-to-assignment classes\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\SliderWithText.h">
-      <Filter>Not-directly-related-to-assignment files\Header Files</Filter>
+      <Filter>Not-directly-related-to-assignment classes\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\GUITextureFactory.h">
-      <Filter>Not-directly-related-to-assignment files\Header Files</Filter>
+      <Filter>Not-directly-related-to-assignment classes\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\GUITexture.h">
-      <Filter>Not-directly-related-to-assignment files\Header Files</Filter>
+      <Filter>Not-directly-related-to-assignment classes\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\GUI_Util.h">
-      <Filter>Not-directly-related-to-assignment files\Header Files</Filter>
+      <Filter>Not-directly-related-to-assignment classes\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -129,19 +126,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GUI_Util.cpp">
-      <Filter>Not-directly-related-to-assignment files\Source Files</Filter>
+      <Filter>Not-directly-related-to-assignment classes\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GUITexture.cpp">
-      <Filter>Not-directly-related-to-assignment files\Source Files</Filter>
+      <Filter>Not-directly-related-to-assignment classes\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GUITextureFactory.cpp">
-      <Filter>Not-directly-related-to-assignment files\Source Files</Filter>
+      <Filter>Not-directly-related-to-assignment classes\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\RadioButtonCollection.cpp">
-      <Filter>Not-directly-related-to-assignment files\Source Files</Filter>
+      <Filter>Not-directly-related-to-assignment classes\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\SliderWithText.cpp">
-      <Filter>Not-directly-related-to-assignment files\Source Files</Filter>
+      <Filter>Not-directly-related-to-assignment classes\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -198,12 +195,6 @@
     </None>
     <None Include="shaders\cubemap.vert">
       <Filter>Resource Files\shaders\cubemap</Filter>
-    </None>
-    <None Include="shaders\frensel_shading.vert">
-      <Filter>Resource Files\shaders\frensel shading</Filter>
-    </None>
-    <None Include="shaders\frensel_shading.frag">
-      <Filter>Resource Files\shaders\frensel shading</Filter>
     </None>
   </ItemGroup>
 </Project>
