@@ -89,6 +89,5 @@ void SliderWithText::UpdateSliderValue()
 		slider_value = 0.0f;
 	else if(slider_value > 1.0f)
 		slider_value = 1.0f;
-	std::cout << slider_value << std::endl;
 }
 

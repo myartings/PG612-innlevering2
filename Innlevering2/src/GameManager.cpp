@@ -546,8 +546,6 @@ void GameManager::RenderGUI()
 		slider_line_threshold->Draw();
 		slider_line_scale->Draw();
 		slider_line_offset->Draw();
-		slider_shadefactor_addvalue->Draw();
-		slider_shadefactor_multiplier->Draw();
 	}
 
 	
@@ -572,10 +570,9 @@ void GameManager::play() {
 			case SDL_MOUSEBUTTONDOWN:
 				if(!slider_line_threshold->BeginInteraction(glm::vec2(event.motion.x, event.motion.y))
 				&& !slider_line_scale->BeginInteraction(glm::vec2(event.motion.x, event.motion.y))	
-				&& !slider_line_offset->BeginInteraction(glm::vec2(event.motion.x, event.motion.y))
-				&& !slider_shadefactor_addvalue->BeginInteraction(glm::vec2(event.motion.x, event.motion.y))
-				&& !slider_shadefactor_multiplier->BeginInteraction(glm::vec2(event.motion.x, event.motion.y)))
+				&& !slider_line_offset->BeginInteraction(glm::vec2(event.motion.x, event.motion.y)))
 					cam_trackball.rotateBegin(event.motion.x, event.motion.y);
+
 				rendermode_radiobtn->OnClick(glm::vec2(event.motion.x, event.motion.y));
 				environment_radiobtn->OnClick(glm::vec2(event.motion.x, event.motion.y));
 				break;
@@ -583,16 +580,12 @@ void GameManager::play() {
 				slider_line_threshold->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
 				slider_line_scale->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
 				slider_line_offset->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
-				slider_shadefactor_addvalue->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
-				slider_shadefactor_multiplier->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
 				cam_trackball.rotateEnd(event.motion.x, event.motion.y);
 				break;
 			case SDL_MOUSEMOTION:
 					slider_line_threshold->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
 					slider_line_scale->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
 					slider_line_offset->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
-					slider_shadefactor_addvalue->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
-					slider_shadefactor_multiplier->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
 					cam_trackball.rotate(event.motion.x, event.motion.y, zoom);
 				break;
 			case SDL_KEYDOWN:
@@ -612,7 +605,6 @@ void GameManager::play() {
 				case SDLK_1:UsePhongProgram();break;
 				case SDLK_2:UseWireframeProgram();break;
 				case SDLK_3:UseHiddenLineProgram();break;
-				case SDLK_4:UseFrenselProgram();break;
 				case SDLK_5:
 					rotate_light = !rotate_light;
 				}
@@ -654,16 +646,11 @@ void GameManager::CreateGUIObjects()
 		gui_program, glm::vec2(950.0f, 75.0f));
 	slider_line_offset	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_offset.png", 
 		gui_program, glm::vec2(950.0f, 145.0f));
-	slider_shadefactor_addvalue		= std::make_shared<SliderWithText>("GUI/shadefactor_addvalue.png", 
-		gui_program, glm::vec2(950.0f, 215.0f));
-	slider_shadefactor_multiplier	= std::make_shared<SliderWithText>("GUI/shadefactor_multiplier.png", 
-		gui_program, glm::vec2(950.0f, 285.0f));
 	
 	std::vector<RadioButtonEntry> rendermode_entries;
 	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UsePhongProgram, this), true, "GUI/Rendermode/PhongWShadows.png"));
 	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UseWireframeProgram, this), false, "GUI/Rendermode/Wireframe.png"));
 	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UseHiddenLineProgram, this), false, "GUI/Rendermode/Hidden Line.png"));
-	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UseFrenselProgram, this), false, "GUI/Rendermode/Frenzel.png"));
 	rendermode_radiobtn.reset(new RadioButtonCollection(rendermode_entries, glm::vec2(0, window_height-40), glm::vec2(0.5, 0.5)));
 
 
@@ -671,11 +658,6 @@ void GameManager::CreateGUIObjects()
 	environment_entries.push_back(RadioButtonEntry(std::bind(&GameManager::SetBackgroundToCube, this), true, "GUI/CubeBackground.png"));
 	environment_entries.push_back(RadioButtonEntry(std::bind(&GameManager::SetBackgroundToOpenRoom, this), false, "GUI/OpenBackground.png"));
 	environment_radiobtn.reset(new RadioButtonCollection(environment_entries, glm::vec2(250, window_height-40), glm::vec2(0.5, 0.5)));
-
-	/*std::vector<RadioButtonEntry> fresnel_entries;
-	fresnel.push_back(RadioButtonEntry(std::bind(&GameManager::SetBackgroundToCube, this), true, "GUI/CubeBackground.png"));
-	fresnel.push_back(RadioButtonEntry(std::bind(&GameManager::SetBackgroundToOpenRoom, this), false, "GUI/OpenBackground.png"));
-	fresnel_radiobtn.reset(new RadioButtonCollection(environment_entries, glm::vec2(250, window_height-40), glm::vec2(0.5, 0.5)));*/
 }
 
 void GameManager::UsePhongProgram()
@@ -702,15 +684,6 @@ void GameManager::UseHiddenLineProgram()
 	{
 		current_program = hidden_line_program;
 		rendermode_radiobtn->SetActive(2);
-	}
-}
-
-void GameManager::UseFrenselProgram()
-{
-	if(current_program != frensel_program)
-	{
-		current_program = frensel_program;
-		rendermode_radiobtn->SetActive(3);
 	}
 }
 

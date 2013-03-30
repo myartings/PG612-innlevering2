@@ -146,13 +146,9 @@ private:
 	std::shared_ptr<SliderWithText> slider_line_threshold;
 	std::shared_ptr<SliderWithText> slider_line_scale;
 	std::shared_ptr<SliderWithText> slider_line_offset;
-
-	std::shared_ptr<SliderWithText> slider_shadefactor_addvalue;
-	std::shared_ptr<SliderWithText> slider_shadefactor_multiplier;
 		
 	std::shared_ptr<RadioButtonCollection> rendermode_radiobtn;
 	std::shared_ptr<RadioButtonCollection> environment_radiobtn;
-	std::shared_ptr<RadioButtonCollection> fresnel_radiobtn;
 
 	GLuint fbo_vertex_bo; //< Vetex buffer object for fullscreen quad
 	GLuint fbo_vao; //< Vertex array object for the depthbuffer dumping
@@ -202,10 +198,6 @@ private:
 	* Switch to the hidden line shading program
 	*/
 	void UseHiddenLineProgram();
-	/**
-	* Switch to the frensel shading program
-	*/
-	void UseFrenselProgram();
 
 	void SetBackgroundToCube();
 	void SetBackgroundToOpenRoom();
