@@ -185,27 +185,39 @@ private:
 
 	float delta_time;
 
-	/**
-	* Switch to the phong shading program
-	*/
-	void UsePhongProgram();
-	/**
-	* Switch to the wireframe shading program
-	*/
-	void UseWireframeProgram();
-	/**
-	* Switch to the hidden line shading program
-	*/
-	void UseHiddenLineProgram();
-
-	void SetBackgroundToCube();
-	void SetBackgroundToOpenRoom();
-
 	enum Environements{
 		PLAIN_CUBE_ROOM,
 		OPEN_HALFROOM
 	};
 	Environements current_environment;
+
+/************************************************************************/
+/* The functions below are used for callbacks to the GUI classes        */
+/************************************************************************/
+	/**
+	* Switch to the phong shading program
+	*/
+	void UsePhongProgram();
+
+	/**
+	* Switch to the wireframe shading program
+	*/
+	void UseWireframeProgram();
+
+	/**
+	* Switch to the hidden line shading program
+	*/
+	void UseHiddenLineProgram();
+
+	/**
+	* Sets the current room environemnt to be rendered to the cube room
+	*/
+	void SetBackgroundToCube();
+
+	/**
+	* Sets the current room environemnt to be rendered to the half open room
+	*/
+	void SetBackgroundToOpenRoom();
 };
 
 #endif // _GAMEMANAGER_H_

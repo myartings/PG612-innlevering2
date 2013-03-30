@@ -324,9 +324,8 @@ void GameManager::SetShaderUniforms()
 
 void GameManager::SetShaderAttribPtrs()
 {
-
 #pragma region vao[0]
-	//Set up VAOs and set as input to shaders
+	//vao[0] is the bunny vao
 	glGenVertexArrays(4, &vao[0]);
 
 	glBindVertexArray(vao[0]);
@@ -344,9 +343,10 @@ void GameManager::SetShaderAttribPtrs()
 	bunny->getInterleavedVBO()->unbind();
 	glBindVertexArray(0);
 
-#pragma endregion vao[0]
+#pragma endregion
 
 #pragma region vao[1]
+	//vao[1] is the cube room
 	glBindVertexArray(vao[1]);
 
 	cube_vertices->bind();
@@ -361,10 +361,10 @@ void GameManager::SetShaderAttribPtrs()
 
 	glBindVertexArray(0);
 	CHECK_GL_ERRORS();
-#pragma endregion vao[1]
-
+#pragma endregion
 
 #pragma region vao[2]
+	//Vao[2] is the half open room
 	glBindVertexArray(vao[2]);
 	room->getInterleavedVBO()->bind();
 	room->getIndices()->bind();
@@ -379,10 +379,10 @@ void GameManager::SetShaderAttribPtrs()
 	room->getInterleavedVBO()->unbind();
 	glBindVertexArray(0);
 
-#pragma endregion vao[2]
+#pragma endregion 
 
+#pragma region vao[3]
 	/*--------fbo_fao--------*/
-	//glGenVertexArrays(1, &fbo_vao);
 	glBindVertexArray(vao[3]);
 	static float positions[8] = {
 		-1.0, 1.0,
@@ -416,7 +416,7 @@ void GameManager::SetShaderAttribPtrs()
 	gui_program->setAttributePointer("in_Position", 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
+#pragma endregion 
 }
 
 void GameManager::renderColorPass() {
@@ -477,7 +477,6 @@ void GameManager::renderDepthDump()
 {
 	depth_dump_program->use();
 
-	//Bind the textures before rendering
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, shadow_fbo->getTexture());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
@@ -486,7 +485,6 @@ void GameManager::renderDepthDump()
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	CHECK_GL_ERRORS();
 
-	//Unbind the textures
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -494,7 +492,6 @@ void GameManager::renderDepthDump()
 }
 
 void GameManager::render() {
-	//Rotate the light a bit
 	if(rotate_light)
 	{
 		glm::mat4 rotation = glm::rotate(delta_time*20.f, 0.0f, 1.0f, 0.0f);
@@ -509,9 +506,10 @@ void GameManager::render() {
 	renderColorPass();
 	
 	glBindFramebufferEXT(GL_FRAMEBUFFER, 0);
-	//Clearing the depth buffer to always draw on top of the previously rendered stuff
-	glClear(GL_DEPTH_BUFFER_BIT);
 
+	//Clearing the depth buffer to always draw on top of the previously rendered stuff
+	//before rendering GUI
+	glClear(GL_DEPTH_BUFFER_BIT);
 	if(render_gui_and_depth)
 	{
 		renderDepthDump();
@@ -536,7 +534,6 @@ void GameManager::RenderGUI()
 		slider_line_offset->Draw();
 	}
 
-	
 	glBindVertexArray(0);
 }
 
