@@ -222,7 +222,6 @@ void GameManager::init() {
 	cube_normals.reset(new BO<GL_ARRAY_BUFFER>(cube_normals_data, sizeof(cube_normals_data)));
 
 	shadow_fbo.reset(new ShadowFBO(window_width, window_height));
-	screen_dump_fbo.reset(new ShadowFBO(window_width, window_height));
 
 	diffuse_cubemap.reset(new CubeMap("cubemaps/diffuse/", "jpg"));
 	spacebox.reset(new CubeMap("cubemaps/skybox/", "jpg"));
@@ -325,9 +324,10 @@ void GameManager::SetShaderUniforms()
 
 void GameManager::SetShaderAttribPtrs()
 {
+
 #pragma region vao[0]
 	//Set up VAOs and set as input to shaders
-	glGenVertexArrays(3, &vao[0]);
+	glGenVertexArrays(4, &vao[0]);
 
 	glBindVertexArray(vao[0]);
 	bunny->getInterleavedVBO()->bind();
@@ -382,8 +382,8 @@ void GameManager::SetShaderAttribPtrs()
 #pragma endregion vao[2]
 
 	/*--------fbo_fao--------*/
-	glGenVertexArrays(1, &fbo_vao);
-	glBindVertexArray(fbo_vao);
+	//glGenVertexArrays(1, &fbo_vao);
+	glBindVertexArray(vao[3]);
 	static float positions[8] = {
 		-1.0, 1.0,
 		-1.0, -1.0,
@@ -481,7 +481,7 @@ void GameManager::renderDepthDump()
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, shadow_fbo->getTexture());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
-	glBindVertexArray(fbo_vao);
+	glBindVertexArray(vao[3]);
 
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	CHECK_GL_ERRORS();

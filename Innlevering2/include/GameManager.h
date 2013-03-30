@@ -120,7 +120,7 @@ private:
 
 	static GLuint gui_vbo, gui_vao;
 	
-	GLuint vao[3]; //< Vertex array objects
+	GLuint vao[4]; //< Vertex array objects
 	std::shared_ptr<GLUtils::Program> phong_program,
 									  wireframe_program,
 									  hidden_line_program,
@@ -140,7 +140,6 @@ private:
 	std::shared_ptr<Model> room;
 
 	std::shared_ptr<ShadowFBO> shadow_fbo;
-	std::shared_ptr<ShadowFBO> screen_dump_fbo;
 
 	std::shared_ptr<SliderWithText> slider_line_threshold;
 	std::shared_ptr<SliderWithText> slider_line_scale;
@@ -150,7 +149,7 @@ private:
 	std::shared_ptr<RadioButtonCollection> environment_radiobtn;
 
 	GLuint fbo_vertex_bo; //< Vetex buffer object for fullscreen quad
-	GLuint fbo_vao; //< Vertex array object for the depthbuffer dumping
+
 	glm::mat4 fbo_modelMatrix;
 	glm::mat4 fbo_projectionMatrix;
 	glm::mat4 fbo_viewMatrix;
@@ -172,6 +171,7 @@ private:
 
 	Camera camera;
 	Camera gui_camera;
+
 	std::vector<glm::mat4> model_matrices; //< OpenGL model transformation matrix
 	std::vector<glm::vec3> model_colors;
 
