@@ -1,7 +1,7 @@
 #version 130
 
 uniform sampler2D fbo_texture;
-
+uniform float gui_alpha;
 in vec2 ex_texcoord;
 out vec4 res_Color;
 
@@ -14,6 +14,5 @@ float NormalizeDepth(float depth_val){
 void main() {
 	float depth = texture2D(fbo_texture, ex_texcoord.xy).r;
 	depth = NormalizeDepth(depth);
-	res_Color = vec4(depth, depth, depth, 0.7f);
-	//res_Color = texture2D(fbo_texture, ex_texcoord.xy);
+	res_Color = vec4(depth, depth, depth, gui_alpha);
 }

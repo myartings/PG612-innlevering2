@@ -31,9 +31,8 @@ public:
 	*					     the label name for this slider
 	* @param gui_program the shader program used to draw GUI objects, used to set 
 	*/
-    SliderWithText(const std::string& name_label_path, 
-				   std::shared_ptr<GLUtils::Program> gui_program, 
-				   glm::vec2 position);
+    SliderWithText(const std::string& name_label_path, glm::vec2 position, 
+						glm::vec2 scale = glm::vec2(0.6,0.6));
 
     ~SliderWithText();
 
@@ -76,6 +75,12 @@ public:
 	*/
 	float get_slider_value();
 
+	/**
+	* Sets the range the sliders value should be clamped to.
+	* If this function is not set, the clamping range is [0, 1]
+	*/
+	void SetClampRange(float min, float max);
+
 private:
 	GUITexture slider;
 	GUITexture slider_knob;
@@ -85,8 +90,9 @@ private:
 	glm::vec2 previous_mouse_pos;
 
 	// The value the slider represents, based on the position of the slider knob.
-	// The value is clamped between [0, 1]
+	// The value is by default clamped between [0, 1]
 	float slider_value;
+	float clamp_min, clamp_max;
 	void UpdateSliderValue();
 
 };

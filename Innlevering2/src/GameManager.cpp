@@ -476,7 +476,7 @@ void GameManager::renderShadowPass() {
 void GameManager::renderDepthDump()
 {
 	depth_dump_program->use();
-
+	glUniform1f(depth_dump_program->getUniform("gui_alpha"), slider_gui_alpha->get_slider_value());
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, shadow_fbo->getTexture());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
@@ -524,16 +524,19 @@ void GameManager::render() {
 void GameManager::RenderGUI()
 {
 	glBindVertexArray(gui_vao);
-	
+	gui_program->use();
+	glUniform1f(gui_program->getUniform("gui_alpha"), slider_gui_alpha->get_slider_value());
 	rendermode_radiobtn->Draw();
 	environment_radiobtn->Draw();
+	slider_gui_alpha->Draw();
+
 	if(current_program == hidden_line_program)
 	{
 		slider_line_threshold->Draw();
 		slider_line_scale->Draw();
 		slider_line_offset->Draw();
 	}
-
+	gui_program->disuse();
 	glBindVertexArray(0);
 }
 
@@ -556,7 +559,8 @@ void GameManager::play() {
 			case SDL_MOUSEBUTTONDOWN:
 				if(!slider_line_threshold->BeginInteraction(glm::vec2(event.motion.x, event.motion.y))
 				&& !slider_line_scale->BeginInteraction(glm::vec2(event.motion.x, event.motion.y))	
-				&& !slider_line_offset->BeginInteraction(glm::vec2(event.motion.x, event.motion.y)))
+				&& !slider_line_offset->BeginInteraction(glm::vec2(event.motion.x, event.motion.y))
+				&& !slider_gui_alpha->BeginInteraction(glm::vec2(event.motion.x, event.motion.y)))
 					cam_trackball.rotateBegin(event.motion.x, event.motion.y);
 
 				rendermode_radiobtn->OnClick(glm::vec2(event.motion.x, event.motion.y));
@@ -566,12 +570,14 @@ void GameManager::play() {
 				slider_line_threshold->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
 				slider_line_scale->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
 				slider_line_offset->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
+				slider_gui_alpha->EndInteraction(glm::vec2(event.motion.x, event.motion.y));
 				cam_trackball.rotateEnd(event.motion.x, event.motion.y);
 				break;
 			case SDL_MOUSEMOTION:
 					slider_line_threshold->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
 					slider_line_scale->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
 					slider_line_offset->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
+					slider_gui_alpha->Update(delta_time, glm::vec2(event.motion.x, event.motion.y));
 					cam_trackball.rotate(event.motion.x, event.motion.y, zoom);
 				break;
 			case SDL_KEYDOWN:
@@ -637,12 +643,11 @@ void GameManager::quit() {
 
 void GameManager::CreateGUIObjects()
 {
-	slider_line_threshold = std::make_shared<SliderWithText>("GUI/hiddenline/line_threashold.png", 
-		gui_program, glm::vec2(950.0f, 5.0f));
-	slider_line_scale	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_scale.png", 
-		gui_program, glm::vec2(950.0f, 75.0f));
-	slider_line_offset	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_offset.png", 
-		gui_program, glm::vec2(950.0f, 145.0f));
+	slider_line_threshold = std::make_shared<SliderWithText>("GUI/hiddenline/line_threashold.png",glm::vec2(950.0f, 5.0f));
+	slider_line_scale	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_scale.png",  glm::vec2(950.0f, 75.0f));
+	slider_line_offset	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_offset.png", glm::vec2(950.0f, 145.0f));
+	slider_gui_alpha	  = std::make_shared<SliderWithText>("GUI/gui_alpha.png", glm::vec2(10.0f, 220.0f), glm::vec2(0.4f, 0.4f));
+	slider_gui_alpha->SetClampRange(0.2f, 1.0f);
 	
 	std::vector<RadioButtonEntry> rendermode_entries;
 	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UsePhongProgram, this), true, "GUI/Rendermode/PhongWShadows.png"));
@@ -750,17 +755,8 @@ void GameManager::RenderModelsColorpass()
 		glUniformMatrix4fv(current_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
 		glUniformMatrix4fv(current_program->getUniform("modelview_matrix_inverse"), 1, 0, glm::value_ptr(modelview_matrix_inverse));
 
-		//model->getInterleavedVBO()->bind();
-		//model->getIndices()->bind();
-		//current_program->setAttributePointer("position", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getVerticeOffset());
-
-		//current_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, model->getStride(), model->getNormalOffset());
-
 		MeshPart& mesh = bunny->getMesh();
 		glDrawElements(GL_TRIANGLES, mesh.count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * mesh.first));
-
-		//glDrawElements(GL_TRIANGLES, model->getMesh().count, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * model->getMesh().first));
-		//glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
 	}
 }
 
@@ -804,12 +800,10 @@ void GameManager::RenderRooomModelShadowpass()
 {
 	glBindVertexArray(vao[2]);
 
-	//glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
 	glm::mat4 model_matrix_inverse = glm::inverse(room_model_matrix);
 	glm::mat4 modelview_matrix = light.view*room_model_matrix;
 	glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
 	glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
-	//glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
 
 	glUniformMatrix4fv(light_pov_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));
 

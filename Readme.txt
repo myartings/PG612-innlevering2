@@ -9,7 +9,7 @@ I innleveringen har jeg implementert følgende slik oppgave teksten beskriver:
 -Diffus lighting av objektene i scenen ved å sende inn den vedlagte cubemappen til fragment shaderen, og bruke normalen til fragmentene  til å slå opp i cubemappet og finne den diffuse fargen.
 
 
-For å gi muligheten til å tweake på linjetykkelsen på hidden-line renderingen har jeg laget et lite enkelt GUI system med slidere man kan modifisere for å endre tykkelse og anti-aliasing verdier på linjene.
+For å gi muligheten til å tweake på linjetykkelsen på hidden-line renderingen har jeg laget et lite enkelt GUI system med slidere man kan modifisere for å endre tykkelse og anti-aliasing verdier på linjene. De GUI relaterte klassene er flyttet for seg i en egen mappe i VS prosjektet (Not-directly-relate-to-assignment classes) for å holde dem avskilt fra det som er direkte relatert til innleveringen.
 
 Jeg har også lagt til en litt mer avansert modell enn det simple cube-rommet som følger med for å bedre kunne demonstrere hvordan skyggene ser ut når de faller på mer ugjevne overlater. I den sammenheng har jeg også lagt til en skybox som ikke blir påvirket av skyggene, bare for å få alt til å se litt penere ut. Man kan bytte mellom det nye rommet og den orginale cuben ved å trykke på radiobutons jeg også har laget med det enkle GUI systemet.
 

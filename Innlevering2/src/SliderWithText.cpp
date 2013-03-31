@@ -4,23 +4,25 @@ static const std::string debug_texture_path = "GUI/debug.png";
 static const std::string slider_texture_path = "GUI/Slider_line.png";
 static const std::string slider_knob_texture_path = "GUI/Slider_knob.png";
 
-SliderWithText::SliderWithText(const std::string& name_label_path,
-							  std::shared_ptr<GLUtils::Program> gui_program, 
-							  glm::vec2 position)
+SliderWithText::SliderWithText(const std::string& name_label_path, glm::vec2 position,glm::vec2 scale)
 	:label(name_label_path), slider(slider_texture_path), slider_knob(slider_knob_texture_path)
 {
 
 	label.set_position(glm::vec3(position.x, position.y+15, -5));
-	
+	label.set_scale(scale*1.5f);
 	slider.set_position(glm::vec3(position.x, position.y, -5));
-	slider.set_scale(glm::vec2(0.6f));
+	slider.set_scale(scale);
 	
 
 	slider_knob.set_position(glm::vec3(slider.get_rect().x+(slider.get_rect().width/3.0f), position.y, -5));
-	slider_knob.set_scale(glm::vec2(0.6f));
+	slider_knob.set_scale(scale);
 
 	interacting = false;
+	
+	clamp_min = 0.0f;
+	clamp_max = 1.0f;
 	UpdateSliderValue();
+	
 }
 
 SliderWithText::~SliderWithText()
@@ -82,12 +84,24 @@ float SliderWithText::get_slider_value()
 
 void SliderWithText::UpdateSliderValue()
 {
-
 	slider_value = (slider_knob.get2d_position().x - slider.get_rect().x) / slider.get_rect().width;
-	slider_value += 0.08f;
+	slider_value += 0.08f; //slight adjustment
 	if(slider_value < 0.0f)
 		slider_value = 0.0f;
 	else if(slider_value > 1.0f)
 		slider_value = 1.0f;
+
+	slider_value = ( ((clamp_max-clamp_min)*(slider_value-0.0f)) / (1.0f-0.0f))+clamp_min;
+}
+
+void SliderWithText::SetClampRange( float min, float max )
+{
+	if(min<max)
+	{
+		clamp_min = min;
+		clamp_max = max;
+	}
+	else
+		THROW_EXCEPTION("min value is bigger or equal to max value");
 }
 

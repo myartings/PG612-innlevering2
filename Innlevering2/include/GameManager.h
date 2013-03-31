@@ -144,7 +144,8 @@ private:
 	std::shared_ptr<SliderWithText> slider_line_threshold;
 	std::shared_ptr<SliderWithText> slider_line_scale;
 	std::shared_ptr<SliderWithText> slider_line_offset;
-		
+	std::shared_ptr<SliderWithText> slider_gui_alpha;
+
 	std::shared_ptr<RadioButtonCollection> rendermode_radiobtn;
 	std::shared_ptr<RadioButtonCollection> environment_radiobtn;
 

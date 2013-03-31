@@ -18,38 +18,18 @@ flat out vec3 vertex_pos;
 
 void main() {
 
-/*-----------0---------------*/
-	beyer_coord = vec3(1, 0, 0);
+	for(int i = 0; i < gl_in.length(); i++)
+	{
+		beyer_coord = vec3((i+1)==1?1:0, (i+1)==2?2:0, (i+1)==3?3:0);
 
-	f_n = g_n[0];
-	f_v = g_v[0];
-	f_l = g_l[0];
-	f_shadow_coord = g_shadow_coord[0];
+		f_n = g_n[i];
+		f_v = g_v[i];
+		f_l = g_l[i];
+		f_shadow_coord = g_shadow_coord[i];
 
-	gl_Position =  gl_in[0].gl_Position;
-	EmitVertex();
-
-/*-----------1---------------*/		
-	beyer_coord = vec3(0, 1, 0);
-	
-	f_n = g_n[1];
-	f_v = g_v[1];
-	f_l = g_l[1];
-	f_shadow_coord = g_shadow_coord[1];
-	
-	gl_Position =  gl_in[1].gl_Position;
-	EmitVertex();
-
-/*-----------2---------------*/
-	beyer_coord = vec3(0, 0, 1);
-
-	f_n = g_n[2];
-	f_v = g_v[2];
-	f_l = g_l[2];
-	f_shadow_coord = g_shadow_coord[2];
-
-	gl_Position =  gl_in[2].gl_Position;
-	EmitVertex();
+		gl_Position =  gl_in[i].gl_Position;
+		EmitVertex();
+	}
 
 	EndPrimitive();
 }
