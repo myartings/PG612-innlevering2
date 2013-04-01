@@ -19,56 +19,60 @@
 
 
 #include "GUITexture.h"
-using namespace gui;
 
-class RadioButtonEntry
+namespace gui
 {
-public:
-	RadioButtonEntry(std::function<void()> selected_callback,
-					bool is_active, const std::string& label_path);
+	class RadioButtonEntry
+	{
+	public:
+		RadioButtonEntry(std::function<void()> selected_callback,
+						bool is_active, const std::string& label_path);
 					
 
-	void Draw();
-	void Init(glm::vec2 position, glm::vec2 scale);
+		void Draw();
+		void Init(glm::vec2 position, glm::vec2 scale);
 
-	std::function<void()> on_selected;
+		std::function<void()> on_selected;
 
-	GUITexture label_texture;
-	GUITexture active_texture;
-	GUITexture inactive_texture;
+		GUITexture label_texture;
+		GUITexture active_texture;
+		GUITexture inactive_texture;
 
-	bool active;
-};
+		bool active;
+	};
 
-class RadioButtonCollection
-{
-public:
-    RadioButtonCollection(std::vector<RadioButtonEntry> _radio_buttons, 
-							glm::vec2 position, glm::vec2 scale);
-	RadioButtonCollection(std::vector<RadioButtonEntry> _radio_buttons, glm::vec2 position, 
-							glm::vec2 scale, std::string collection_label_path);
+	class RadioButtonCollection
+	{
+	public:
+		RadioButtonCollection(std::vector<RadioButtonEntry> _radio_buttons, 
+								glm::vec2 position, glm::vec2 scale);
+		RadioButtonCollection(std::vector<RadioButtonEntry> _radio_buttons, glm::vec2 position, 
+								glm::vec2 scale, std::string collection_label_path);
 
-    ~RadioButtonCollection();
+		~RadioButtonCollection();
 	
-	/**
-	* Performs updates based on the mouse click
-	*/
-	void OnClick(glm::vec2& mouse_pos);
+		/**
+		* Performs updates based on the mouse click
+		*/
+		void OnClick(glm::vec2& mouse_pos);
 
-	void Draw();
+		void Draw();
 
-	/**
-	* Uses the param int as an index in the radio button collection
-	* and sets that entry active if it exist
-	*/
-	void SetActive(unsigned int entrynumber);
+		/**
+		* Uses the param int as an index in the radio button collection
+		* and sets that entry active if it exist
+		*/
+		void SetActive(unsigned int entrynumber);
 
-protected:
+	protected:
 
-private:
-	std::vector<RadioButtonEntry> radio_buttons;
-	glm::vec2 position;
-	GUITexture* name_label;
+	private:
+		std::vector<RadioButtonEntry> radio_buttons;
+		glm::vec2 position;
+		GUITexture* name_label;
+	};
 };
+
+
 
 #endif // RadioButtonCollection_h__
