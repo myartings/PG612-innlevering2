@@ -643,23 +643,23 @@ void GameManager::quit() {
 
 void GameManager::CreateGUIObjects()
 {
-	slider_line_threshold = std::make_shared<SliderWithText>("GUI/hiddenline/line_threashold.png",glm::vec2(950.0f, 5.0f));
-	slider_line_scale	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_scale.png",  glm::vec2(950.0f, 75.0f));
-	slider_line_offset	  = std::make_shared<SliderWithText>("GUI/hiddenline/amplify_offset.png", glm::vec2(950.0f, 145.0f));
-	slider_gui_alpha	  = std::make_shared<SliderWithText>("GUI/gui_alpha.png", glm::vec2(10.0f, 220.0f), glm::vec2(0.4f, 0.4f));
+	slider_line_threshold = std::make_shared<gui::SliderWithText>("GUI/hiddenline/line_threashold.png",glm::vec2(950.0f, 5.0f));
+	slider_line_scale	  = std::make_shared<gui::SliderWithText>("GUI/hiddenline/amplify_scale.png",  glm::vec2(950.0f, 75.0f));
+	slider_line_offset	  = std::make_shared<gui::SliderWithText>("GUI/hiddenline/amplify_offset.png", glm::vec2(950.0f, 145.0f));
+	slider_gui_alpha	  = std::make_shared<gui::SliderWithText>("GUI/gui_alpha.png", glm::vec2(10.0f, 220.0f), glm::vec2(0.4f, 0.4f));
 	slider_gui_alpha->SetClampRange(0.2f, 1.0f);
 	
-	std::vector<RadioButtonEntry> rendermode_entries;
-	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UsePhongProgram, this), true, "GUI/Rendermode/PhongWShadows.png"));
-	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UseWireframeProgram, this), false, "GUI/Rendermode/Wireframe.png"));
-	rendermode_entries.push_back(RadioButtonEntry(std::bind(&GameManager::UseHiddenLineProgram, this), false, "GUI/Rendermode/Hidden Line.png"));
-	rendermode_radiobtn.reset(new RadioButtonCollection(rendermode_entries, glm::vec2(0, window_height-40), glm::vec2(0.5, 0.5)));
+	std::vector<gui::RadioButtonEntry> rendermode_entries;
+	rendermode_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::UsePhongProgram, this), true, "GUI/Rendermode/PhongWShadows.png"));
+	rendermode_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::UseWireframeProgram, this), false, "GUI/Rendermode/Wireframe.png"));
+	rendermode_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::UseHiddenLineProgram, this), false, "GUI/Rendermode/Hidden Line.png"));
+	rendermode_radiobtn.reset(new gui::RadioButtonCollection(rendermode_entries, glm::vec2(0, window_height-40), glm::vec2(0.5, 0.5)));
 
 
-	std::vector<RadioButtonEntry> environment_entries;
-	environment_entries.push_back(RadioButtonEntry(std::bind(&GameManager::SetBackgroundToCube, this), true, "GUI/CubeBackground.png"));
-	environment_entries.push_back(RadioButtonEntry(std::bind(&GameManager::SetBackgroundToOpenRoom, this), false, "GUI/OpenBackground.png"));
-	environment_radiobtn.reset(new RadioButtonCollection(environment_entries, glm::vec2(250, window_height-40), glm::vec2(0.5, 0.5)));
+	std::vector<gui::RadioButtonEntry> environment_entries;
+	environment_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::SetBackgroundToCube, this), true, "GUI/CubeBackground.png"));
+	environment_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::SetBackgroundToOpenRoom, this), false, "GUI/OpenBackground.png"));
+	environment_radiobtn.reset(new gui::RadioButtonCollection(environment_entries, glm::vec2(250, window_height-40), glm::vec2(0.5, 0.5)));
 }
 
 void GameManager::UsePhongProgram()

@@ -141,13 +141,13 @@ private:
 
 	std::shared_ptr<ShadowFBO> shadow_fbo;
 
-	std::shared_ptr<SliderWithText> slider_line_threshold;
-	std::shared_ptr<SliderWithText> slider_line_scale;
-	std::shared_ptr<SliderWithText> slider_line_offset;
-	std::shared_ptr<SliderWithText> slider_gui_alpha;
+	std::shared_ptr<gui::SliderWithText> slider_line_threshold;
+	std::shared_ptr<gui::SliderWithText> slider_line_scale;
+	std::shared_ptr<gui::SliderWithText> slider_line_offset;
+	std::shared_ptr<gui::SliderWithText> slider_gui_alpha;
 
-	std::shared_ptr<RadioButtonCollection> rendermode_radiobtn;
-	std::shared_ptr<RadioButtonCollection> environment_radiobtn;
+	std::shared_ptr<gui::RadioButtonCollection> rendermode_radiobtn;
+	std::shared_ptr<gui::RadioButtonCollection> environment_radiobtn;
 
 	GLuint fbo_vertex_bo; //< Vetex buffer object for fullscreen quad
 
