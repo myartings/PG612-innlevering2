@@ -3,7 +3,8 @@
     filename:   SliderWithText.h
     author:     Kristian Skarseth
     
-    purpose:    
+    purpose:    A simple GUI slider that can be modified with mouse input.
+				Represents a value between [0, 1], or another defined value.
 *********************************************************************/
 #ifndef SliderWithText_h__
 #define SliderWithText_h__
