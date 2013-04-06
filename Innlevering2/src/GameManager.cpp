@@ -308,9 +308,8 @@ void GameManager::SetShaderUniforms()
 	light_pov_program->disuse();
 
 	depth_dump_program->use();
-	glUniformMatrix4fv(depth_dump_program->getUniform("projection"), 1, 0, glm::value_ptr(fbo_projectionMatrix));
-	glUniformMatrix4fv(depth_dump_program->getUniform("view"), 1, 0, glm::value_ptr(fbo_viewMatrix));
-	glUniformMatrix4fv(depth_dump_program->getUniform("model_matrix"), 1, 0, glm::value_ptr(fbo_modelMatrix));
+	glUniformMatrix4fv(depth_dump_program->getUniform("modelviewprojection_matrix"), 1, 0, 
+						glm::value_ptr(fbo_projectionMatrix*fbo_viewMatrix*fbo_modelMatrix));
 	glUniform1i(depth_dump_program->getUniform("fbo_texture"), 0);
 	depth_dump_program->disuse();
 
