@@ -124,10 +124,10 @@ private:
 
 	std::shared_ptr<ShadowFBO> shadow_fbo;
 
-	std::shared_ptr<gui::SliderWithText> slider_line_threshold;
-	std::shared_ptr<gui::SliderWithText> slider_line_scale;
-	std::shared_ptr<gui::SliderWithText> slider_line_offset;
-	std::shared_ptr<gui::SliderWithText> slider_gui_alpha;
+	std::shared_ptr<gui::SliderWithText> slider_line_threshold; //< GUI slider modifying the hidden-line wireframe line tickness
+	std::shared_ptr<gui::SliderWithText> slider_line_scale;		//< GUI slider modifying the hidden-line wireframe line fade scale
+	std::shared_ptr<gui::SliderWithText> slider_line_offset;	//< GUI slider modifying the hidden-line wireframe line fade out
+	std::shared_ptr<gui::SliderWithText> slider_gui_alpha;		//< GUI slider modifying the alpha of all gui objects
 
 	std::shared_ptr<gui::RadioButtonCollection> rendermode_radiobtn;
 	std::shared_ptr<gui::RadioButtonCollection> environment_radiobtn;
