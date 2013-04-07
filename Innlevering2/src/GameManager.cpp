@@ -226,11 +226,11 @@ void GameManager::init() {
 	diffuse_cubemap.reset(new CubeMap("cubemaps/diffuse/", "jpg"));
 	spacebox.reset(new CubeMap("cubemaps/skybox/", "jpg"));
 
-	SetMatrices();
+	Init_SetMatrices();
 
 	//Create the random transformations and colors for the bunnys
 	srand(static_cast<int>(time(NULL)));
-	for (int i=0; i<n_models; ++i) {
+	for (int i=0; i<number_of_models; ++i) {
 		float tx = rand() / (float) RAND_MAX - 0.5f;
 		float ty = rand() / (float) RAND_MAX - 0.5f;
 		float tz = rand() / (float) RAND_MAX - 0.5f;
@@ -242,17 +242,16 @@ void GameManager::init() {
 		model_colors.push_back(glm::vec3(tx+0.5, ty+0.5, tz+0.5));
 	}
 
-	CreateShaderPrograms();
-	SetShaderUniforms();
-	SetShaderAttribPtrs();
+	Init_CreateShaderPrograms();
+	Init_SetShaderUniforms();
+	Init_SetShaderAttribPtrs();
 	gui::GUITextureFactory::Inst()->Init(gui_program, gui_vao);
 	current_program = phong_program;
 
-	CreateGUIObjects();
+	Init_CreateGUIObjects();
 }
 
-void GameManager::SetMatrices()
-{
+void GameManager::Init_SetMatrices(){
 	//Set the matrices we will use
 	camera.projection = glm::perspective(fovy/zoom,
 		window_width / (float) window_height, near_plane, far_plane);
@@ -274,8 +273,7 @@ void GameManager::SetMatrices()
 	room_model_matrix = glm::scale(glm::mat4(1), glm::vec3(15));
 }
 
-void GameManager::CreateShaderPrograms()
-{
+void GameManager::Init_CreateShaderPrograms(){
 	//Create the programs we will use
 	phong_program.reset(new Program("shaders/phong.vert", "shaders/phong.geom", "shaders/phong.frag"));
 	wireframe_program.reset(new Program("shaders/wireframe.vert", "shaders/wireframe.geom", "shaders/wireframe.frag"));
@@ -287,8 +285,7 @@ void GameManager::CreateShaderPrograms()
 	CHECK_GL_ERRORS();
 }
 
-void GameManager::SetShaderUniforms()
-{
+void GameManager::Init_SetShaderUniforms(){
 	//Set uniforms for the programs
 	//Typically diffuse_cubemap and shadowmap
 	phong_program->use();
@@ -321,8 +318,7 @@ void GameManager::SetShaderUniforms()
 	CHECK_GL_ERRORS();
 }
 
-void GameManager::SetShaderAttribPtrs()
-{
+void GameManager::Init_SetShaderAttribPtrs(){
 #pragma region vao[0]
 	//vao[0] is the bunny vao
 	glGenVertexArrays(4, &vao[0]);
@@ -424,10 +420,10 @@ void GameManager::renderColorPass() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Create the new view matrix that takes the trackball view into account
-	view_matrix_new = camera.view*cam_trackball.getTransform();
+	cam_trackball_view_matrix = camera.view*cam_trackball.getTransform();
 
 	glDepthMask(GL_FALSE);	
-	spacebox->render(camera.projection, view_matrix_new);
+	spacebox->render(camera.projection, cam_trackball_view_matrix);
 	glDepthMask(GL_TRUE);
 
 	current_program->use();
@@ -472,8 +468,7 @@ void GameManager::renderShadowPass() {
 	shadow_fbo->unbind();
 }
 
-void GameManager::renderDepthDump()
-{
+void GameManager::renderDepthDump(){
 	depth_dump_program->use();
 	glUniform1f(depth_dump_program->getUniform("gui_alpha"), slider_gui_alpha->get_slider_value());
 	glActiveTexture(GL_TEXTURE0);
@@ -491,8 +486,7 @@ void GameManager::renderDepthDump()
 }
 
 void GameManager::render() {
-	if(rotate_light)
-	{
+	if(rotate_light){
 		glm::mat4 rotation = glm::rotate(delta_time*20.f, 0.0f, 1.0f, 0.0f);
 		light.position = glm::mat3(rotation)*light.position;
 		light.view = glm::lookAt(light.position,  glm::vec3(0), glm::vec3(0.0, 1.0, 0.0));
@@ -509,8 +503,7 @@ void GameManager::render() {
 	//Clearing the depth buffer to always draw on top of the previously rendered stuff
 	//before rendering GUI
 	glClear(GL_DEPTH_BUFFER_BIT);
-	if(render_gui_and_depth)
-	{
+	if(render_gui_and_depth){
 		renderDepthDump();
 
 		glDisable(GL_CULL_FACE);
@@ -520,8 +513,7 @@ void GameManager::render() {
 	CHECK_GL_ERRORS();
 }
 
-void GameManager::RenderGUI()
-{
+void GameManager::RenderGUI(){
 	glBindVertexArray(gui_vao);
 	gui_program->use();
 	glUniform1f(gui_program->getUniform("gui_alpha"), slider_gui_alpha->get_slider_value());
@@ -640,8 +632,7 @@ void GameManager::quit() {
 	std::cout << "Bye bye..." << std::endl;
 }
 
-void GameManager::CreateGUIObjects()
-{
+void GameManager::Init_CreateGUIObjects(){
 	slider_line_threshold = std::make_shared<gui::SliderWithText>("GUI/hiddenline/line_threashold.png",glm::vec2(950.0f, 5.0f));
 	slider_line_scale	  = std::make_shared<gui::SliderWithText>("GUI/hiddenline/amplify_scale.png",  glm::vec2(950.0f, 75.0f));
 	slider_line_offset	  = std::make_shared<gui::SliderWithText>("GUI/hiddenline/amplify_offset.png", glm::vec2(950.0f, 145.0f));
@@ -661,40 +652,33 @@ void GameManager::CreateGUIObjects()
 	environment_radiobtn.reset(new gui::RadioButtonCollection(environment_entries, glm::vec2(250, window_height-40), glm::vec2(0.5, 0.5)));
 }
 
-void GameManager::UsePhongProgram()
-{
-	if(current_program != phong_program)
-	{
+void GameManager::UsePhongProgram(){
+	if(current_program != phong_program){
 		current_program = phong_program;
 		rendermode_radiobtn->SetActive(0);
 	}
 }
 
-void GameManager::UseWireframeProgram()
-{
-	if(current_program != wireframe_program)
-	{
+void GameManager::UseWireframeProgram(){
+	if(current_program != wireframe_program){
 		current_program = wireframe_program;
 		rendermode_radiobtn->SetActive(1);
 	}
 }
 
-void GameManager::UseHiddenLineProgram()
-{
-	if(current_program != hidden_line_program)
-	{
+void GameManager::UseHiddenLineProgram(){
+	if(current_program != hidden_line_program){
 		current_program = hidden_line_program;
 		rendermode_radiobtn->SetActive(2);
 	}
 }
 
-void GameManager::RenderCubeColorpass()
-{
+void GameManager::RenderCubeColorpass(){
 	glBindVertexArray(vao[1]);
 
 	glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
 	glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
-	glm::mat4 modelview_matrix = view_matrix_new*model_matrix;
+	glm::mat4 modelview_matrix = cam_trackball_view_matrix*model_matrix;
 	glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
 	glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
 	glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
@@ -715,8 +699,7 @@ void GameManager::RenderCubeColorpass()
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
-void GameManager::RenderCubeShadowpass()
-{
+void GameManager::RenderCubeShadowpass(){
 	glBindVertexArray(vao[1]);
 	CHECK_GL_ERRORS();
 	glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(cube_scale));
@@ -731,14 +714,12 @@ void GameManager::RenderCubeShadowpass()
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
-void GameManager::RenderModelsColorpass()
-{
+void GameManager::RenderModelsColorpass(){
 	glBindVertexArray(vao[0]);
-	for (int i=0; i<n_models; ++i) 
-	{
+	for (int i=0; i<number_of_models; ++i) {
 		glm::mat4 model_matrix = model_matrices.at(i);
 		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
-		glm::mat4 modelview_matrix = view_matrix_new*model_matrix;
+		glm::mat4 modelview_matrix = cam_trackball_view_matrix*model_matrix;
 		glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
 		glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
 		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
@@ -759,10 +740,9 @@ void GameManager::RenderModelsColorpass()
 	}
 }
 
-void GameManager::RenderModelsShadowpass()
-{
+void GameManager::RenderModelsShadowpass(){
 	glBindVertexArray(vao[0]);
-	for (int i=0; i<n_models; ++i) {
+	for (int i=0; i<number_of_models; ++i) {
 		glm::mat4 model_matrix = model_matrices.at(i);
 		glm::mat4 model_matrix_inverse = glm::inverse(model_matrix);
 		glm::mat4 modelview_matrix = light.view*model_matrix;
@@ -777,12 +757,11 @@ void GameManager::RenderModelsShadowpass()
 
 }
 
-void GameManager::RenderRoomModelColorpass()
-{
+void GameManager::RenderRoomModelColorpass(){
 	glBindVertexArray(vao[2]);
 
 	glm::mat4 model_matrix_inverse = glm::inverse(room_model_matrix);
-	glm::mat4 modelview_matrix = view_matrix_new*room_model_matrix;
+	glm::mat4 modelview_matrix = cam_trackball_view_matrix*room_model_matrix;
 	glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
 	glm::mat4 modelviewprojection_matrix = camera.projection*modelview_matrix;
 
@@ -795,8 +774,7 @@ void GameManager::RenderRoomModelColorpass()
 	glBindVertexArray(0);
 }
 
-void GameManager::RenderRooomModelShadowpass()
-{
+void GameManager::RenderRooomModelShadowpass(){
 	glBindVertexArray(vao[2]);
 
 	glm::mat4 model_matrix_inverse = glm::inverse(room_model_matrix);
@@ -813,13 +791,11 @@ void GameManager::RenderRooomModelShadowpass()
 	CHECK_GL_ERRORS();
 }
 
-void GameManager::SetBackgroundToCube()
-{
+void GameManager::SetBackgroundToCube(){
 	current_environment = PLAIN_CUBE_ROOM;
 }
 
-void GameManager::SetBackgroundToOpenRoom()
-{
+void GameManager::SetBackgroundToOpenRoom(){
 	current_environment = OPEN_HALFROOM;
 }
 

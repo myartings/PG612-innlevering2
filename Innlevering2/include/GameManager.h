@@ -79,13 +79,9 @@ public:
 	void renderDepthDump();
 
 protected:
-	/**
-	 * Creates the OpenGL context using SDL
-	 */
 	void createOpenGLContext();
 
-	
-	static const unsigned int n_models = 20;
+	static const unsigned int number_of_models = 20;
 
 	static const float near_plane;
 	static const float far_plane;
@@ -94,33 +90,19 @@ protected:
 	
 	static const float cube_vertices_data[];
 	static const float cube_normals_data[];
+	
+	static GLuint gui_vbo, gui_vao;
 
 private:
-	void zoomIn();
-	void zoomOut();
-	
-	void SetMatrices();
-	void CreateShaderPrograms();
-	void SetShaderUniforms();
-	void SetShaderAttribPtrs();
-	void CreateGUIObjects();
+	/**
+	* Vertex array objects
+	* vao[0] == vao for bunnies
+	* vao[1] == vao for room-cube
+	* vao[2] == vao for modelled room
+	* vao[3] == vao for fbo
+	*/
+	GLuint vao[4];
 
-	void RenderGUI();
-
-	glm::mat4 view_matrix_new;
-	void RenderCubeColorpass();
-	void RenderCubeShadowpass();
-
-	void RenderModelsColorpass();
-	void RenderModelsShadowpass();
-
-	void RenderRoomModelColorpass();
-	void RenderRooomModelShadowpass();
-
-
-	static GLuint gui_vbo, gui_vao;
-	
-	GLuint vao[4]; //< Vertex array objects
 	std::shared_ptr<GLUtils::Program> phong_program,
 									  wireframe_program,
 									  hidden_line_program,
@@ -129,10 +111,11 @@ private:
 									  depth_dump_program,
 									  gui_program;
 
-	std::shared_ptr<GLUtils::Program> current_program;
+	// Pointer to the program currently used for the color pass scene drawing
+	std::shared_ptr<GLUtils::Program> current_program; 
 
-	std::shared_ptr<CubeMap> diffuse_cubemap;
-	std::shared_ptr<CubeMap> spacebox;
+	std::shared_ptr<CubeMap> diffuse_cubemap; //< Cubemap with the scenes diffuse light
+	std::shared_ptr<CubeMap> spacebox;		  //< Cubemap for the spacebox surrounding the scene
 
 	std::shared_ptr<GLUtils::BO<GL_ARRAY_BUFFER> > cube_vertices, cube_normals, gui_vertices;
 
@@ -151,50 +134,80 @@ private:
 
 	GLuint fbo_vertex_bo; //< Vetex buffer object for fullscreen quad
 
-	glm::mat4 fbo_modelMatrix;
+	glm::mat4 cam_trackball_view_matrix;
+
+	// Matrices for the depth-dumping quad
+	glm::mat4 fbo_modelMatrix;		
 	glm::mat4 fbo_projectionMatrix;
 	glm::mat4 fbo_viewMatrix;
 
-	glm::mat4 room_model_matrix;
-	Timer my_timer; //< Timer for machine independent motion
-	float zoom; //< Zoom factor
+	glm::mat4 room_model_matrix; //< Model matrix for the modelled room
 
+	Timer my_timer;		//< Timer for machine independent motion
+	float delta_time;	//< Program Delta-time variable
+	float zoom;			//< Zoom factor
+	
+	bool render_gui_and_depth;
+	bool rotate_light;
+
+	/**
+	* Enum representation of the different environments we can 
+	* use in the program. The current_environment variable holds
+	* the one active at this point in time.
+	*/ 
+	enum Environements{
+		PLAIN_CUBE_ROOM,
+		OPEN_HALFROOM
+	}current_environment;
+
+	/**
+	* Struct for the light position and the projection and view matrices.
+	*/
 	struct {
-		glm::vec3 position; //< Light position for shading etc
+		glm::vec3 position;
 		glm::mat4 projection;
 		glm::mat4 view;
 	} light;
 
+	/**
+	* Struct with a cameras projection and view matrices
+	*/
 	struct Camera{
 		glm::mat4 projection;
 		glm::mat4 view;
-	};
+	}camera, gui_camera;
 
-	Camera camera;
-	Camera gui_camera;
-
-	std::vector<glm::mat4> model_matrices; //< OpenGL model transformation matrix
-	std::vector<glm::vec3> model_colors;
+	std::vector<glm::mat4> model_matrices; //< Model transformationmatrices for each bunny
+	std::vector<glm::vec3> model_colors;   //< Colors for each bunny
 
 	SDL_Window* main_window; //< Our window handle
 	SDL_GLContext main_context; //< Our opengl context handle 
 	
 	VirtualTrackball cam_trackball;
 
-	bool render_gui_and_depth;
-	bool rotate_light;
+	void zoomIn();
+	void zoomOut();
 
-	float delta_time;
+	void Init_SetMatrices();
+	void Init_CreateShaderPrograms();
+	void Init_SetShaderUniforms();
+	void Init_SetShaderAttribPtrs();
+	void Init_CreateGUIObjects();
 
-	enum Environements{
-		PLAIN_CUBE_ROOM,
-		OPEN_HALFROOM
-	};
-	Environements current_environment;
+	void RenderGUI();
+	void RenderCubeColorpass();
+	void RenderCubeShadowpass();
+
+	void RenderModelsColorpass();
+	void RenderModelsShadowpass();
+
+	void RenderRoomModelColorpass();
+	void RenderRooomModelShadowpass();
 
 /************************************************************************/
 /* The functions below are used for callbacks to the GUI classes        */
 /************************************************************************/
+	
 	/**
 	* Switch to the phong shading program
 	*/
