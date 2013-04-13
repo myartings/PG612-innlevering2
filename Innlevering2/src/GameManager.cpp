@@ -245,7 +245,10 @@ void GameManager::init() {
 
 	Init_CreateShaderPrograms();
 	Init_SetShaderUniforms();
-	Init_SetShaderAttribPtrs();
+	Init_set_vao_0_attribPtrs();
+	Init_set_vao_1_attribPtrs();
+	Init_set_vao_2_attribPtrs();
+	Init_set_vao_3_attribPtrs(); 
 	gui::GUITextureFactory::Inst()->Init(gui_program, gui_vao);
 	current_program = phong_program;
 
@@ -291,23 +294,16 @@ void GameManager::Init_CreateShaderPrograms(){
 }
 
 void GameManager::Init_SetShaderUniforms(){
-	//Set uniforms for the programs
-	//Typically diffuse_cubemap and shadowmap
+
 	phong_program->use();
 	glUniform1i(phong_program->getUniform("shadowmap_texture"), 0);
 	glUniform1i(phong_program->getUniform("diffuse_map"), 1);
 	phong_program->disuse();
-	
-	wireframe_program->use();
-	wireframe_program->disuse();
 
 	hidden_line_program->use();
 	glUniform1i(hidden_line_program->getUniform("shadowmap_texture"), 0);
 	glUniform1i(hidden_line_program->getUniform("diffuse_map"), 1);
 	hidden_line_program->disuse();
-
-	light_pov_program->use();
-	light_pov_program->disuse();
 
 	depth_dump_program->use();
 	glUniformMatrix4fv(depth_dump_program->getUniform("modelviewprojection_matrix"), 1, 0, 
@@ -323,9 +319,8 @@ void GameManager::Init_SetShaderUniforms(){
 	CHECK_GL_ERRORS();
 }
 
-void GameManager::Init_SetShaderAttribPtrs(){
-#pragma region vao[0]
-	//vao[0] is the bunny vao
+void GameManager::Init_set_vao_0_attribPtrs()
+{
 	glGenVertexArrays(4, &vao[0]);
 
 	glBindVertexArray(vao[0]);
@@ -342,11 +337,10 @@ void GameManager::Init_SetShaderAttribPtrs(){
 
 	bunny->getInterleavedVBO()->unbind();
 	glBindVertexArray(0);
+}
 
-#pragma endregion
-
-#pragma region vao[1]
-	//vao[1] is the cube room
+void GameManager::Init_set_vao_1_attribPtrs()
+{
 	glBindVertexArray(vao[1]);
 
 	cube_vertices->bind();
@@ -360,11 +354,10 @@ void GameManager::Init_SetShaderAttribPtrs(){
 	hidden_line_program->setAttributePointer("normal", 3);
 
 	glBindVertexArray(0);
-	CHECK_GL_ERRORS();
-#pragma endregion
+}
 
-#pragma region vao[2]
-	//Vao[2] is the half open room
+void GameManager::Init_set_vao_2_attribPtrs()
+{
 	glBindVertexArray(vao[2]);
 	room->getInterleavedVBO()->bind();
 	room->getIndices()->bind();
@@ -378,11 +371,10 @@ void GameManager::Init_SetShaderAttribPtrs(){
 	hidden_line_program->setAttributePointer("normal", 3, GL_FLOAT, GL_FALSE, room->getStride(), room->getNormalOffset());
 	room->getInterleavedVBO()->unbind();
 	glBindVertexArray(0);
+}
 
-#pragma endregion 
-
-#pragma region vao[3]
-	/*--------fbo_fao--------*/
+void GameManager::Init_set_vao_3_attribPtrs()
+{
 	glBindVertexArray(vao[3]);
 	static float positions[8] = {
 		-1.0, 1.0,
@@ -416,7 +408,32 @@ void GameManager::Init_SetShaderAttribPtrs(){
 	gui_program->setAttributePointer("in_Position", 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-#pragma endregion 
+}
+
+void GameManager::Init_CreateGUIObjects(){
+	slider_line_threshold = std::make_shared<gui::SliderWithText>("GUI/hiddenline/line_threashold.png",glm::vec2(950.0f, 5.0f));
+	slider_line_scale	  = std::make_shared<gui::SliderWithText>("GUI/hiddenline/amplify_scale.png",  glm::vec2(950.0f, 75.0f));
+	slider_line_offset	  = std::make_shared<gui::SliderWithText>("GUI/hiddenline/amplify_offset.png", glm::vec2(950.0f, 145.0f));
+	slider_diffuse_mix	  = std::make_shared<gui::SliderWithText>("GUI/diffuse_colormix_value.png", glm::vec2(950.0f, 650.0f));
+	slider_gui_alpha	  = std::make_shared<gui::SliderWithText>("GUI/gui_alpha.png", glm::vec2(10.0f, 220.0f), glm::vec2(0.4f, 0.4f));
+	slider_gui_alpha->SetClampRange(0.2f, 1.0f);
+	gui_sliders.push_back(slider_line_threshold);
+	gui_sliders.push_back(slider_line_scale);
+	gui_sliders.push_back(slider_line_offset);
+	gui_sliders.push_back(slider_diffuse_mix);
+	gui_sliders.push_back(slider_gui_alpha);
+
+	std::vector<gui::RadioButtonEntry> rendermode_entries;
+	rendermode_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::UsePhongProgram, this), true, "GUI/Rendermode/PhongWShadows.png"));
+	rendermode_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::UseWireframeProgram, this), false, "GUI/Rendermode/Wireframe.png"));
+	rendermode_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::UseHiddenLineProgram, this), false, "GUI/Rendermode/Hidden Line.png"));
+	rendermode_radiobtn.reset(new gui::RadioButtonCollection(rendermode_entries, glm::vec2(0, window_height-40), glm::vec2(0.5, 0.5)));
+
+
+	std::vector<gui::RadioButtonEntry> environment_entries;
+	environment_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::SetBackgroundToCube, this), true, "GUI/CubeBackground.png"));
+	environment_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::SetBackgroundToOpenRoom, this), false, "GUI/OpenBackground.png"));
+	environment_radiobtn.reset(new gui::RadioButtonCollection(environment_entries, glm::vec2(250, window_height-40), glm::vec2(0.5, 0.5)));
 }
 
 void GameManager::renderColorPass() {
@@ -641,32 +658,6 @@ void GameManager::quit() {
 	std::cout << "Bye bye..." << std::endl;
 }
 
-void GameManager::Init_CreateGUIObjects(){
-	slider_line_threshold = std::make_shared<gui::SliderWithText>("GUI/hiddenline/line_threashold.png",glm::vec2(950.0f, 5.0f));
-	slider_line_scale	  = std::make_shared<gui::SliderWithText>("GUI/hiddenline/amplify_scale.png",  glm::vec2(950.0f, 75.0f));
-	slider_line_offset	  = std::make_shared<gui::SliderWithText>("GUI/hiddenline/amplify_offset.png", glm::vec2(950.0f, 145.0f));
-	slider_diffuse_mix	  = std::make_shared<gui::SliderWithText>("GUI/diffuse_colormix_value.png", glm::vec2(950.0f, 650.0f));
-	slider_gui_alpha	  = std::make_shared<gui::SliderWithText>("GUI/gui_alpha.png", glm::vec2(10.0f, 220.0f), glm::vec2(0.4f, 0.4f));
-	slider_gui_alpha->SetClampRange(0.2f, 1.0f);
-	gui_sliders.push_back(slider_line_threshold);
-	gui_sliders.push_back(slider_line_scale);
-	gui_sliders.push_back(slider_line_offset);
-	gui_sliders.push_back(slider_diffuse_mix);
-	gui_sliders.push_back(slider_gui_alpha);
-
-	std::vector<gui::RadioButtonEntry> rendermode_entries;
-	rendermode_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::UsePhongProgram, this), true, "GUI/Rendermode/PhongWShadows.png"));
-	rendermode_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::UseWireframeProgram, this), false, "GUI/Rendermode/Wireframe.png"));
-	rendermode_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::UseHiddenLineProgram, this), false, "GUI/Rendermode/Hidden Line.png"));
-	rendermode_radiobtn.reset(new gui::RadioButtonCollection(rendermode_entries, glm::vec2(0, window_height-40), glm::vec2(0.5, 0.5)));
-
-
-	std::vector<gui::RadioButtonEntry> environment_entries;
-	environment_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::SetBackgroundToCube, this), true, "GUI/CubeBackground.png"));
-	environment_entries.push_back(gui::RadioButtonEntry(std::bind(&GameManager::SetBackgroundToOpenRoom, this), false, "GUI/OpenBackground.png"));
-	environment_radiobtn.reset(new gui::RadioButtonCollection(environment_entries, glm::vec2(250, window_height-40), glm::vec2(0.5, 0.5)));
-}
-
 void GameManager::UsePhongProgram(){
 	if(current_program != phong_program){
 		current_program = phong_program;
@@ -784,7 +775,6 @@ void GameManager::RenderRooomModelShadowpass(){
 	glBindVertexArray(vao[2]);
 
 	glm::mat4 modelview_matrix = light.view*room_model_matrix;
-	//glm::mat4 modelview_matrix_inverse = glm::inverse(modelview_matrix);
 	glm::mat4 modelviewprojection_matrix = light.projection*modelview_matrix;
 
 	glUniformMatrix4fv(light_pov_program->getUniform("modelviewprojection_matrix"), 1, 0, glm::value_ptr(modelviewprojection_matrix));

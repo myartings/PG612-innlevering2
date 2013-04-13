@@ -23,6 +23,7 @@ Jeg har også lagt til en litt mer avansert modell enn det simple cube-rommet som
 
 Jeg har gjort en liten forbedring på skygge-shaderen. Ved å gjøre flere oppslag i shadowmapet med offset og dithering for å gjøre kantene på skyggene gjevnere. Dette fjerner både noe av staircasing effekten man får med lav oppløsning på shadow FBOet og gir en mer mooth overgang i kantene ("fake smooth shadows").
 
+I koden blir enkelte matriser under renderingen laget likt opptil to ganger. Her kunne jeg optimalisert ved å lage den en gang også sende en referanse, men for å holde koden så oversiktelig som mulig velger jeg heller å offre minimalt med performance for bedre readability.
 
 Referanser brukt:
 Mark J. Kilgard (Ukjent år). "Shadow mapping with today's openGL Hardware". Kan sees på: https://developer.nvidia.com/sites/default/files/akamai/gamedev/docs/GDC01_Shadows.pdf

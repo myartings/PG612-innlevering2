@@ -199,6 +199,10 @@ private:
 	void Init_CreateShaderPrograms();
 	void Init_SetShaderUniforms();
 	void Init_SetShaderAttribPtrs();
+	void Init_set_vao_0_attribPtrs(); //< Attrib ptrs for the bunnies vao
+	void Init_set_vao_1_attribPtrs(); //< Attrib ptrs for the cube room vao
+	void Init_set_vao_2_attribPtrs(); //< Attrib ptrs for the half open room vao
+	void Init_set_vao_3_attribPtrs(); //< Attrib ptrs for the FBO vao
 	void Init_CreateGUIObjects();
 
 	void RenderGUI();
