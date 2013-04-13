@@ -40,7 +40,6 @@ void main() {
 	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, 1)+o);
 	shade_factor = shade_factor * 0.25 + 0.75;
 
-	
 	float k = min(min(beyer_coord.x, beyer_coord.y), beyer_coord.z);
 
 	vec3 diff_cubemap_color = texture(diffuse_map, n).xyz;

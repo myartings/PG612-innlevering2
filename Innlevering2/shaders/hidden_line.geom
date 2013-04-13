@@ -3,6 +3,7 @@
 layout(triangles) in;
 layout(triangle_strip, max_vertices = 3) out;
 
+
 smooth in vec3 g_n[3];
 smooth in vec3 g_v[3];
 smooth in vec3 g_l[3];
@@ -21,7 +22,6 @@ void main() {
 	for(int i = 0; i < gl_in.length(); i++)
 	{
 		beyer_coord = vec3((i+1)==1?1:0, (i+1)==2?2:0, (i+1)==3?3:0);
-
 		f_n = g_n[i];
 		f_v = g_v[i];
 		f_l = g_l[i];
