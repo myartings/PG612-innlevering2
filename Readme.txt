@@ -1,7 +1,7 @@
 I innleveringen har jeg implementert følgende slik oppgave teksten beskriver:
 
 -Rendering av lyset sitt "point of view" til en FBO, en version for å rendre til skjermen og en annen version til å bruke til  shadowmapping
--Rendering av depth FBOet til skjermen for å vise dybdeverdiene til det som rendres.
+-Rendering av depth FBOet til skjermen for å vise dybdeverdiene til det som rendres. Gråfargen blir normalisert basert på near og far clip plane.
 -Muligheten til å toggle rendering av FBO depth texturen til skjermen. Det rendres semi-transperant.
 -Skygge-casting med shadowmapping teknikk
 -Egen shader for å rendre wireframe og hidden-line av scenen wireframe renderingen bruker geometri shaderen til å outputte linjer, og
