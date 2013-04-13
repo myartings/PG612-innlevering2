@@ -1,7 +1,7 @@
 #version 150
 uniform sampler2DShadow shadowmap_texture;
 uniform samplerCube diffuse_map;
-
+uniform float diffuse_mix_value;
 uniform vec3 color;
 
 uniform float line_threshold;
@@ -30,24 +30,24 @@ void main() {
     vec3 n = normalize(f_n);
 	
 	float diff = max(0.0f, dot(n, l));
+	float spec = pow(max(0.0f, dot(n, h)), 128.0f);
+	vec3 diffuse = vec3(diff*color);
 
 	ivec2 o = ivec2(mod(floor(gl_FragCoord.xy), 2.0));
-	float shade_factor;
-	shade_factor = textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1, -1)+o);
+	float shade_factor = textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1, -1)+o);
 	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, -1)+o);
 	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1, 1)+o);
 	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, 1)+o);
-
 	shade_factor = shade_factor * 0.25 + 0.75;
 
-	vec4 diffuse = vec4(diff*color, 1.0);
-    float spec = pow(max(0.0f, dot(n, h)), 128.0f);
-
+	
 	float k = min(min(beyer_coord.x, beyer_coord.y), beyer_coord.z);
 
 	vec3 diff_cubemap_color = texture(diffuse_map, n).xyz;
+	diff_cubemap_color = mix(diff_cubemap_color, diffuse, diffuse_mix_value);
 
 	out_color = vec4( ( (diff_cubemap_color*color) + (spec*0.1) ) * shade_factor, 1.0);
+
 	if(k < line_threshold )
 		out_color = vec4( out_color.xyz * amplify(k, line_scale, line_offset), 1.0);
 }

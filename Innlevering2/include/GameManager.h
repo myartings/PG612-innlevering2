@@ -127,8 +127,10 @@ private:
 	std::shared_ptr<gui::SliderWithText> slider_line_threshold; //< GUI slider modifying the hidden-line wireframe line tickness
 	std::shared_ptr<gui::SliderWithText> slider_line_scale;		//< GUI slider modifying the hidden-line wireframe line fade scale
 	std::shared_ptr<gui::SliderWithText> slider_line_offset;	//< GUI slider modifying the hidden-line wireframe line fade out
+	std::shared_ptr<gui::SliderWithText> slider_diffuse_mix;	//< GUI slider modifying the way the diffuse color is mixed in phong shaders
 	std::shared_ptr<gui::SliderWithText> slider_gui_alpha;		//< GUI slider modifying the alpha of all gui objects
-
+	std::vector<std::shared_ptr<gui::SliderWithText>> gui_sliders; //< Collection of the sliders
+	
 	std::shared_ptr<gui::RadioButtonCollection> rendermode_radiobtn;
 	std::shared_ptr<gui::RadioButtonCollection> environment_radiobtn;
 

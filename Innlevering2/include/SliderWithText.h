@@ -49,6 +49,7 @@ namespace gui
 		* is called will affect the slider knobs position if Update is called.
 		*
 		* @param mouse_pos position of the mouse in SDL event.motion coordinates
+		* @return true if interaction with the particular slider was started. False otherwise.
 		*/
 		bool BeginInteraction(glm::vec2& mouse_pos);
 	

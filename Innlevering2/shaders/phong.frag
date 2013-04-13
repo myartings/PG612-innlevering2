@@ -1,7 +1,7 @@
 #version 150
 uniform sampler2DShadow shadowmap_texture;
 uniform samplerCube diffuse_map;
-
+uniform float diffuse_mix_value;
 uniform vec3 color;
 
 smooth in vec4 f_shadow_coord;
@@ -19,25 +19,18 @@ void main() {
 	
 	float diff = max(0.0f, dot(n, l));
 	float spec = pow(max(0.0f, dot(n, h)), 128.0f);
+	vec3 diffuse = vec3(diff*color);
 
 	ivec2 o = ivec2(mod(floor(gl_FragCoord.xy), 2.0));
-	float shade_factor;
-
-	//shade_factor = textureProj(shadowmap_texture, f_shadow_coord);
-	shade_factor = 0.0f;
-	int aliasing_number = 1;
-	for(int i = 0; i < aliasing_number; i++)
-	{
-		shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1-i, -1-i)+o);
-		shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1+i, -1-i)+o);
-		shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1-i, 1+i)+o);
-		shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1+i, 1+i)+o);
-	}
-
-	shade_factor = shade_factor * (0.25/aliasing_number) + 0.75;
+	float shade_factor = textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1, -1)+o);
+	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, -1)+o);
+	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(-1, 1)+o);
+	shade_factor += textureProjOffset(shadowmap_texture, f_shadow_coord, ivec2(1, 1)+o);
+	shade_factor = shade_factor * 0.25 + 0.75;	
 
 	vec3 diff_cubemap_color = texture(diffuse_map, n).xyz;
-	//diff_cubemap_color*=0.000001;
-	//diff_cubemap_color+=diff;
+
+	diff_cubemap_color = mix(diff_cubemap_color, diffuse, diffuse_mix_value);
+
     out_color = vec4( ( (diff_cubemap_color*color) + (spec*0.1) ) * shade_factor, 1.0);
 }
