@@ -452,10 +452,9 @@ void GameManager::renderColorPass() {
 void GameManager::renderShadowPass() {	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	light_pov_program->use();
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glEnable (GL_POLYGON_OFFSET_FILL);
-	glPolygonOffset(8.1f, 4.4f);
-
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glEnable (GL_POLYGON_OFFSET_FILL);
+	//glPolygonOffset(1.1f, 4.4f);
 	if(current_environment == PLAIN_CUBE_ROOM)
 		RenderCubeShadowpass();
 	else if(current_environment == OPEN_HALFROOM)
@@ -487,7 +486,7 @@ void GameManager::renderDepthDump(){
 
 void GameManager::render() {
 	if(rotate_light){
-		glm::mat4 rotation = glm::rotate(delta_time*20.f, 0.0f, 1.0f, 0.0f);
+		glm::mat4 rotation = glm::rotate(delta_time*10.f, 0.0f, 1.0f, 0.0f);
 		light.position = glm::mat3(rotation)*light.position;
 		light.view = glm::lookAt(light.position,  glm::vec3(0), glm::vec3(0.0, 1.0, 0.0));
 	}
@@ -684,8 +683,8 @@ void GameManager::RenderCubeColorpass(){
 	glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
 
 	glm::mat4 light_modelview_matrix = light.view*model_matrix;
-	glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
-	shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f)) * light.projection * light_modelview_matrix;
+	glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5-0.01f));
+	shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f, 0.5f, 0.5f*1.01f)) * light.projection * light_modelview_matrix;
 
 
 	glUniformMatrix4fv(current_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
@@ -725,8 +724,8 @@ void GameManager::RenderModelsColorpass(){
 		glm::vec3 light_pos = glm::mat3(model_matrix_inverse)*light.position/model_matrix_inverse[3].w;
 
 		glm::mat4 light_modelview_matrix = light.view*model_matrix;
-		glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
-		shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f)) * light.projection * light_modelview_matrix;
+		glm::mat4 shadowMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5-0.01f));
+		shadowMatrix = glm::scale(shadowMatrix, glm::vec3(0.5f, 0.5f, 0.5f*1.01f)) * light.projection * light_modelview_matrix;
 
 		glUniformMatrix4fv(current_program->getUniform("shadow_matrix"), 1, 0, glm::value_ptr(shadowMatrix));
 

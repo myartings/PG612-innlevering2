@@ -23,7 +23,8 @@ void main() {
 	ivec2 o = ivec2(mod(floor(gl_FragCoord.xy), 2.0));
 	float shade_factor;
 
-	shade_factor = textureProj(shadowmap_texture, f_shadow_coord);
+	//shade_factor = textureProj(shadowmap_texture, f_shadow_coord);
+	shade_factor = 0.0f;
 	int aliasing_number = 1;
 	for(int i = 0; i < aliasing_number; i++)
 	{
@@ -36,5 +37,7 @@ void main() {
 	shade_factor = shade_factor * (0.25/aliasing_number) + 0.75;
 
 	vec3 diff_cubemap_color = texture(diffuse_map, n).xyz;
+	//diff_cubemap_color*=0.000001;
+	//diff_cubemap_color+=diff;
     out_color = vec4( ( (diff_cubemap_color*color) + (spec*0.1) ) * shade_factor, 1.0);
 }
