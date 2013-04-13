@@ -144,6 +144,13 @@ private:
 	glm::mat4 fbo_viewMatrix;
 
 	glm::mat4 room_model_matrix; //< Model matrix for the modelled room
+	glm::mat4 room_model_matrix_inverse; //< inverse of above matrix
+	glm::mat4 cube_model_matrix; //< Model matrix for the cube room
+	glm::mat4 cube_model_matrix_inverse;//< inverse of above matrix
+
+	std::vector<glm::mat4> model_matrices; //< Model transformationmatrices for each bunny
+	std::vector<glm::mat4> model_inverse_matrices; //<Model inverse transformation matrices for each bunny
+	std::vector<glm::vec3> model_colors;   //< Colors for each bunny
 
 	Timer my_timer;		//< Timer for machine independent motion
 	float delta_time;	//< Program Delta-time variable
@@ -179,8 +186,6 @@ private:
 		glm::mat4 view;
 	}camera, gui_camera;
 
-	std::vector<glm::mat4> model_matrices; //< Model transformationmatrices for each bunny
-	std::vector<glm::vec3> model_colors;   //< Colors for each bunny
 
 	SDL_Window* main_window; //< Our window handle
 	SDL_GLContext main_context; //< Our opengl context handle 

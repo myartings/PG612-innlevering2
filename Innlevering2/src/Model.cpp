@@ -81,7 +81,6 @@ void Model::loadRecursive(bool invert,
 		//Add the vertices from file
 		for (unsigned int t = 0; t < mesh->mNumFaces; ++t) {
 			const struct aiFace* face = &mesh->mFaces[t];
-			GLenum face_mode;
 			
 			if(face->mNumIndices != 3) {
 				std::cout << "Vertex count for face was " << face->mNumIndices << ", expected 3. Skipping face" << std::endl;
