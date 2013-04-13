@@ -15,6 +15,13 @@ I innleveringen har jeg implementert følgende slik oppgave teksten beskriver:
 -Diffus lighting av objektene i scenen ved å sende inn den vedlagte cubemappen til fragment shaderen, og bruke normalen til fragmentene  til å slå opp i cubemappet og finne den diffuse fargen. 
 
 
+Ekstra samt uttydpende forklaringer:
+
+-Jeg har implementert den forbedrede trackball-versionen med hyperbolic sheet.
+
+-Jeg har implementert indeksert rendering med glDrawElements fremfor glDrawArrays.
+
+
 For å gi muligheten til å tweake på linjetykkelsen på hidden-line renderingen har jeg laget et lite enkelt GUI system med slidere man kan modifisere for å endre tykkelse og anti-aliasing verdier på linjene. De GUI relaterte klassene er flyttet for seg i en egen mappe i VS prosjektet (Not-directly-relate-to-assignment classes) for å holde dem avskilt fra det som er direkte relatert til innleveringen.
 
 Med GUI-slider kan man også velge å endre hvorvidt man kun vil bruke diffuse fargen fra diffuse-mapet, mixe den orginale diffuse fargen med fargen fra mappet, eller kun bruke den orginale diffuse fargen.
@@ -25,7 +32,7 @@ Jeg har gjort en liten forbedring på skygge-shaderen. Ved å gjøre flere oppslag 
 
 I koden blir enkelte matriser under renderingen laget likt opptil to ganger. Her kunne jeg optimalisert ved å lage den en gang også sende en referanse, men for å holde koden så oversiktelig som mulig velger jeg heller å offre minimalt med performance for bedre readability.
 
-Referanser brukt:
+Et par referanser:
 Mark J. Kilgard (Ukjent år). "Shadow mapping with today's openGL Hardware". Kan sees på: https://developer.nvidia.com/sites/default/files/akamai/gamedev/docs/GDC01_Shadows.pdf
 
 Nvidia White Paper (2007). "Solid Wireframe". Kan sees på: http://tommyhinks.files.wordpress.com/2012/02/nvidia_solid_wireframe.pdf

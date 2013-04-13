@@ -11,8 +11,6 @@ Model::Model(std::string filename, bool invert) {
 	aiIdentityMatrix4(&trafo);
 	unsigned int load_flags = aiProcessPreset_TargetRealtime_Quality;;
 
-	//if (invert) load_flags |= aiProcess_ConvertToLeftHanded;
-
 	scene = aiImportFile(filename.c_str(), load_flags);
 	if (!scene) {
 		std::string log = "Unable to load mesh from ";
@@ -24,10 +22,8 @@ Model::Model(std::string filename, bool invert) {
 	min_dim = glm::vec3(std::numeric_limits<float>::max());
 	max_dim = -glm::vec3(std::numeric_limits<float>::max());
 
-	//std::cout << min_dim.x << ", " << min_dim.y << ", " << min_dim.z << " - "  << max_dim.x << ", " << max_dim.y << ", " << max_dim.z << std::endl;
 	loadRecursive(root, invert, vertex_data, indices_data, max_dim, min_dim, scene, scene->mRootNode, trafo);
 	
-
 	//Translate to center
 	glm::vec3 translation = (max_dim - min_dim) / glm::vec3(2.0f) + min_dim;
 	glm::vec3 scale_helper = glm::vec3(1.0f)/(max_dim - min_dim);
@@ -47,7 +43,6 @@ Model::Model(std::string filename, bool invert) {
 		stride = sizeof(Vertex);
 		verticeOffset = NULL;
 		normalOffset = (GLvoid*)(3*sizeof(float));
-		//texCoordOffset = (GLvoid*)(6*sizeof(float));
 	}
 	else
 		THROW_EXCEPTION("The number of vertices in the mesh is wrong");
@@ -85,7 +80,6 @@ void Model::loadRecursive(bool invert,
 			if(face->mNumIndices != 3) {
 				std::cout << "Vertex count for face was " << face->mNumIndices << ", expected 3. Skipping face" << std::endl;
 				continue;
-				//throw std::runtime_error("Only triangle meshes are supported");
 			}
 
 			for(unsigned int i = 0; i < face->mNumIndices; i++) {
@@ -151,7 +145,6 @@ void Model::loadRecursive( MeshPart& part, bool invert, std::vector<Vertex>& ver
 		indices.reserve(indices.size() + mesh->mNumVertices*3);
 
 		bool has_normals = mesh->HasNormals();
-		//part.texCoords0 = mesh->HasTextureCoords(0);
 
 		for(unsigned int v = 0; v < mesh->mNumVertices; v++){
 			Vertex new_vertex;
@@ -161,11 +154,6 @@ void Model::loadRecursive( MeshPart& part, bool invert, std::vector<Vertex>& ver
 
 			if(has_normals)
 				new_vertex.normal = glm::vec3(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
-
-			/*if(part.texCoords0)
-			new_vertex.texCoord0 = glm::vec2(mesh->mTextureCoords[0][v].x, mesh->mTextureCoords[0][v].y);
-			else
-			new_vertex.texCoord0 = glm::vec2(0.0f, 0.0f);*/
 
 			vertex_data.push_back(new_vertex);
 		}

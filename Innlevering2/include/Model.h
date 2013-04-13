@@ -30,12 +30,6 @@ struct MeshPart
 	unsigned int first;	//<this meshParts initial index offset in the VBO
 	unsigned int count;	//<the index length of this meshPart
 
-	//std::vector<std::string> diffuseTextures;
-	//std::vector<std::string> normalTextures;
-	//std::vector<std::string> specularTextures;
-
-	//bool texCoords0;//<true if the meshPart has one texture coord collection
-
 	std::vector<MeshPart> children;
 };
 
@@ -52,12 +46,7 @@ public:
 	Model(std::string filename, bool invert=0);
 	~Model();
 
-	//inline unsigned int getNVertices() {return n_vertices;}
 	inline glm::mat4 getTransform() {return root.transform;}
-
-	/*inline std::shared_ptr<GLUtils::BO<GL_ARRAY_BUFFER> > getVertices() {return vertices;}
-	inline std::shared_ptr<GLUtils::BO<GL_ARRAY_BUFFER> > getNormals() {return normals;}
-	inline std::shared_ptr<GLUtils::BO<GL_ARRAY_BUFFER> > getColors() {return colors;}*/
 
 	inline MeshPart& getMesh() {return root;}
 
@@ -70,7 +59,6 @@ public:
 	//the offsets returns the offset used by interleaved VBOs as a GLVoid*
 	inline GLvoid* getVerticeOffset() {return verticeOffset;}
 	inline GLvoid* getNormalOffset() {return normalOffset;}
-	//inline GLvoid* getTexCoordOffset() {return texCoordOffset;}
 
 private:
 	static void loadRecursive(bool invert,
@@ -107,13 +95,10 @@ private:
 	GLint stride;			//< Stride value for the interleavedVBO
 	GLvoid* verticeOffset;	//< Offset value for the vertices (should be NULL)
 	GLvoid* normalOffset;	//< Offset value for the normals (should be 3*sizeof(float))
-	//GLvoid* texCoordOffset;	//< Offset value for the textureCoords, if there are any(should be 6*sizeof(float))
 
 
 	glm::vec3 min_dim;
 	glm::vec3 max_dim;
-
-	//unsigned int n_vertices;
 };
 
 #endif
